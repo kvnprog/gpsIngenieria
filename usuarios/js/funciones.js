@@ -1,15 +1,21 @@
-function abrirSeccion(opcion){
+function abrirSeccion(opcion) {
 
-  if(opcion==1){
+    if (opcion == 1) {
 
-     document.getElementById("catalogo").style.visibility = 'visible';
-     document.getElementById("registros").style.visibility = 'hidden';
-  }
 
-  if(opcion==2){
-    document.getElementById("catalogo").style.visibility = 'hidden';
-    document.getElementById("registros").style.visibility = 'visible';
-  }
+        //MOVIENDO LA VISIBILIDAD
+        document.getElementById("catalogo").style.display = 'flex';
+        document.getElementById("registros").style.display = 'none';
+    }
+
+    if (opcion == 2) {
+
+        //MOVIENDO LA VISIBILIDAD
+        document.getElementById("catalogo").style.display = 'none';
+        document.getElementById("registros").style.display = 'flex';
+
+
+    }
 
 }
 
@@ -41,50 +47,50 @@ function eliminarUsuario(id) {
             };
 
 
-            fetch("../../usuarios/php/eliminarAJAX.php?id="+id, options)
-        .then(response => response.json())
-        .then(data => {
+            fetch("../../usuarios/php/eliminarAJAX.php?id=" + id, options)
+                .then(response => response.json())
+                .then(data => {
 
-            if(data[0]["resultado"]==1){
+                    if (data[0]["resultado"] == 1) {
 
-                alertImage('EXITO', 'Se elimino el usuario con existo', 'success')
+                        alertImage('EXITO', 'Se elimino el usuario con existo', 'success')
 
-                var noDatos = data[0]["noDatos"];
-    
-                var catalogoUsuarios = document.getElementById("catalogoUsuarios");
-    
-                catalogoUsuarios.innerHTML = "";
-    
-                catalogoUsuarios.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre</th><th class=\"text-center\" scope=\"col\">Login</th><th class=\"text-center\" scope=\"col\">Correo</th><th class=\"text-center\" colspan=\"2\" scope=\"col\"></th></tr></thead>";
-    
-                var cadenaUsuarios = "<tbody>";
-                for (var i = 0; i < noDatos; i++) {
-    
-                    var idusuario = data[i]["idusuario"];
-                    var nombreusuario = data[i]["nombreusuario"];
-                    var passwordusuario = data[i]["passwordusuario"];
-                    var correo = data[i]["correo"];
-                    var nombre = data[i]["nombre"];
-    
-                    cadenaUsuarios = cadenaUsuarios + " <tr><td class=\"text-center\">" +nombre+ "</td><td class=\"text-center\">" +nombreusuario+  "</td><td class=\"text-center\">" +correo+  "</td><td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal("+idusuario+ ",'"+nombre+ "','"+nombreusuario+ "','"+correo+ "')\"></td><td class=\"text-center\"><img src=\"../../src/imagenes/eliminargps.png\" width=\"40px\" onclick=\"eliminarUsuario("+idusuario+")\"></td></tr>";
-    
-    
-    
-                }
-    
-             cadenaUsuarios = cadenaUsuarios + "</tbody>"
-    
-             catalogoUsuarios.innerHTML = catalogoUsuarios.innerHTML + cadenaUsuarios;
+                        var noDatos = data[0]["noDatos"];
 
-            }else{
+                        var catalogoUsuarios = document.getElementById("catalogoUsuarios");
 
-                alertImage('ERROR', 'Error al tratar eliminar registro', 'error')
+                        catalogoUsuarios.innerHTML = "";
 
-            }
+                        catalogoUsuarios.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre</th><th class=\"text-center\" scope=\"col\">Login</th><th class=\"text-center\" scope=\"col\">Correo</th><th class=\"text-center\" colspan=\"2\" scope=\"col\"></th></tr></thead>";
 
-        });
+                        var cadenaUsuarios = "<tbody>";
+                        for (var i = 0; i < noDatos; i++) {
+
+                            var idusuario = data[i]["idusuario"];
+                            var nombreusuario = data[i]["nombreusuario"];
+                            var passwordusuario = data[i]["passwordusuario"];
+                            var correo = data[i]["correo"];
+                            var nombre = data[i]["nombre"];
+
+                            cadenaUsuarios = cadenaUsuarios + " <tr><td class=\"text-center\">" + nombre + "</td><td class=\"text-center\">" + nombreusuario + "</td><td class=\"text-center\">" + correo + "</td><td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + idusuario + ",'" + nombre + "','" + nombreusuario + "','" + correo + "')\"></td><td class=\"text-center\"><img src=\"../../src/imagenes/eliminargps.png\" width=\"40px\" onclick=\"eliminarUsuario(" + idusuario + ")\"></td></tr>";
+
+
+
+                        }
+
+                        cadenaUsuarios = cadenaUsuarios + "</tbody>"
+
+                        catalogoUsuarios.innerHTML = catalogoUsuarios.innerHTML + cadenaUsuarios;
+
+                    } else {
+
+                        alertImage('ERROR', 'Error al tratar eliminar registro', 'error')
+
+                    }
+
+                });
         }
-        
+
     })
 
 }
@@ -144,17 +150,35 @@ function modificarUsuario() {
                 var correo = data[i]["correo"];
                 var nombre = data[i]["nombre"];
 
-                cadenaUsuarios = cadenaUsuarios + " <tr><td class=\"text-center\">" +nombre+ "</td><td class=\"text-center\">" +nombreusuario+  "</td><td class=\"text-center\">" +correo+  "</td><td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal("+idusuario+ ",'"+nombre+ "','"+nombreusuario+ "','"+correo+ "')\"></td><td class=\"text-center\"><img src=\"../../src/imagenes/eliminargps.png\" width=\"40px\" onclick=\"eliminarUsuario("+idusuario+")\"></td></tr>";
+                cadenaUsuarios = cadenaUsuarios + " <tr><td class=\"text-center\">" + nombre + "</td><td class=\"text-center\">" + nombreusuario + "</td><td class=\"text-center\">" + correo + "</td><td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + idusuario + ",'" + nombre + "','" + nombreusuario + "','" + correo + "')\"></td><td class=\"text-center\"><img src=\"../../src/imagenes/eliminargps.png\" width=\"40px\" onclick=\"eliminarUsuario(" + idusuario + ")\"></td></tr>";
 
 
 
             }
 
-         cadenaUsuarios = cadenaUsuarios + "</tbody>"
+            cadenaUsuarios = cadenaUsuarios + "</tbody>"
 
-         catalogoUsuarios.innerHTML = catalogoUsuarios.innerHTML + cadenaUsuarios;
+            catalogoUsuarios.innerHTML = catalogoUsuarios.innerHTML + cadenaUsuarios;
 
 
         });
+
+}
+
+function crearUsuario() {
+
+    const data = new FormData(document.getElementById('frmRegistroUsuario')); 
+
+    const options = {
+        method: "POST",
+        data: data
+    };
+
+
+    fetch("../../usuarios/php/crearAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
+           
+        })
 
 }

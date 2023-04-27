@@ -55,6 +55,7 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
 
         <!-- //botones del menu de usuarios -->
         <div class="row">
+            
             <div class="col-1"></div>
             <div class="col-10">
                 <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
@@ -70,7 +71,8 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
         <!-- //botones del menu de usuarios fin-->
 
         <!-- Tabla de datos Usuarios -->
-        <div class="row" id="catalogo" style="visibility: hidden;">
+        <div class="row" id="catalogo" style="display: none;">
+        <div class="col-12 text-center"><h3>Catalogo de Usuarios</h3></div>
             <div class="col-1"></div>
             <!-- Empiezo de tabla -->
             <div class="col-10">
@@ -115,8 +117,20 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
 
 
     <!-- div de registros -->
-    <div class="row" id="registros" style="visibility: hidden;">
-        <h1>Funciono</h1>
+    <div class="row" id="registros" style="display: none;">
+    <div class="col-12 text-center"><h3>Registro de Usuarios</h3></div>
+        <div class="col-1"></div>
+        <div class="col-10">
+            <form class="frmRegistroUsuario">
+                <label for="nombre">Nombre :</label><input class="form-control" id="nombre"  name="nombre" type="text">
+                <label for="nombre">Login :</label><input class="form-control" id="nombre"  name="nombre" type="text">
+                <label for="nombre">Correo :</label><input class="form-control" id="nombre"  name="nombre" type="text">
+                <label for="nombre">Contraseña :</label><input class="form-control" id="nombre"  name="nombre" type="password">
+                <br>
+                <button type="button"  class="btn btn-success" onclick="crearUsuario()">Guardar</button>
+            </form>
+        </div>
+        <div class="col-1"></div>
     </div>
     <!-- div de registros -->
 
@@ -135,9 +149,9 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
                <form id="frmModificar">
                 <input type="text" id="id" name="id" hidden >
                  <label for="nombre">Nombre :</label><input class="form-control" type="text" id="nombre" name="nombre">
-                 Login : <input class="form-control" type="text" id="login" name="login">
-                 Correo : <input class="form-control" type="text" id="correo" name="correo">
-                 Contraseña : <input class="form-control" type="text" id="password" name="password">
+                 <label for="login">Login :</label><input class="form-control" type="text" id="login" name="login">
+                 <label for="correo">Correo :</label><input class="form-control" type="text" id="correo" name="correo">
+                 <label for="password">Contraseña :</label> <input class="form-control" type="password" id="password" name="password">
                </form>
             </div>
             <div class="modal-footer">
