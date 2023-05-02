@@ -189,3 +189,20 @@ function crearUsuario() {
         })
 
 }
+
+function cargaPermisos(idusuario){
+
+    const options = {
+        method: "GET"
+
+    };
+
+    fetch("../../usuarios/php/traerPermisosAJAX.php?idusuario="+idusuario, options)
+    .then(response => response.json())
+    .then(data => {
+
+
+       
+    })
+
+}

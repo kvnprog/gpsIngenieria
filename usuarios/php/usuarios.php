@@ -13,6 +13,7 @@
     <script src="../../fGenerales/js/funciones.js"></script>
     <script src="../../fGenerales/js/alerts.js"></script>
     <script src="../../fGenerales/js/jquery.js"></script>
+    
 
     <title>gpsingenieria
     </title>
@@ -143,16 +144,28 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
         <div class="col-12 text-center">
             <h3>Permisos de Usuarios</h3>
         </div>
-         
+
         <div class="col-1"></div>
-        <div class="col-10"><select name="selectUsuarios" id="selectUsuarios">
-            <?php 
-            foreach($resultados->fetch_all() as $columna){
-                print_r("<option value=".$columna[3].">".$columna[1]."</option>");
+        <div class="col-10">
+            <?php
+            $cadenaSelect = "<select class=\"form-select \" name=\"selectUsuarios\" id=\"selectUsuarios\" onchange=\"cargaPermisos(this.value)\">";
+
+
+            $conexionUsuarios = new conexion;
+            $queryUsuarios = "SELECT nombreusuario,nombre,correo,idusuario FROM usuarios WHERE estadoid=1";
+            $resultados = $conexionUsuarios->conn->query($queryUsuarios);
+            
+            while ($fila = $resultados->fetch_row()) {
+
+                $cadenaSelect = $cadenaSelect . "<option value=\"".$fila[3]."\">".$fila[1]."</option>";
             }
-              
+            $cadenaSelect = $cadenaSelect . "</select>";
+
+            echo $cadenaSelect;
             ?>
-        </select></div>
+        </div>
+
+
         <div class="col-1"></div>
 
 
