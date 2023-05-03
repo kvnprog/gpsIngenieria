@@ -13,7 +13,7 @@
     <script src="../../fGenerales/js/funciones.js"></script>
     <script src="../../fGenerales/js/alerts.js"></script>
     <script src="../../fGenerales/js/jquery.js"></script>
-    
+
 
     <title>gpsingenieria
     </title>
@@ -154,10 +154,10 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
             $conexionUsuarios = new conexion;
             $queryUsuarios = "SELECT nombreusuario,nombre,correo,idusuario FROM usuarios WHERE estadoid=1";
             $resultados = $conexionUsuarios->conn->query($queryUsuarios);
-            
+
             while ($fila = $resultados->fetch_row()) {
 
-                $cadenaSelect = $cadenaSelect . "<option value=\"".$fila[3]."\">".$fila[1]."</option>";
+                $cadenaSelect = $cadenaSelect . "<option value=\"" . $fila[3] . "\">" . $fila[1] . "</option>";
             }
             $cadenaSelect = $cadenaSelect . "</select>";
 
@@ -169,6 +169,35 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
         <div class="col-1"></div>
 
 
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div style="margin: 20px;" id="divPermisos">
+            <!-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                Toggle width collapse
+            </button>
+            <ul class="list-group collapse collapse-vertical" id="collapseWidthExample">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            <li class="list-group-item">A fourth item</li>
+            <li class="list-group-item">And a fifth one</li>
+            </ul>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" aria-expanded="false" aria-controls="collapseWidthExample1">
+                Toggle width collapse
+            </button>
+            <ul class="list-group collapse collapse-vertical" id="collapseWidthExample1">
+            <li class="list-group-item">An algo</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            <li class="list-group-item">A fourth item</li>
+            <li class="list-group-item">And a fifth one</li>
+        </ul> -->
+        </div>
+        </div>
+        <div class="col-1"></div>
+
+
+
 
         <!-- <p>
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
@@ -177,20 +206,9 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
         </p>
        
 
-        <ul class="list-group collapse collapse-vertical" id="collapseWidthExample">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-        </ul>
+        
 
-        <p>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                Toggle width collapse
-            </button>
-        </p> -->
-
+      
 
 
     </div>
@@ -201,31 +219,31 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal -->
+        <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Modificar Usuario</label>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmModificar">
-                        <input type="text" id="id" name="id" hidden>
-                        <label for="nombre">Nombre :</label><input class="form-control" type="text" id="nombre" name="nombre">
-                        <label for="login">Login :</label><input class="form-control" type="text" id="login" name="login">
-                        <label for="correo">Correo :</label><input class="form-control" type="text" id="correo" name="correo">
-                        <label for="password">Contraseña :</label> <input class="form-control" type="password" id="password" name="password">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="modificarUsuario()">Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Modificar Usuario</label>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmModificar">
+                            <input type="text" id="id" name="id" hidden>
+                            <label for="nombre">Nombre :</label><input class="form-control" type="text" id="nombre" name="nombre">
+                            <label for="login">Login :</label><input class="form-control" type="text" id="login" name="login">
+                            <label for="correo">Correo :</label><input class="form-control" type="text" id="correo" name="correo">
+                            <label for="password">Contraseña :</label> <input class="form-control" type="password" id="password" name="password">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="modificarUsuario()">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
@@ -235,7 +253,7 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 </body>
 

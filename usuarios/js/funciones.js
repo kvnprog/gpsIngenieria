@@ -201,6 +201,28 @@ function cargaPermisos(idusuario){
     .then(response => response.json())
     .then(data => {
 
+        var divPermisos = document.getElementById("divPermisos");
+
+        divPermisos.innerHTML = "";
+
+        var cadenaPermisos = "";
+
+
+
+        //trayendo las areas 
+        nAreas = data["areas"][0]["noDatos"];
+
+        for(var i = 0;i<nAreas;i++){
+
+          cadenaPermisos = cadenaPermisos + 
+          "<button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseWidthExample\" aria-expanded=\"false\" aria-controls=\"collapseWidthExample\">"
+          data["areas"][i]["nombre"];+"</button>";
+
+        }
+
+        console.log(cadenaPermisos);
+
+        divPermisos.innerHTML = cadenaPermisos;
 
        
     })

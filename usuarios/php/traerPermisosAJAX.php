@@ -2,25 +2,24 @@
 
 include "../../fGenerales/bd/conexion.php";
 
-$idusuario = filter_input(INPUT_GET,"idusuario");
+$idusuario = filter_input(INPUT_GET, "idusuario");
 
-//checando los permisos
+//checando las areas 
 
-$conexionPermisos = new conexion;
-$queryPermisos = "select*from permisossecciones where idusuario=".$idusuario ;
-$resultados = $conexionPermisos->conn->query($queryPermisos);
+$conexionAreas = new conexion;
+$queryAreas ="SELECT*FROM areas";
+$areas = $conexionAreas->conn->query($queryAreas);
 
-$datos = [];
+$datos=[];
+$datos["areas"][0]["noDatos"]=$areas->num_rows;
+foreach($areas->fetch_all() as $key=>$area){
 
-$conexionSecciones = new conexion;
-$querySecciones = "select*from secciones areas";
-$conexionSecciones->conn->query($querySecciones);
-
-foreach($resultados->fetch_all() as $permiso){
-  
-
-   
+  $datos["areas"][$key]["id"]=$area[0];
+  $datos["areas"][$key]["nombre"]=$area[2];
 
 }
 
 
+
+
+echo json_encode($datos);
