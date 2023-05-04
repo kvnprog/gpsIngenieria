@@ -212,19 +212,53 @@ function cargaPermisos(idusuario){
         //trayendo las areas 
         nAreas = data["areas"][0]["noDatos"];
 
+        nPermisos = data["secciones"][0]["noDatos"];
+
         for(var i = 0;i<nAreas;i++){
 
           cadenaPermisos = cadenaPermisos + 
-          "<button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseWidthExample\" aria-expanded=\"false\" aria-controls=\"collapseWidthExample\">"
-          data["areas"][i]["nombre"];+"</button>";
+          "<button class=\"btn btn-success\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapse"+data["areas"][i]["nombre"]+"\" aria-expanded=\"false\" aria-controls=\"collapse"+data["areas"][i]["nombre"]+"\">"
+          +data["areas"][i]["nombre"]+"</button>";
+
+          cadenaPermisos= cadenaPermisos + "<ul class=\"list-group collapse collapse-vertical\" id=\"collapse"+data["areas"][i]["nombre"]+"\">";
+           
+          for(var j = 0;j<nPermisos;j++){
+
+            if(data["areas"][i]["id"]==data["secciones"][j]["idarea"]){
+                if(data["secciones"][j]["permiso"]){
+                    cadenaPermisos= cadenaPermisos + "<li class=\"list-group-item\"><label>"+data["secciones"][j]["nombre"]+"</label><input class=\"form-check-input\" type=\"checkbox\"  id=\""+data["secciones"][j]["idseccion"]+"\" checked onclick=\"ponerPermiso(this.id,"+datos["secciones"][j]["idusuario"]+")\" ></li>"; 
+                }else{
+                    cadenaPermisos= cadenaPermisos + "<li class=\"list-group-item\"><label>"+data["secciones"][j]["nombre"]+"</label><input class=\"form-check-input\" type=\"checkbox\"  id=\""+data["secciones"][j]["idseccion"]+"\" onclick=\"ponerPermiso(this.id,"+datos["secciones"][j]["idusuario"]+")\" ></li>";
+                }
+                
+            }
+
+          }
+
+          cadenaPermisos= cadenaPermisos + "</ul>";
 
         }
 
-        console.log(cadenaPermisos);
+        
 
         divPermisos.innerHTML = cadenaPermisos;
 
        
     })
+
+}
+
+function ponerPermiso(idseccion,idusuario){
+
+    const options = {
+        method: "GET"
+
+    };
+
+    fetch("../../usuarios/php/traerPermisosAJAX.php?idseccion="+idseccion+"&idusuario="+idusuario, options)
+    .then(response => response.json())
+    .then(data => {
+        
+    });
 
 }
