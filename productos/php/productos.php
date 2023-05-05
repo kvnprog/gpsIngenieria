@@ -45,7 +45,7 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
                 <img class="imgregreso" src="../../src/imagenes/atras.png" />
             </div>
             <div class="col-6  text-center  txtTitulo">
-                <span><i class="aTitulo">Usuarios</i><img class="imgIconoUsuarios" src="../../src/imagenes/usuarios.png" width="50px"></span>
+                <span><i class="aTitulo">Productos</i><img class="imgIconoUsuarios" src="../../src/imagenes/productosiconogps.png" width="50px"></span>
             </div>
             <div class="col-3 divLogo justify-content-center align-items-center">
                 <img class="imgLogo" src="../../src/imagenes/logo.png" />
@@ -62,7 +62,7 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
                 <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(1)">Catalogo</button>
                     <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(2)">Registro</button>
-                    <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(3)">Permisos de Areas</button>
+                    
                 </div>
             </div>
             <div class="col-1"></div>
@@ -122,7 +122,7 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
     <!-- div de registros -->
     <div class="row" id="registros" style="display: none;">
         <div class="col-12 text-center">
-            <h3>Registro de Usuarios</h3>
+            <h3>Registro de Productos</h3>
         </div>
         <div class="col-1"></div>
         <div class="col-10">
@@ -139,80 +139,6 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
     </div>
     <!-- div de registros -->
 
-    <!-- div de permisos -->
-    <div class="row" id="permisos" style="display: none;">
-        <div class="col-12 text-center">
-            <h3>Permisos de Usuarios</h3>
-        </div>
-
-        <div class="col-1"></div>
-        <div class="col-10">
-            <?php
-            $cadenaSelect = "<select class=\"form-select \" name=\"selectUsuarios\" id=\"selectUsuarios\" onchange=\"cargaPermisos(this.value)\">";
-
-
-            $conexionUsuarios = new conexion;
-            $queryUsuarios = "SELECT nombreusuario,nombre,correo,idusuario FROM usuarios WHERE estadoid=1";
-            $resultados = $conexionUsuarios->conn->query($queryUsuarios);
-            $cadenaSelect = $cadenaSelect . "<option value=\"0\">Usuarios...</option>";
-            while ($fila = $resultados->fetch_row()) {
-
-                $cadenaSelect = $cadenaSelect . "<option value=\"" . $fila[3] . "\">" . $fila[1] . "</option>";
-            }
-            $cadenaSelect = $cadenaSelect . "</select>";
-
-            echo $cadenaSelect;
-            ?>
-        </div>
-
-
-        <div class="col-1"></div>
-
-
-        <div class="col-1"></div>
-        <div class="col-10">
-            <div style="margin: 20px;" id="divPermisos">
-            <!-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                Toggle width collapse
-            </button>
-            <ul class="list-group collapse collapse-vertical" id="collapseWidthExample">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-            </ul>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" aria-expanded="false" aria-controls="collapseWidthExample1">
-                Toggle width collapse
-            </button>
-            <ul class="list-group collapse collapse-vertical" id="collapseWidthExample1">
-            <li class="list-group-item">An algo</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-        </ul> -->
-        </div>
-        </div>
-        <div class="col-1"></div>
-
-
-
-
-        <!-- <p>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                Toggle width collapse
-            </button>
-        </p>
-       
-
-        
-
-      
-
-
-    </div>
-    <!-- div de permisos -->
 
 
 

@@ -40,19 +40,22 @@
             <div class="col-1 "></div>
             <div class="col-10  justify-content-center align-items-center ">
                 <div class="row">
-                    <div class="col text-center">
-                        <div class=" btn-menu justify-content-center align-items-center" onclick="abrirUsuarios()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/configuracionesgps.png" width="200px">
+                     <!-- CATEGORIA PRODUCTOS -->
+                     <div class="col text-center">
+                        <div class=" btn-menu justify-content-center align-items-center" onclick="abrirCategoriaProductos()">
+                             <img class="imgConfiguracion" src="../../src/imagenes/categoriaProductosgps.png" width="125px">
                         </div>
                     </div>
+                    <!-- PRODUCTOS -->
                     <div class="col text-center">
-                    <div class=" btn-menu justify-content-center align-items-center" onclick="abrirInventarios()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/inventariosgps.png" width="200px">
+                        <div class=" btn-menu justify-content-center align-items-center" onclick="abrirProductos()">
+                             <img class="imgConfiguracion" src="../../src/imagenes/productos.png" width="125px">
                         </div>
                     </div>
+                     <!-- REPORTES -->
                     <div class="col text-center">
                     <div class=" btn-menu justify-content-center align-items-center">
-                             <img class="imgConfiguracion" src="../../src/imagenes/ordenestrabajo.png" width="200px">
+                             <img class="imgConfiguracion" src="../../src/imagenes/graficasgps.png" width="125px">
                         </div>
                     </div>
                 </div>

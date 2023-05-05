@@ -203,6 +203,10 @@ function cargaPermisos(idusuario){
 
         var divPermisos = document.getElementById("divPermisos");
 
+        var selectUsuarios = document.getElementById("selectUsuarios").value;
+
+        
+
         divPermisos.innerHTML = "";
 
         var cadenaPermisos = "";
@@ -226,9 +230,9 @@ function cargaPermisos(idusuario){
 
             if(data["areas"][i]["id"]==data["secciones"][j]["idarea"]){
                 if(data["secciones"][j]["permiso"]){
-                    cadenaPermisos= cadenaPermisos + "<li class=\"list-group-item\"><label>"+data["secciones"][j]["nombre"]+"</label><input class=\"form-check-input\" type=\"checkbox\"  id=\""+data["secciones"][j]["idseccion"]+"\" checked onclick=\"ponerPermiso(this.id,"+datos["secciones"][j]["idusuario"]+")\" ></li>"; 
+                    cadenaPermisos= cadenaPermisos + "<li class=\"list-group-item\"><label>"+data["secciones"][j]["nombre"]+"</label><input class=\"form-check-input\" type=\"checkbox\"  id=\""+data["secciones"][j]["idseccion"]+"\" checked onclick=\"ponerPermiso(this.id,"+selectUsuarios+")\" ></li>"; 
                 }else{
-                    cadenaPermisos= cadenaPermisos + "<li class=\"list-group-item\"><label>"+data["secciones"][j]["nombre"]+"</label><input class=\"form-check-input\" type=\"checkbox\"  id=\""+data["secciones"][j]["idseccion"]+"\" onclick=\"ponerPermiso(this.id,"+datos["secciones"][j]["idusuario"]+")\" ></li>";
+                    cadenaPermisos= cadenaPermisos + "<li class=\"list-group-item\"><label>"+data["secciones"][j]["nombre"]+"</label><input class=\"form-check-input\" type=\"checkbox\"  id=\""+data["secciones"][j]["idseccion"]+"\" onclick=\"ponerPermiso(this.id,"+selectUsuarios+")\" ></li>";
                 }
                 
             }
@@ -255,10 +259,16 @@ function ponerPermiso(idseccion,idusuario){
 
     };
 
-    fetch("../../usuarios/php/traerPermisosAJAX.php?idseccion="+idseccion+"&idusuario="+idusuario, options)
+    fetch("../../usuarios/php/ponerPermisoAJAX.php?idseccion="+idseccion+"&idusuario="+idusuario, options)
     .then(response => response.json())
     .then(data => {
-        
+
+        if(data["resultado"]){
+            alertImage('EXITO', 'Se hiso el cambio en el permiso', 'success')
+        }else{
+            alertImage('EXITO', 'Se hiso el cambio en el permiso', 'success')
+        }
+
     });
 
 }
