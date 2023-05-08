@@ -126,11 +126,31 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
         </div>
         <div class="col-1"></div>
         <div class="col-10">
-            <form class="frmRegistroUsuario" id="frmRegistroUsuario">
-                <label for="nombre">Nombre :</label><input class="form-control" id="nombre" name="nombre" type="text">
-                <label for="login">Login :</label><input class="form-control" id="login" name="login" type="text">
-                <label for="correo">Correo :</label><input class="form-control" id="correo" name="correo" type="text">
-                <label for="password">Contraseña :</label><input class="form-control" id="password" name="password" type="password">
+            <form class="frmRegistroUsuario " id="frmRegistroUsuario">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escriba su Nombre">
+                    <label>Nombre</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="login" name="login" placeholder="Escriba su Nombre de login">
+                    <label>Login</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="correo" name="correo" placeholder="Escriba su  correo">
+                    <label>Correo</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Escriba su Contraseña">
+                    <label>Contraseña</label>
+                </div>
+                
+                
+                
+                
                 <br>
                 <button type="button" class="btn btn-success" onclick="crearUsuario()">Guardar</button>
             </form>
@@ -172,47 +192,15 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
         <div class="col-1"></div>
         <div class="col-10">
             <div style="margin: 20px;" id="divPermisos">
-            <!-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                Toggle width collapse
-            </button>
-            <ul class="list-group collapse collapse-vertical" id="collapseWidthExample">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-            </ul>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" aria-expanded="false" aria-controls="collapseWidthExample1">
-                Toggle width collapse
-            </button>
-            <ul class="list-group collapse collapse-vertical" id="collapseWidthExample1">
-            <li class="list-group-item">An algo</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-        </ul> -->
-        </div>
+
+            </div>
         </div>
         <div class="col-1"></div>
 
 
 
 
-        <!-- <p>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                Toggle width collapse
-            </button>
-        </p>
-       
-
-        
-
-      
-
-
-    </div>
-    <!-- div de permisos -->
+        <!-- div de permisos -->
 
 
 

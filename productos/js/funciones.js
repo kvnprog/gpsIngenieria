@@ -22,3 +22,35 @@ function abrirSeccion(opcion) {
    
 
 }
+
+
+function crearProducto(){
+
+    const data = new FormData(document.getElementById('frmRegistroNParte'));
+
+    const options = {
+        method: "POST",
+        body: data
+
+    };
+
+    // Petición HTTP
+    fetch("../../productos/php/crearAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
+          
+            console.log(data["query"]);
+            if (data["resultado"]) {
+                alertImage('EXITO', 'Se creo el producto con existo', 'success')
+            }else{
+                alertImage('ERROR', 'Surgio un error en el registro', 'error')
+            }
+
+
+        });
+
+}
+
+// function actualiza(data){
+    
+// }

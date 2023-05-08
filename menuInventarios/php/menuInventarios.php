@@ -9,6 +9,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="../css/style.css" rel="stylesheet" />
+    <link href="../../fGenerales/css/style.css" rel="stylesheet" />
     <script src="../js/funciones.js"></script>
     <script src="../../fGenerales/js/funciones.js"></script>
     <script src="../../fGenerales/js/alerts.js"></script>
@@ -42,20 +43,25 @@
                 <div class="row">
                      <!-- CATEGORIA PRODUCTOS -->
                      <div class="col text-center">
-                        <div class=" btn-menu justify-content-center align-items-center" onclick="abrirCategoriaProductos()">
+                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirCategoriaProductos()">
                              <img class="imgConfiguracion" src="../../src/imagenes/categoriaProductosgps.png" width="125px">
+                             <div class="card-button">Categorias </div>
                         </div>
+                        
                     </div>
                     <!-- PRODUCTOS -->
                     <div class="col text-center">
-                        <div class=" btn-menu justify-content-center align-items-center" onclick="abrirProductos()">
+                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirProductos()">
                              <img class="imgConfiguracion" src="../../src/imagenes/productos.png" width="125px">
+                             <div class="card-button">productos</div>
                         </div>
                     </div>
                      <!-- REPORTES -->
                     <div class="col text-center">
-                    <div class=" btn-menu justify-content-center align-items-center">
+                    <div class="btnMenu btn-menu justify-content-center align-items-center">
+                        
                              <img class="imgConfiguracion" src="../../src/imagenes/graficasgps.png" width="125px">
+                             <div class="card-button">Reportes</div>
                         </div>
                     </div>
                 </div>

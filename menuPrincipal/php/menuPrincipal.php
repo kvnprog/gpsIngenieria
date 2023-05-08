@@ -9,9 +9,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="../css/style.css" rel="stylesheet" />
+    <link href="../../fGenerales/css/style.css" rel="stylesheet" />
     <script src="../js/funciones.js"></script>
     <script src="../../fGenerales/js/funciones.js"></script>
     <script src="../../fGenerales/js/alerts.js"></script>
+    
 
     <title>gpsingenieria
     </title>
@@ -40,21 +42,26 @@
             <div class="col-1 "></div>
             <div class="col-10  justify-content-center align-items-center ">
                 <div class="row">
-                    <div class="col text-center">
-                        <div class=" btn-menu justify-content-center align-items-center" onclick="abrirUsuarios()">
+                    <div class="col text-center ">
+                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirUsuarios()">
                              <img class="imgConfiguracion" src="../../src/imagenes/configuracionesgps.png" width="200px">
+                             <div class="card-button">Usuarios</div>
                         </div>
+                        
                     </div>
                     <div class="col text-center">
-                    <div class=" btn-menu justify-content-center align-items-center" onclick="abrirInventarios()">
+                    <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirInventarios()">
                              <img class="imgConfiguracion" src="../../src/imagenes/inventariosgps.png" width="200px">
+                             <div class="card-button">Inventarios</div>
                         </div>
                     </div>
                     <div class="col text-center">
-                    <div class=" btn-menu justify-content-center align-items-center">
+                    <div class=" btnMenu btn-menu justify-content-center align-items-center">
                              <img class="imgConfiguracion" src="../../src/imagenes/ordenestrabajo.png" width="200px">
+                             <div class="card-button">Ventas</div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
 

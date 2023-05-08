@@ -11,6 +11,22 @@ $resultado = [];
 
 if ($conexionCrearCategoria->conn->query($queryCrearCategoria)) {
 
+     //TRAER CATEGORIAS
+
+     $conexionTraerCategorias = new conexion;
+     $queryTraerCategorias = "SELECT*FROM categoriasproductos";
+ 
+     $datos = $conexionTraerCategorias->conn->query($queryTraerCategorias);
+
+    $resultado["noDatos"] = $datos->num_rows;
+
+    foreach($datos->fetch_all() as $index => $dato){
+
+      $resultado[$index]["id"] = $dato[0];
+      $resultado[$index]["nombre"] = $dato[1];
+
+    }
+
     $resultado["resultado"] = true;
 } else {
 
