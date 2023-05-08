@@ -22,11 +22,26 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
 
     $resultados["resultado"] = true;
 
-    //    $conexionDatos = new conexion;
-    //    $queryDatos = "SELECT*FROM productos ";
+    $conexionDatos = new conexion;
+    $queryDatos = "SELECT p.*,c.nombre  FROM productos p , categoriasproductos c  WHERE c.idcategoriaproducto = p.categoria ";
+    $datos = $conexionDatos->conn->query($queryDatos);
 
+    $resultados["noDatos"] = $datos->num_rows;
 
+    foreach ($datos->fetch_all() as $i => $datos) {
 
+        $resultados[$i]["id"] = $datos[0];
+        $resultados[$i]["nParte"] = $datos[1];
+        $resultados[$i]["descripcion"] = $datos[2];
+        $resultados[$i]["idcategoria"] = $datos[3];
+        $resultados[$i]["categoria"] = $datos[8];
+        $resultados[$i]["maximos"] = $datos[4];
+        $resultados[$i]["minimos"] = $datos[5];
+        $resultados[$i]["existentes"] = $datos[6];
+        $resultados[$i]["comentarios"] = $datos[7];
+        
+        
+    }
 } else {
 
     $resultados["resultado"] = false;

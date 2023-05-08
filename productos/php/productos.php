@@ -108,7 +108,7 @@ $resultados = $conexionProductos->conn->query($queryProductos);
                                    <td class=\"text-center\">" . $columna[5] . "</td>
                                    <td class=\"text-center\">" . $columna[6] . "</td>
                                    <td class=\"text-center\">" . $columna[7] . "</td>
-                                   <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(".$columna[0].",'".$columna[1]."','".$columna[2]."',".$columna[3].",'".$columna[8]."',".$columna[4].",".$columna[5].",".$columna[6].",'".$columna[7]."')\"></td>
+                                   <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "')\"></td>
                                    
                                   </tr>";
                         }
@@ -154,8 +154,7 @@ $resultados = $conexionProductos->conn->query($queryProductos);
 
                         foreach ($categorias->fetch_all() as $index => $categoria) {
 
-                          print_r("<option value=\"".$categoria[0]."\" >".$categoria[1]."</option>");
-
+                            print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
                         }
 
                         ?>
@@ -209,10 +208,53 @@ $resultados = $conexionProductos->conn->query($queryProductos);
                 <div class="modal-body">
                     <form id="frmModificar">
                         <input type="text" id="id" name="id" hidden>
-                        <label for="nombre">Nombre :</label><input class="form-control" type="text" id="nombre" name="nombre">
-                        <label for="login">Login :</label><input class="form-control" type="text" id="login" name="login">
-                        <label for="correo">Correo :</label><input class="form-control" type="text" id="correo" name="correo">
-                        <label for="password">Contraseña :</label> <input class="form-control" type="password" id="password" name="password">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nParte" name="nParte" placeholder="Escriba el Numero de Parte">
+                            <label>Numero de Parte</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Escriba una Descripcion"></textarea>
+                            <label>Descripcion</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="categoria" name="categoria" aria-label="Floating label select example">
+                                <option selected>Categorias....</option>
+                                <?php
+
+                                $conexionCategorias = new conexion;
+                                $queryCategorias = "SELECT*FROM categoriasproductos";
+                                $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                foreach ($categorias->fetch_all() as $index => $categoria) {
+
+                                    print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                }
+
+                                ?>
+
+                            </select>
+                            <label for="floatingSelect">Categoria</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="maximos" name="maximos" placeholder="Coloque el Maximo">
+                            <label>Maximos</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="minimos" name="minimos" placeholder="Coloque el Minimo">
+                            <label>Minimos</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="existentes" name="existentes" placeholder="Coloque los Existentes">
+                            <label>Existentes</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea type="text" class="form-control" id="comentarios" name="comentarios" placeholder="Coloque los Comentarios"></textarea>
+                            <label>Comentarios</label>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
