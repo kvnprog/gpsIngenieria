@@ -73,6 +73,52 @@ $resultados = $conexionProductos->conn->query($queryProductos);
 
         <!-- Tabla de datos Usuarios -->
         <div class="row" id="catalogo" style="display: none;">
+
+            <!-- FILTROS -->
+            <div class="row text-center">
+
+                <div class="col-1"></div>
+                <!-- Empiezo de filtros -->
+                <div class="col-10">
+
+                    <div class="row">
+
+                        <div class="form-floating col-4 ">
+                            <input type="text" class="form-control" id="filtroNParte" name="filtroNParte" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
+                            <label>Numero de Parte</label>
+                        </div>
+
+                        <div class="form-floating col-4 ">
+                            <input type="text" class="form-control" id="filtroDescripcion" name="filtroDescripcion" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
+                            <label>Descripcion</label>
+                        </div>
+
+                        <div class="form-floating mb-3 col-4">
+                            <select class="form-select" id="filtroCategoria" name="filtroCategoria" aria-label="Floating label select example"  onchange="filtrarProductos()">
+                                <option value=0 selected>Categorias....</option>
+                                <?php
+
+                                $conexionCategorias = new conexion;
+                                $queryCategorias = "SELECT*FROM categoriasproductos";
+                                $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                foreach ($categorias->fetch_all() as $index => $categoria) {
+
+                                    print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                }
+
+                                ?>
+
+                            </select>
+                            <label for="floatingSelect">Categoria</label>
+                        </div>
+
+                      
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+
             <div class="col-12 text-center">
                 <h3>Catalogo de Productos</h3>
             </div>
@@ -91,6 +137,10 @@ $resultados = $conexionProductos->conn->query($queryProductos);
                             <th class="text-center" scope="col">Existentes</th>
                             <th class="text-center" scope="col">Comentarios</th>
                             <th class="text-center" colspan="2" scope="col"></th>
+                        </tr>
+
+
+                        <th class="text-center" colspan="6" scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -145,7 +195,7 @@ $resultados = $conexionProductos->conn->query($queryProductos);
                 </div>
                 <div class="form-floating mb-3">
                     <select class="form-select" id="categoria" name="categoria" aria-label="Floating label select example">
-                        <option selected>Categorias....</option>
+                        <option value=0 selected>Categorias....</option>
                         <?php
 
                         $conexionCategorias = new conexion;
@@ -202,7 +252,7 @@ $resultados = $conexionProductos->conn->query($queryProductos);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Modificar Usuario</label>
+                    <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Modificar Producto</label>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -218,7 +268,7 @@ $resultados = $conexionProductos->conn->query($queryProductos);
                         </div>
                         <div class="form-floating mb-3">
                             <select class="form-select" id="categoria" name="categoria" aria-label="Floating label select example">
-                                <option selected>Categorias....</option>
+                                <option value=0 selected>Categorias....</option>
                                 <?php
 
                                 $conexionCategorias = new conexion;
@@ -247,7 +297,7 @@ $resultados = $conexionProductos->conn->query($queryProductos);
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="existentes" name="existentes" placeholder="Coloque los Existentes">
+                            <input type="number" class="form-control" id="existentes" name="existentes" placeholder="Coloque los Existentes" readonly>
                             <label>Existentes</label>
                         </div>
 

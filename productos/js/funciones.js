@@ -100,6 +100,81 @@ function actualiza(data) {
 
     cadenaProductos = cadenaProductos + "</tbody>";
 
-    catalogoProductos.innerHTML =  catalogoProductos.innerHTML  + cadenaProductos;
+    catalogoProductos.innerHTML = catalogoProductos.innerHTML + cadenaProductos;
 
 }
+
+function abrirModal(productoid, nParte, descripcion, idcategoria, categoria, maximos, minimos, existentes, comentarios) {
+
+    var formulario = document.getElementById("frmModificar");
+    formulario.id.value = productoid;
+    formulario.nParte.value = nParte;
+    formulario.descripcion.value = descripcion;
+    formulario.categoria.value = idcategoria;
+    formulario.maximos.value = maximos;
+    formulario.minimos.value = minimos;
+    formulario.existentes.value = existentes;
+    formulario.comentarios.value = comentarios;
+
+
+    $("#miModal").modal('show');
+
+
+
+}
+
+
+
+function modificarUsuario() {
+
+
+    const data = new FormData(document.getElementById('frmModificar'));
+
+    const options = {
+        method: "POST",
+        body: data
+
+    };
+
+    // Petición HTTP
+    fetch("../../productos/php/modificarAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
+            if (data["resultado"]){
+                alertImage('EXITO', 'Se modifico el registro con exito', 'success')
+                actualiza(data);
+            }else{
+                alertImage('ERROR', 'hubo un error', 'error')
+
+            }
+
+        });
+
+}
+
+function filtrarProductos(){
+
+var filtroNParte = document.getElementById("filtroNParte").value;
+var filtroDescripcion = document.getElementById("filtroDescripcion").value;
+var filtroCategoria = document.getElementById("filtroCategoria").value;
+
+
+const options = {
+    method: "GET"
+};
+
+ // Petición HTTP
+ fetch("../../productos/php/filtrarTablaAJAX.php?nParte="+filtroNParte+"&descripcion="+filtroDescripcion+"&categoriaid="+filtroCategoria, options)
+ .then(response => response.json())
+ .then(data => {
+     
+         actualiza(data);
+     
+
+ });
+
+ 
+
+}
+
+

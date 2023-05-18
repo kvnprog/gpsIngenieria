@@ -1,0 +1,13 @@
+.table tr td{
+  
+  border-color: black;
+  border-width: 3px;
+
+}
+
+.table {
+    margin-top: -150px;
+    transform: scale(70%);
+}
+
+
