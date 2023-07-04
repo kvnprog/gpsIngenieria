@@ -175,7 +175,7 @@ function crearUsuario() {
             //CHECANDO SI HUBO UN ERROR
             if(data[0]["resultado"] == 2){
 
-                alertImage('EXITO', 'Se registro el usuario con existo', 'success')
+                alertImage('EXITO', 'Se registro el cliente con existo', 'success')
                 
                 actualizar(data);
 

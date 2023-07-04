@@ -43,22 +43,22 @@
             <div class="col-10  justify-content-center align-items-center ">
                 <div class="row">
                     <div class="col text-center ">
-                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirUsuarios()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/configuracionesgps.png" width="200px">
-                             <div class="card-button">Usuarios</div>
+                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirClientes()">
+                             <img class="imgConfiguracion" src="../../src/imagenes/clientes.png" width="100px">
+                             <div class="card-button">Clientes</div>
                         </div>
                         
                     </div>
                     <div class="col text-center">
-                    <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirInventarios()">
+                    <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirVentas()">
                              <img class="imgConfiguracion" src="../../src/imagenes/inventariosgps.png" width="200px">
-                             <div class="card-button">Inventarios</div>
+                             <div class="card-button">Ventas</div>
                         </div>
                     </div>
                     <div class="col text-center">
-                    <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirVentas()">
+                    <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirOT()" >
                              <img class="imgConfiguracion" src="../../src/imagenes/ordenestrabajo.png" width="200px">
-                             <div class="card-button">Ventas</div>
+                             <div class="card-button">Ordenes de Trabajo</div>
                         </div>
                     </div>
                     

@@ -9,3 +9,10 @@ function abrirInventarios(){
   window.open("../../menuInventarios/php/menuInventarios.php","_self");
 
 }
+
+function abrirVentas(){
+
+  window.open("../../menuVentas/php/menuVentas.php","_self");
+
+}
+
