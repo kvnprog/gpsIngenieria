@@ -50,6 +50,12 @@
                         
                     </div>
                     <div class="col text-center">
+                    <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirServicios()">
+                             <img class="imgConfiguracion" src="../../src/imagenes/servicios.png" width="150px">
+                             <div class="card-button">Servicios</div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
                     <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirVentas()">
                              <img class="imgConfiguracion" src="../../src/imagenes/inventariosgps.png" width="200px">
                              <div class="card-button">Ventas</div>

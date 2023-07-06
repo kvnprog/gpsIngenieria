@@ -4,4 +4,10 @@ function abrirClientes(){
 
 }
 
+function abrirServicios(){
+
+    window.open("../../servicios/php/servicios.php","_self");
+
+}
+
 
