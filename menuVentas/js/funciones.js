@@ -10,4 +10,10 @@ function abrirServicios(){
 
 }
 
+function abrirOT(){
+
+    window.open("../../ordenesTrabajos/php/ordenesTrabajo.php","_self");
+
+}
+
 

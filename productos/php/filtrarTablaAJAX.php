@@ -41,11 +41,12 @@ foreach ($datos->fetch_all() as $i => $datos) {
     $resultado[$i]["nParte"] = $datos[1];
     $resultado[$i]["descripcion"] = $datos[2];
     $resultado[$i]["idcategoria"] = $datos[3];
-    $resultado[$i]["categoria"] = $datos[8];
+    $resultado[$i]["categoria"] = $datos[9];
     $resultado[$i]["maximos"] = $datos[4];
     $resultado[$i]["minimos"] = $datos[5];
     $resultado[$i]["existentes"] = $datos[6];
     $resultado[$i]["comentarios"] = $datos[7];
+    $resultado[$i]["precio"] = $datos[8];
     
     
 }

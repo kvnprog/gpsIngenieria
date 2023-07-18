@@ -19,15 +19,17 @@
     </title>
 </head>
 
-<!-- //BUSCANDO Productos -->
+<!-- //BUSCANDO Ordenes de Trabajo -->
 
 <?php
 
 include "../../fGenerales/bd/conexion.php";
 
-$conexionProductos = new conexion;
-$queryProductos = "SELECT p.*,c.nombre  FROM productos p , categoriasproductos c  WHERE c.idcategoriaproducto = p.categoria ";
-$resultados = $conexionProductos->conn->query($queryProductos);
+$conexionOrdenes = new conexion;
+$queryOrdenes = "SELECT ot.numfolio,u.nombre ,c.nombre as nombrecliente , c.apellidos  ,ot.totalpago,ot.fecha,ot.ordenid  
+FROM ordentrabajo ot,usuarios u,clientes c 
+WHERE ot.idusuario = u.idusuario AND ot.idcliente = c.idcliente";
+$resultados = $conexionOrdenes->conn->query($queryOrdenes);
 
 //var_dump($resultados);
 
@@ -45,7 +47,7 @@ $resultados = $conexionProductos->conn->query($queryProductos);
                 <img class="imgregreso" src="../../src/imagenes/atras.png" />
             </div>
             <div class="col-6  text-center  txtTitulo">
-                <span><i class="aTitulo">Productos</i><img class="imgIconoUsuarios" src="../../src/imagenes/productosiconogps.png" width="50px"></span>
+                <span><i class="aTitulo">Ordenes de Trabajo</i><img class="imgIconoUsuarios" src="../../src/imagenes/productosiconogps.png" width="50px"></span>
             </div>
             <div class="col-3 divLogo justify-content-center align-items-center">
                 <img class="imgLogo" src="../../src/imagenes/logo.png" />
@@ -61,8 +63,6 @@ $resultados = $conexionProductos->conn->query($queryProductos);
             <div class="col-10">
                 <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(1)">Catalogo</button>
-                    <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(2)">Registro</button>
-
                 </div>
             </div>
             <div class="col-1"></div>
@@ -83,34 +83,24 @@ $resultados = $conexionProductos->conn->query($queryProductos);
 
                     <div class="row">
 
-                        <div class="form-floating col-4 ">
-                            <input type="text" class="form-control" id="filtroNParte" name="filtroNParte" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                            <label>Numero de Parte</label>
+                       <div class="form-floating col-3 ">
+                            <input type="text" class="form-control" id="filtroNFolio" name="filtroNFolio" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
+                            <label>N.Folio</label>
                         </div>
 
-                        <div class="form-floating col-4 ">
-                            <input type="text" class="form-control" id="filtroDescripcion" name="filtroDescripcion" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                            <label>Descripcion</label>
+                        <div class="form-floating col-3 ">
+                            <input type="text" class="form-control" id="filtroTrabajador" name="filtroTrabajador" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
+                            <label>Trabajador</label>
                         </div>
 
-                        <div class="form-floating mb-3 col-4">
-                            <select class="form-select" id="filtroCategoria" name="filtroCategoria" aria-label="Floating label select example" onchange="filtrarProductos()">
-                                <option value=0 selected>Categorias....</option>
-                                <?php
+                        <div class="form-floating col-3 ">
+                            <input type="text" class="form-control" id="filtroCliente" name="filtroCliente" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
+                            <label>Cliente</label>
+                        </div>
 
-                                $conexionCategorias = new conexion;
-                                $queryCategorias = "SELECT*FROM categoriasproductos";
-                                $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                                foreach ($categorias->fetch_all() as $index => $categoria) {
-
-                                    print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                }
-
-                                ?>
-
-                            </select>
-                            <label for="floatingSelect">Categoria</label>
+                        <div class="form-floating col-3 ">
+                            <input type="date" class="form-control" id="filtroFecha" name="filtroFecha" placeholder="Escriba el Numero de Parte" onchange="filtrarOrdenes()">
+                            <label>Fecha</label>
                         </div>
 
 
@@ -129,15 +119,14 @@ $resultados = $conexionProductos->conn->query($queryProductos);
                     <thead>
                         <tr>
 
-                            <th class="text-center" scope="col">Numero de Parte</th>
-                            <th class="text-center" scope="col">Descripcion</th>
-                            <th class="text-center" scope="col">Categoria</th>
-                            <th class="text-center" scope="col">Maximos</th>
-                            <th class="text-center" scope="col">Minimos</th>
-                            <th class="text-center" scope="col">Existentes</th>
-                            <th class="text-center" scope="col">Comentarios</th>
-                            <th class="text-center" scope="col">Precio Por Unidad</th>
-                            <th class="text-center" colspan="2" scope="col"></th>
+                            <th class="text-center" scope="col">N.Folio</th>
+                            <th class="text-center" scope="col">Trabajador</th>
+                            <th class="text-center" scope="col">Cliente</th>
+                            <th class="text-center" scope="col">Pago Total</th>
+                            <th class="text-center" scope="col">Pago realizado</th>
+                            <th class="text-center" scope="col">Fecha</th>
+                            <th class="text-center" scope="col">Orden de Trabajo</th>
+                           
                         </tr>
 
 
@@ -152,16 +141,13 @@ $resultados = $conexionProductos->conn->query($queryProductos);
 
 
                             echo " <tr>
+                                   <td class=\"text-center\">" . $columna[0] . "</td>
                                    <td class=\"text-center\">" . $columna[1] . "</td>
-                                   <td class=\"text-center\">" . $columna[2] . "</td>
-                                   <td class=\"text-center\">" . $columna[8] . "</td>
+                                   <td class=\"text-center\">" . $columna[2] ." ".$columna[3] . "</td>
                                    <td class=\"text-center\">" . $columna[4] . "</td>
+                                   <td class=\"text-center\"></td>
                                    <td class=\"text-center\">" . $columna[5] . "</td>
-                                   <td class=\"text-center\">" . $columna[6] . "</td>
-                                   <td class=\"text-center\">" . $columna[7] . "</td>
-                                   <td class=\"text-center\">" . $columna[8] . "</td>
-                                   <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "','" . $columna[8] . "')\"></td>
-                                   
+                                   <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden(" . $columna[6] . ")\"></td>
                                   </tr>";
                         }
 
@@ -177,78 +163,6 @@ $resultados = $conexionProductos->conn->query($queryProductos);
         <!-- Tabla de datos Usuarios final-->
     </div>
     <!-- //div principal fin -->
-
-
-    <!-- div de registros -->
-    <div class="row" id="registros" style="display: none;">
-        <div class="col-12 text-center">
-            <h3>Registro de Productos</h3>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-10">
-            <form class="frmRegistroNParte" id="frmRegistroNParte">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nParte" name="nParte" placeholder="Escriba el Numero de Parte">
-                    <label>Numero de Parte</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <textarea type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Escriba una Descripcion"></textarea>
-                    <label>Descripcion</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <select class="form-select" id="categoria" name="categoria" aria-label="Floating label select example">
-                        <option value=0 selected>Categorias....</option>
-                        <?php
-
-                        $conexionCategorias = new conexion;
-                        $queryCategorias = "SELECT*FROM categoriasproductos";
-                        $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                        foreach ($categorias->fetch_all() as $index => $categoria) {
-
-                            print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                        }
-
-                        ?>
-
-                    </select>
-                    <label for="floatingSelect">Categoria</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="maximos" name="maximos" placeholder="Coloque el Maximo">
-                    <label>Maximos</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="minimos" name="minimos" placeholder="Coloque el Minimo">
-                    <label>Minimos</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="existentes" name="existentes" placeholder="Coloque los Existentes">
-                    <label>Existentes</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <textarea type="text" class="form-control" id="comentarios" name="comentarios" placeholder="Coloque los Comentarios"></textarea>
-                    <label>Comentarios</label>
-                </div>
-
-
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Coloque los Comentarios">
-                    <label>Precio por Unidad</label>
-                </div>
-
-                <button type="button" class="btn btn-success" onclick="crearProducto()">Guardar</button>
-            </form>
-        </div>
-        <div class="col-1"></div>
-    </div>
-    <!-- div de registros -->
-
-
 
 
 

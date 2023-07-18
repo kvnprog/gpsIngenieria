@@ -9,10 +9,11 @@ $maximos = filter_input(INPUT_POST, "maximos");
 $minimos = filter_input(INPUT_POST, "minimos");
 $existentes = filter_input(INPUT_POST, "existentes");
 $comentarios = filter_input(INPUT_POST, "comentarios");
+$precio = filter_input(INPUT_POST, "precio");
 
 $conexionCrearProducto = new conexion;
-$queryCrearProducto = "INSERT INTO productos(nparte,descripcion,categoria,maximos,minimos,existentes,comentarios) 
-VALUES ('" . $nParte . "','" . $descripcion . "'," . $categoria . "," . $maximos . "," . $minimos . "," . $existentes . ",'" . $comentarios . "')";
+$queryCrearProducto = "INSERT INTO productos(nparte,descripcion,categoria,maximos,minimos,existentes,comentarios,precioxunidad) 
+VALUES ('" . $nParte . "','" . $descripcion . "'," . $categoria . "," . $maximos . "," . $minimos . "," . $existentes . ",'" . $comentarios . "','".$precio."')";
 
 
 
@@ -34,11 +35,12 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
         $resultados[$i]["nParte"] = $datos[1];
         $resultados[$i]["descripcion"] = $datos[2];
         $resultados[$i]["idcategoria"] = $datos[3];
-        $resultados[$i]["categoria"] = $datos[8];
+        $resultados[$i]["categoria"] = $datos[9];
         $resultados[$i]["maximos"] = $datos[4];
         $resultados[$i]["minimos"] = $datos[5];
         $resultados[$i]["existentes"] = $datos[6];
         $resultados[$i]["comentarios"] = $datos[7];
+        $resultados[$i]["precio"] = $datos[8];
         
         
     }

@@ -8,10 +8,14 @@ $password = filter_input(INPUT_POST,"password");
 
 $arrRespuesta = [];
 
-if(checarLogin($usuario,$password)){
-   $arrRespuesta[0] = true;
+
+$datos = checarLogin($usuario,$password);
+
+if($datos[0]){
+   $arrRespuesta[0] = $datos[0];
+   $arrRespuesta['usuarioid'] = $datos[1] ;
 }else{
-   $arrRespuesta[0] = false;
+   $arrRespuesta[0] = $datos[0];
 }
 
 

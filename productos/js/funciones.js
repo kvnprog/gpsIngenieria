@@ -65,6 +65,7 @@ function actualiza(data) {
         "<th class=\"text-center\" scope=\"col\">Minimos</th>" +
         "<th class=\"text-center\" scope=\"col\">Existentes</th>" +
         "<th class=\"text-center\" scope=\"col\">Comentarios</th>" +
+        "<th class=\"text-center\" scope=\"col\">Precio</th>" +
         "<th class=\"text-center\" colspan=\"2\" scope=\"col\"></th>" +
         "</tr>" +
         "</thead>";
@@ -82,6 +83,7 @@ function actualiza(data) {
         var minimos = data[i]["minimos"];
         var existentes = data[i]["existentes"];
         var comentarios = data[i]["comentarios"];
+        var precio = data[i]["precio"];
 
         cadenaProductos = cadenaProductos + " <tr> " +
             "<td class=\"text-center\">" + nParte + "</td> " +
@@ -91,7 +93,8 @@ function actualiza(data) {
             "<td class=\"text-center\">" + minimos + "</td> " +
             "<td class=\"text-center\">" + existentes + "</td> " +
             "<td class=\"text-center\">" + comentarios + "</td> " +
-            "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "')\"></td> " +
+            "<td class=\"text-center\">" + precio + "</td> " +
+            "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"')\"></td> " +
 
             "</tr>"
 
@@ -104,7 +107,7 @@ function actualiza(data) {
 
 }
 
-function abrirModal(productoid, nParte, descripcion, idcategoria, categoria, maximos, minimos, existentes, comentarios) {
+function abrirModal(productoid, nParte, descripcion, idcategoria, categoria, maximos, minimos, existentes, comentarios,precio) {
 
     var formulario = document.getElementById("frmModificar");
     formulario.id.value = productoid;
@@ -115,6 +118,7 @@ function abrirModal(productoid, nParte, descripcion, idcategoria, categoria, max
     formulario.minimos.value = minimos;
     formulario.existentes.value = existentes;
     formulario.comentarios.value = comentarios;
+    formulario.precio.value = precio;
 
 
     $("#miModal").modal('show');

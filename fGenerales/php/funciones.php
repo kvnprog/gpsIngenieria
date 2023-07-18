@@ -11,7 +11,7 @@ function checarLogin($usuario,$password){
     
     $conexion = new conexion;
     
-    $query = "SELECT*FROM usuarios WHERE nombreusuario = ? and passwordusuario = md5(?) ";
+    $query = "SELECT idusuario,nombre FROM usuarios WHERE nombreusuario = ? and passwordusuario = md5(?) ";
     
     $queryPreparada = $conexion->conn->prepare($query);
     
@@ -21,14 +21,43 @@ function checarLogin($usuario,$password){
      $queryPreparada->execute();
     
      $resultados = $queryPreparada->get_result();
+
+     $datos = [];
     
      if($resultados->num_rows>0){
-       return true;
+
+      session_name('gpsingenieria');
+
+      session_start();
+
+     
+
+      foreach($resultados->fetch_all() as $usuario){
+          $datos[0] = true;
+          $datos[1] = $usuario[0];
+          $datos[2] = $usuario[1];
+      }
+
+      $_SESSION['usuarioid'] = $datos[1] ;
+      $_SESSION['nombre'] = $datos[2] ;
+
+       return $datos;
      }else{
-        return false;
+
+      $datos[0]=false;
+        return $datos;
      }
     
     
+
+
+}
+
+function iniciarSession(){
+
+  session_name('gpsingenieria');
+
+  session_start();
 
 
 }

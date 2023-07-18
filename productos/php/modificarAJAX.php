@@ -11,6 +11,7 @@ $maximos = filter_input(INPUT_POST, "maximos");
 $minimos = filter_input(INPUT_POST, "minimos");
 $existentes = filter_input(INPUT_POST, "existentes");
 $comentarios = filter_input(INPUT_POST, "comentarios");
+$precio = filter_input(INPUT_POST, "precio");
 
 $resultado = [];
 
@@ -18,8 +19,8 @@ $resultado = [];
 
 $conexionModificar = new conexion;
 $queryModificar = "UPDATE productos SET nparte='".$nParte."',descripcion='".$descripcion."',categoria=".$categoria.
-                   ",maximos=".$maximos.",minimos=".$minimos.",comentarios='".$comentarios
-                   ."' WHERE idproducto = ".$id;
+                   ",maximos=".$maximos.",minimos=".$minimos.",comentarios='".$comentarios."',precioxunidad='".$precio."'"
+                   ." WHERE idproducto = ".$id;
                   
 if($conexionModificar->conn->query($queryModificar)){
 
@@ -44,6 +45,7 @@ if($conexionModificar->conn->query($queryModificar)){
         $resultado[$i]["minimos"] = $datos[5];
         $resultado[$i]["existentes"] = $datos[6];
         $resultado[$i]["comentarios"] = $datos[7];
+        $resultado[$i]["precio"] = $datos[8];
         
         
     }

@@ -8,7 +8,10 @@ class conexion{
 
 
     function __construct(){
+        //local
         $this->conn = new mysqli("localhost","mysql","","gpsingenieria",3306);
+        //pruebas
+        //$this->conn = new mysqli("185.27.134.10","if0_34641860","","if0_34641860_gpsingenieria",3306);
     }
 
 

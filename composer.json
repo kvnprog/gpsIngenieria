@@ -1,0 +1,17 @@
+{
+    "name": "kevinalvarez/gps-ingenieria",
+    "autoload": {
+        "psr-4": {
+            "Kevinalvarez\\GpsIngenieria\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kvnprog",
+            "email": "kevin_mundo@hotmail.com"
+        }
+    ],
+    "require": {
+        "dompdf/dompdf": "^2.0"
+    }
+}
