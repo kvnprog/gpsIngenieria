@@ -2,6 +2,8 @@
 
 
 include "../../fGenerales/php/funciones.php";
+include "../../fGenerales/bd/conexion.php";
+
 
 $usuario = filter_input(INPUT_POST,"usuario");
 $password = filter_input(INPUT_POST,"password");

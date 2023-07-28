@@ -1,14 +1,12 @@
-<?php 
+<?php
 
+// include "../../fGenerales/bd/conexion.php";
 
 function checarLogin($usuario,$password){
 
-  
 
-    include "../../fGenerales/bd/conexion.php";
-    
-    
-    
+
+
     $conexion = new conexion;
     
     $query = "SELECT idusuario,nombre FROM usuarios WHERE nombreusuario = ? and passwordusuario = md5(?) ";
@@ -59,5 +57,19 @@ function iniciarSession(){
 
   session_start();
 
+
+}
+
+function checarPermisosSeccion($usuarioid){
+
+
+
+  $conexionSeccionesPermisos = new conexion;
+  $query = "SELECT*FROM permisossecciones where idusuario = ".$usuarioid;
+
+  $datos = $conexionSeccionesPermisos->conn->query($query);
+
+
+  return $datos;
 
 }

@@ -36,7 +36,7 @@ if($filtroTrabajador != ""){
 //TRAYENDO LOS DATOS
 
 $conexionDatos = new conexion;
-$queryDatos = "SELECT ot.ordenid,ot.numfolio,c.nombre ,c.apellidos,u.nombre,ot.totalpago,ot.fecha  FROM ordentrabajo ot,clientes c,usuarios u  WHERE ot.idcliente = c.idcliente and u.idusuario = ot.idusuario  " . $cadena;
+$queryDatos = "SELECT ot.ordenid,ot.numfolio,c.nombre ,c.apellidos,u.nombre,ot.totalpago,ot.fecha,ot.saldopendiente,ot.factura   FROM ordentrabajo ot,clientes c,usuarios u  WHERE ot.idcliente = c.idcliente and u.idusuario = ot.idusuario  " . $cadena;
 //echo $queryDatos;
 
 $datos = $conexionDatos->conn->query($queryDatos);
@@ -51,6 +51,8 @@ foreach ($datos->fetch_all() as $i => $dato) {
     $resultado[$i]["trabajador"] = $dato[4];
     $resultado[$i]["total"] = $dato[5];
     $resultado[$i]["fecha"] = $dato[6];
+    $resultado[$i]["factura"] = $dato[8];
+    $resultado[$i]["pagoP"] = $dato[7];
     
     
     

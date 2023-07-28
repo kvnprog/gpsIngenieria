@@ -1,6 +1,7 @@
 <?php
 
 include "../../fGenerales/bd/conexion.php";
+include "../../fGenerales/php/funciones.php";
 
 $conexionServicios = new conexion;
 

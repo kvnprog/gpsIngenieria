@@ -23,13 +23,22 @@
 
 <?php
 
+// echo "https://localhost/gpsingenieria/src/imagenes/logo.png";
+
 include "../../fGenerales/bd/conexion.php";
+include "../../fGenerales/php/funciones.php";
 
 $conexionOrdenes = new conexion;
-$queryOrdenes = "SELECT ot.numfolio,u.nombre ,c.nombre as nombrecliente , c.apellidos  ,ot.totalpago,ot.fecha,ot.ordenid  
+$queryOrdenes = "SELECT ot.numfolio,u.nombre ,c.nombre as nombrecliente , c.apellidos  ,ot.totalpago,ot.fecha,ot.ordenid,ot.saldopendiente,ot.factura  
 FROM ordentrabajo ot,usuarios u,clientes c 
 WHERE ot.idusuario = u.idusuario AND ot.idcliente = c.idcliente";
 $resultados = $conexionOrdenes->conn->query($queryOrdenes);
+
+
+session_name('gpsingenieria');
+session_start();
+
+$datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
 //var_dump($resultados);
 
@@ -62,7 +71,20 @@ $resultados = $conexionOrdenes->conn->query($queryOrdenes);
             <div class="col-1"></div>
             <div class="col-10">
                 <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(1)">Catalogo</button>
+                <?php 
+                   
+                   foreach($datos->fetch_all() as $dato){
+
+                        if($dato[1]==14){
+                          echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
+                        }
+
+                   }
+                   
+                   
+                   ?>
+
+                   
                 </div>
             </div>
             <div class="col-1"></div>
@@ -83,7 +105,7 @@ $resultados = $conexionOrdenes->conn->query($queryOrdenes);
 
                     <div class="row">
 
-                       <div class="form-floating col-3 ">
+                        <div class="form-floating col-3 ">
                             <input type="text" class="form-control" id="filtroNFolio" name="filtroNFolio" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
                             <label>N.Folio</label>
                         </div>
@@ -122,11 +144,13 @@ $resultados = $conexionOrdenes->conn->query($queryOrdenes);
                             <th class="text-center" scope="col">N.Folio</th>
                             <th class="text-center" scope="col">Trabajador</th>
                             <th class="text-center" scope="col">Cliente</th>
+                            <th class="text-center" scope="col">Factura</th>
                             <th class="text-center" scope="col">Pago Total</th>
-                            <th class="text-center" scope="col">Pago realizado</th>
+                            <th class="text-center" scope="col">Deuda</th>
+                            <th class="text-center" scope="col">Pagos</th>
                             <th class="text-center" scope="col">Fecha</th>
                             <th class="text-center" scope="col">Orden de Trabajo</th>
-                           
+
                         </tr>
 
 
@@ -143,9 +167,11 @@ $resultados = $conexionOrdenes->conn->query($queryOrdenes);
                             echo " <tr>
                                    <td class=\"text-center\">" . $columna[0] . "</td>
                                    <td class=\"text-center\">" . $columna[1] . "</td>
-                                   <td class=\"text-center\">" . $columna[2] ." ".$columna[3] . "</td>
+                                   <td class=\"text-center\">" . $columna[2] . " " . $columna[3] . "</td>
+                                   <td class=\"text-center\">" . $columna[8] . "</td>
                                    <td class=\"text-center\">" . $columna[4] . "</td>
-                                   <td class=\"text-center\"></td>
+                                   <td class=\"text-center\">$columna[7]</td>
+                                   <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[6] . ")\"></td>
                                    <td class=\"text-center\">" . $columna[5] . "</td>
                                    <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden(" . $columna[6] . ")\"></td>
                                   </tr>";
@@ -174,69 +200,29 @@ $resultados = $conexionOrdenes->conn->query($queryOrdenes);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Modificar Producto</label>
+                    <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Pagos</label>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="frmModificar">
+                <table id="tablaPagos" class="table table-hover" ></table>
+
+                    <form id="frmPagos">
+                        <input type="text" id="estado" name="estado" value=1 hidden>
                         <input type="text" id="id" name="id" hidden>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="nParte" name="nParte" placeholder="Escriba el Numero de Parte">
-                            <label>Numero de Parte</label>
+                            <input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Escriba una Descripcion">
+                            <label>Cantidad</label>
                         </div>
-                        <div class="form-floating mb-3">
-                            <textarea type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Escriba una Descripcion"></textarea>
-                            <label>Descripcion</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="categoria" name="categoria" aria-label="Floating label select example">
-                                <option value=0 selected>Categorias....</option>
-                                <?php
-
-                                $conexionCategorias = new conexion;
-                                $queryCategorias = "SELECT*FROM categoriasproductos";
-                                $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                                foreach ($categorias->fetch_all() as $index => $categoria) {
-
-                                    print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                }
-
-                                ?>
-
-                            </select>
-                            <label for="floatingSelect">Categoria</label>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Evidencia</label>
+                            <input class="form-control" type="file" id="evidencia" name="evidencia" enctype="multipart/form-data">
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="maximos" name="maximos" placeholder="Coloque el Maximo">
-                            <label>Maximos</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="minimos" name="minimos" placeholder="Coloque el Minimo">
-                            <label>Minimos</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="existentes" name="existentes" placeholder="Coloque los Existentes" readonly>
-                            <label>Existentes</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <textarea type="text" class="form-control" id="comentarios" name="comentarios" placeholder="Coloque los Comentarios"></textarea>
-                            <label>Comentarios</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="precio" name="precio" placeholder="Coloque los Comentarios">
-                            <label>Precio por Unidad</label>
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="modificarUsuario()">Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="btnNuevoPago" onclick="nuevoPago()">Nuevo pago</button>
+                    <button type="button" class="btn btn-secondary"  onclick="cerrarPago()" >Close</button>
                 </div>
             </div>
         </div>

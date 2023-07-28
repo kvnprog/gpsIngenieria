@@ -12,6 +12,9 @@
         }
     ],
     "require": {
-        "dompdf/dompdf": "^2.0"
+        "dompdf/dompdf": "^2.0",
+        "mpdf/mpdf": "^8.1",
+        "tecnickcom/tcpdf": "^6.6",
+        "fpdf/fpdf": "1.86.0"
     }
 }

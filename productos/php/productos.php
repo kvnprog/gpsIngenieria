@@ -24,13 +24,18 @@
 <?php
 
 include "../../fGenerales/bd/conexion.php";
+include "../../fGenerales/php/funciones.php";
 
 $conexionProductos = new conexion;
 $queryProductos = "SELECT p.*,c.nombre  FROM productos p , categoriasproductos c  WHERE c.idcategoriaproducto = p.categoria ";
 $resultados = $conexionProductos->conn->query($queryProductos);
 
-//var_dump($resultados);
+//checando permisos del usuario en la seccion
 
+session_name('gpsingenieria');
+session_start();
+
+$datos = checarPermisosSeccion($_SESSION['usuarioid']);
 ?>
 
 
@@ -60,8 +65,25 @@ $resultados = $conexionProductos->conn->query($queryProductos);
             <div class="col-1"></div>
             <div class="col-10">
                 <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(1)">Catalogo</button>
-                    <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(2)">Registro</button>
+
+                <?php 
+                   
+                   foreach($datos->fetch_all() as $dato){
+
+                        if($dato[1]==6){
+                          echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
+                        }
+                        if($dato[1]==7){
+                            echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(2)\">Registro</button>";
+                        }
+                        
+                   
+                   }
+                   
+                   
+                   ?>
+                    
+                    
 
                 </div>
             </div>

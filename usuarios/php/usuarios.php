@@ -25,11 +25,25 @@
 
 include "../../fGenerales/bd/conexion.php";
 
+include "../../fGenerales/php/funciones.php";
+
 $conexionUsuarios = new conexion;
 $queryUsuarios = "SELECT nombreusuario,nombre,correo,idusuario FROM usuarios WHERE estadoid=1";
 $resultados = $conexionUsuarios->conn->query($queryUsuarios);
 
-//var_dump($resultados);
+//checando permisos del usuario en la seccion
+
+session_name('gpsingenieria');
+session_start();
+
+$datos = checarPermisosSeccion($_SESSION['usuarioid']);
+
+
+
+
+
+  
+
 
 ?>
 
@@ -60,9 +74,34 @@ $resultados = $conexionUsuarios->conn->query($queryUsuarios);
             <div class="col-1"></div>
             <div class="col-10">
                 <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(1)">Catalogo</button>
-                    <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(2)">Registro</button>
-                    <button type="button" class="btn btn-secondary btnUsuarios" onclick="abrirSeccion(3)">Permisos de Areas</button>
+
+                   <?php 
+                   
+                   foreach($datos->fetch_all() as $dato){
+
+
+                  
+
+                        if($dato[1]==1){
+                          echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
+                        }
+                        if($dato[1]==2){
+                            echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(2)\">Registro</button>";
+                        }
+                        if($dato[1]==3){
+                            echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(3)\">Permisos de Areas</button>";
+                        }
+
+
+                    
+
+                   
+                   }
+                   
+                   
+                   ?>
+
+                    
                 </div>
             </div>
             <div class="col-1"></div>
