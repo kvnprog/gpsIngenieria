@@ -14,10 +14,13 @@ $password = filter_input(INPUT_POST,"password");
 
 $arrRespuesta = [];
 
-if(checarLogin($usuario,$password)){
-   $arrRespuesta[0]["accesso"] = true;
+$datos = checarLogin($usuario,$password);
+
+if($datos[0]){
+   $arrRespuesta[0]['accesso'] = true;
+   $arrRespuesta[0]['usuarioid'] = $datos[1] ;
 }else{
-   $arrRespuesta[0]["accesso"] = false;
+   $arrRespuesta[0]['accesso'] = false;
 }
 
 

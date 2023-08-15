@@ -64,8 +64,9 @@ function actualiza(data) {
         "<th class=\"text-center\" scope=\"col\">Maximos</th>" +
         "<th class=\"text-center\" scope=\"col\">Minimos</th>" +
         "<th class=\"text-center\" scope=\"col\">Existentes</th>" +
+        "<th class=\"text-center\" scope=\"col\">Agregar</th>" +
         "<th class=\"text-center\" scope=\"col\">Comentarios</th>" +
-        "<th class=\"text-center\" scope=\"col\">Precio</th>" +
+        "<th class=\"text-center\" scope=\"col\">Precio Por Unidad</th>" +
         "<th class=\"text-center\" colspan=\"2\" scope=\"col\"></th>" +
         "</tr>" +
         "</thead>";
@@ -92,6 +93,7 @@ function actualiza(data) {
             "<td class=\"text-center\">" + maximos + "</td> " +
             "<td class=\"text-center\">" + minimos + "</td> " +
             "<td class=\"text-center\">" + existentes + "</td> " +
+            "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" ></td>"+
             "<td class=\"text-center\">" + comentarios + "</td> " +
             "<td class=\"text-center\">" + precio + "</td> " +
             "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"')\"></td> " +
@@ -178,6 +180,93 @@ const options = {
  });
 
  
+
+}
+
+function abrirNuevasExistencias(id){
+
+    var btnExistencia = document.getElementById("btnNuevasExitencias-"+id );
+    var inputExitencias = document.getElementById("existenciasNuevas-"+id);
+
+
+    
+    if (btnExistencia.src.includes("agregargps")) {
+        btnExistencia.src = btnExistencia.src.replace("agregargps","eliminargps");
+
+        inputExitencias.style.display = "inline-block"
+    } else {
+        inputExitencias.style.display = "none"
+        btnExistencia.src = btnExistencia.src.replace("eliminargps","agregargps");
+    }
+
+    
+   
+}
+
+
+function mandarExistencias(event,id){
+
+    if (event.keyCode == 13) {
+        console.log('Se presionó la tecla Enter');
+
+        var existenciasNuevas = document.getElementById("existenciasNuevas-"+id);
+
+        if(/^[0-9]+$/.test(existenciasNuevas.value)){
+
+            color="#03B559";
+            color2="#B50309";
+
+
+                swal.fire({
+                    title: "Atencion!",
+                    text: "Esta Seguro que desea agregar estas existencias?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'SI',
+                    confirmButtonColor:color,
+                    cancelButtonText: 'NO',
+                    cancelButtonColor:color2,
+                    allowOutsideClick:false
+                    
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        const options = {
+                            method: "GET"
+                        };
+                        
+                         // Petición HTTP
+                         fetch("../../productos/php/agregarExistenciasAJAX.php?id="+id+"&existenciasNuevas="+existenciasNuevas.value, options)
+                         .then(response => response.json())
+                         .then(data => {
+                             
+
+                            if(data["bandera"]){
+
+                                alertImage('EXITO', 'Se agregaron las existencias con Exito', 'success')
+
+                            }else{
+                                alertImage('ERROR', 'Hubo un error', 'error') 
+                            }
+                                 //actualiza(data);
+                             
+                        
+                         });
+                    }
+                    else{
+                        console.log('NO');
+                    }
+                })  
+             
+
+        }else{
+            alertImage('ERROR', 'No se pueden poner letras', 'error')
+        }
+
+
+        // Aquí puedes agregar la lógica que quieras realizar al presionar Enter
+      }
+
 
 }
 

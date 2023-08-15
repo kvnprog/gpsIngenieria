@@ -157,6 +157,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             <th class="text-center" scope="col">Maximos</th>
                             <th class="text-center" scope="col">Minimos</th>
                             <th class="text-center" scope="col">Existentes</th>
+                            <th class="text-center" scope="col">Agregar</th>
                             <th class="text-center" scope="col">Comentarios</th>
                             <th class="text-center" scope="col">Precio Por Unidad</th>
                             <th class="text-center" colspan="2" scope="col"></th>
@@ -180,6 +181,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                                    <td class=\"text-center\">" . $columna[4] . "</td>
                                    <td class=\"text-center\">" . $columna[5] . "</td>
                                    <td class=\"text-center\">" . $columna[6] . "</td>
+                                   <td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-".$columna[0]."\" onclick=\"abrirNuevasExistencias(".$columna[0].")\"><input type=\"number\" id=\"existenciasNuevas-".$columna[0]."\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,".$columna[0].")\"></td>
                                    <td class=\"text-center\">" . $columna[7] . "</td>
                                    <td class=\"text-center\">" . $columna[8] . "</td>
                                    <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "','" . $columna[8] . "')\"></td>
@@ -286,7 +288,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="frmModificar">
+                    <form id="frmModificar" >
                         <input type="text" id="id" name="id" hidden>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="nParte" name="nParte" placeholder="Escriba el Numero de Parte">
@@ -341,6 +343,8 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             <label>Precio por Unidad</label>
                         </div>
                     </form>
+
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="modificarUsuario()">Guardar</button>

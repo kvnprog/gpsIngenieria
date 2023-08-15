@@ -10,6 +10,7 @@ body{
     background-color: white;
     width: 500px;
     height: 500px;
+
     border-radius: 30px;
     background-color: #438C36;
     box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),

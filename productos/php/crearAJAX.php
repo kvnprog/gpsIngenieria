@@ -12,14 +12,25 @@ $comentarios = filter_input(INPUT_POST, "comentarios");
 $precio = filter_input(INPUT_POST, "precio");
 
 $conexionCrearProducto = new conexion;
-$queryCrearProducto = "INSERT INTO productos(nparte,descripcion,categoria,maximos,minimos,existentes,comentarios,precioxunidad) 
-VALUES ('" . $nParte . "','" . $descripcion . "'," . $categoria . "," . $maximos . "," . $minimos . "," . $existentes . ",'" . $comentarios . "','".$precio."')";
-
+$queryCrearProducto = "INSERT INTO productos(nparte,descripcion,categoria,maximos,minimos,existentes,comentarios,precioxunidad)". 
+"VALUES ('" . $nParte . "','" . $descripcion . "'," . $categoria . "," . $maximos . "," . $minimos . "," . $existentes . ",'" . $comentarios . "','" . $precio . "')";
 
 
 $resultados = [];
 $resultados["query"] = $queryCrearProducto;
 if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
+
+    //INSERTANDO LAS ENTRADAS 
+
+  
+
+        $conexionEntradas = new conexion;
+        $queryEntradas = "INSERT INTO entradassalidas(tipoid,idproducto,cantidad) VALUES (1,".$conexionCrearProducto->conn->insert_id.",".$existentes.") ";
+        $conexionEntradas->conn->query($queryEntradas);
+
+
+    
+
 
     $resultados["resultado"] = true;
 
@@ -28,6 +39,9 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
     $datos = $conexionDatos->conn->query($queryDatos);
 
     $resultados["noDatos"] = $datos->num_rows;
+
+
+
 
     foreach ($datos->fetch_all() as $i => $datos) {
 
@@ -41,8 +55,6 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
         $resultados[$i]["existentes"] = $datos[6];
         $resultados[$i]["comentarios"] = $datos[7];
         $resultados[$i]["precio"] = $datos[8];
-        
-        
     }
 } else {
 
