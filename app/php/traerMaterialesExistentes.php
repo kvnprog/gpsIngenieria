@@ -22,6 +22,7 @@ foreach($resultado->fetch_all() as $key => $producto){
     $resultados[$key]["id"] = $producto[0];
     $resultados[$key]["descripcion"] = $producto[2]; 
     $resultados[$key]["existentes"] = $producto[6]; 
+    $resultados[$key]["precioxunidad"] = $producto[8]; 
     
 }
 
