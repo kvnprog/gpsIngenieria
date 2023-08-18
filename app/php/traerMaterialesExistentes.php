@@ -17,12 +17,23 @@ $query = "SELECT * FROM productos ";
 
 $resultado = $conexion->conn->query($query);
 
+
+
+
 foreach($resultado->fetch_all() as $key => $producto){
 
     $resultados[$key]["id"] = $producto[0];
     $resultados[$key]["descripcion"] = $producto[2]; 
     $resultados[$key]["existentes"] = $producto[6]; 
-    $resultados[$key]["precioxunidad"] = $producto[8]; 
+     
+    if($producto[8]!=null){
+        $resultados[$key]["precioxunidad"] = $producto[8]; 
+    }else{
+        $resultados[$key]["precioxunidad"] = 0; 
+    }
+
+
+    
     
 }
 
