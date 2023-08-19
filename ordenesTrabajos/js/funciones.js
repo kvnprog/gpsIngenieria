@@ -88,7 +88,7 @@ function actualiza(data) {
 
 function checarOrden(ordenid){
 
-    window.open("../../ordenesTrabajos/php/formatoOrdenTrabajo.php", "_blank");
+    window.open("../../ordenesTrabajos/php/formatoOrdenTrabajo.php?ordenid="+ordenid, "_blank");
 
 
 }

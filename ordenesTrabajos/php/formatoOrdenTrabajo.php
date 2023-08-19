@@ -1,5 +1,7 @@
 <?php
 
+include "../../fGenerales/bd/conexion.php";
+
 require '../../vendor/autoload.php';
 
 use Fpdf\Fpdf as Fpdf;
@@ -9,6 +11,29 @@ $pdf = new Fpdf();
 $pdf->AddPage();
 
 $ancho = 5;
+
+//sacando el id de la orden de trabajo
+
+$ordenId = filter_input(INPUT_GET,"ordenid");
+
+$conexionOrden = new conexion;
+$queryConexion = "SELECT c.* FROM ordentrabajo ot  join
+clientes c on c.idcliente = ot.idcliente
+WHERE ordenid = ".$ordenId;
+
+$datosOrden = $conexionOrden->conn->query($queryConexion);
+
+$datosOrden = $datosOrden->fetch_row();
+
+$nombre = $datosOrden[1]." ".$datosOrden[2];
+$domicilio = $datosOrden[3];
+$estado = $datosOrden[4];
+$codigoPostal = $datosOrden[5];
+$contacto = $datosOrden[6];
+$rfc = $datosOrden[7];
+$email = $datosOrden[8];
+
+
 
 
 // Agregar la imagen como fondo de la página
@@ -52,13 +77,13 @@ $pdf->Cell(50, $ancho, "", "TLR",0);//Recibido por
 
 $pdf->Ln(); // Salto de línea
 
-$pdf->Cell(105, $ancho, "Cliente/Empresa:", "LRB");
+$pdf->Cell(105, $ancho, "Cliente/Empresa: ".$nombre, "LRB");
 $pdf->Cell(40, $ancho, "Accesorios", "TLR",0);//Rastreo
 $pdf->Cell(50, $ancho, "Recibido por:", "LR",0);//Recibido por
 
 $pdf->Ln(); // Salto de línea
 
-$pdf->Cell(105, $ancho, "Domicilio:", "LRB");
+$pdf->Cell(105, $ancho, "Domicilio: ".$domicilio, "LRB");
 $pdf->Cell(40, $ancho, "", "TLR",0);//Rastreo
 $pdf->Cell(25, $ancho, "Modelo:", "TLR",0);//Recibido por
 $pdf->Cell(25, $ancho, "", "TLR",0);//Recibido por
@@ -74,21 +99,23 @@ $pdf->Cell(25, $ancho, "", "TLR",0);//Recibido por
 
 $pdf->Ln(); // Salto de línea
 
-$pdf->Cell(60, $ancho, "Ciudad,Estado y CP:", "LRB");
-$pdf->Cell(45, $ancho, "RFC:", "LRB");
+$pdf->Cell(60, $ancho, "Ciudad,Estado y CP: " .$estado.",".$codigoPostal, "LRB");
+$pdf->Cell(45, $ancho, "RFC: ".$rfc, "LRB");
 $pdf->Cell(40, $ancho, "", "TLR",0);//Rastreo
 $pdf->Cell(50, $ancho, "No.De serie:", "TLR",0);//Recibido por
 
 $pdf->Ln(); // Salto de línea
 
-$pdf->Cell(60, $ancho, "Contacto:", "LRB");
-$pdf->Cell(45, $ancho, "e-mail:", "LRB");
+$pdf->Cell(60, $ancho, "Contacto: " .$contacto, "LRB");
+$pdf->Cell(45, $ancho, "e-mail: " . $email, "LRB");
 $pdf->Cell(40, $ancho, "", "TLR",0);//Rastreo
 $pdf->Cell(50, $ancho, "", "TLR",0);//Recibido por
 
 $pdf->Ln(); // Salto de línea
 
 $pdf->Cell(145, $ancho, "", "TLRB");
+
+//SERVICIOS 
 
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(50, $ancho, "Trabajo a Realizar" ,"TLR",0,"C",true);//ENVIOS//Recibido por
