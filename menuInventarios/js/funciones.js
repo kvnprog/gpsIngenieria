@@ -10,3 +10,11 @@ function abrirCategoriaProductos() {
     window.open("../../categoriaProductos/php/categoriaProductos.php", "_self");
 
 }
+
+
+function abrirReportes() {
+
+    window.open("../../reportes/php/reportes.php", "_self");
+
+}
+

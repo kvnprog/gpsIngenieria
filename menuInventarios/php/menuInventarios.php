@@ -58,7 +58,7 @@
                     </div>
                      <!-- REPORTES -->
                     <div class="col text-center">
-                    <div class="btnMenu btn-menu justify-content-center align-items-center">
+                    <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirReportes()">
                         
                              <img class="imgConfiguracion" src="../../src/imagenes/graficasgps.png" width="125px">
                              <div class="card-button">Reportes</div>

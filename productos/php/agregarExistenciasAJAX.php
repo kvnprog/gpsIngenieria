@@ -19,7 +19,10 @@ $resultados = $conexionTraerExistencias->conn->query($queryTraerExistencias);
 // echo json_encode($resultados->fetch_row());
 foreach($resultados->fetch_row() as $existencias){
 
-    $nExistencias = $existencias[0] + $existenciasNuevas;
+    $nExistencias = intval($existencias) + $existenciasNuevas;
+    // echo $existencias."<br>";
+    // echo $existenciasNuevas."<br>";
+    // echo $nExistencias."<br>";
 
     // echo $nExistencias;
 
@@ -38,6 +41,30 @@ foreach($resultados->fetch_row() as $existencias){
 
 
     $bandera = true;
+
+    $conexionDatos = new conexion;
+    $queryDatos = "SELECT p.*,c.nombre  FROM productos p , categoriasproductos c  WHERE c.idcategoriaproducto = p.categoria ";
+    $datos = $conexionDatos->conn->query($queryDatos);
+
+    $arrResultados["noDatos"] = $datos->num_rows;
+
+
+
+
+    foreach ($datos->fetch_all() as $i => $datos) {
+
+        $arrResultados[$i]["id"] = $datos[0];
+        $arrResultados[$i]["nParte"] = $datos[1];
+        $arrResultados[$i]["descripcion"] = $datos[2];
+        $arrResultados[$i]["idcategoria"] = $datos[3];
+        $arrResultados[$i]["categoria"] = $datos[9];
+        $arrResultados[$i]["maximos"] = $datos[4];
+        $arrResultados[$i]["minimos"] = $datos[5];
+        $arrResultados[$i]["existentes"] = $datos[6];
+        $arrResultados[$i]["comentarios"] = $datos[7];
+        $arrResultados[$i]["precio"] = $datos[8];
+    }
+
 }
 
 $arrResultados["bandera"]=$bandera;

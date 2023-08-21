@@ -93,7 +93,7 @@ function actualiza(data) {
             "<td class=\"text-center\">" + maximos + "</td> " +
             "<td class=\"text-center\">" + minimos + "</td> " +
             "<td class=\"text-center\">" + existentes + "</td> " +
-            "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" ></td>"+
+            "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-"+id+"\" onclick=\"abrirNuevasExistencias("+id+")\"><input type=\"number\" id=\"existenciasNuevas-"+id+"\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,"+id+")\"></td>"+
             "<td class=\"text-center\">" + comentarios + "</td> " +
             "<td class=\"text-center\">" + precio + "</td> " +
             "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"')\"></td> " +
@@ -244,6 +244,7 @@ function mandarExistencias(event,id){
                             if(data["bandera"]){
 
                                 alertImage('EXITO', 'Se agregaron las existencias con Exito', 'success')
+                                actualiza(data);
 
                             }else{
                                 alertImage('ERROR', 'Hubo un error', 'error') 
