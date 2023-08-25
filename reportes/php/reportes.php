@@ -155,12 +155,10 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                 <table id="catalogoProductos" class="table table-hover">
                     <thead>
                         <tr>
-
+                            <th class="text-center" scope="col">N.parte</th>
+                            <th class="text-center" scope="col">Descripcion</th>
                             <th class="text-center" scope="col">Tipo</th>
-                            <th class="text-center" scope="col">Movimiento</th>
-                            <th class="text-center" scope="col">Producto</th>
-                            <th class="text-center" scope="col">Cantidad</th>
-                            
+                            <th class="text-center" scope="col">Cantidad</th>    
                         </tr>
 
 
