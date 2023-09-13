@@ -5,7 +5,8 @@ include "../../fGenerales/bd/conexion.php";
 $filtroNFolio = filter_input(INPUT_GET,"filtroNFolio");
 $filtroTrabajador = filter_input(INPUT_GET,"filtroTrabajador");
 $filtroCliente = filter_input(INPUT_GET,"filtroCliente");
-$filtroFecha = filter_input(INPUT_GET,"filtroFecha");
+$filtroFechaI = filter_input(INPUT_GET,"filtroFechaI");
+$filtroFechaF = filter_input(INPUT_GET,"filtroFechaF");
 
 
 $cadena = "";
@@ -28,9 +29,9 @@ if($filtroTrabajador != ""){
  
  }
 
- if($filtroFecha != ""){ 
+ if($filtroFechaI != ""  && $filtroFechaF != ""){ 
 
-    $cadena = $cadena .  "  AND ot.fecha LIKE '".$filtroFecha."%'";
+    $cadena = $cadena .  "  AND ot.fecha BETWEEN '".$filtroFechaI."' AND DATE_ADD('".$filtroFechaF."', INTERVAL 1 DAY) ";
  
  }
 //TRAYENDO LOS DATOS
@@ -42,6 +43,7 @@ $queryDatos = "SELECT ot.ordenid,ot.numfolio,c.nombre ,c.apellidos,u.nombre,ot.t
 $datos = $conexionDatos->conn->query($queryDatos);
 
 $resultado["noDatos"] = $datos->num_rows;
+$resultado["query"] = $queryDatos;
 
 foreach ($datos->fetch_all() as $i => $dato) {
 

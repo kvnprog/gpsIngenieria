@@ -23,6 +23,7 @@
 
 <?php
 
+include "formularios.php";
 // echo "https://localhost/gpsingenieria/src/imagenes/logo.png";
 
 include "../../fGenerales/bd/conexion.php";
@@ -52,8 +53,8 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
         <!-- //div de logo y regreso -->
         <div class="row">
-            <div class="col-3 justify-content-center align-items-center" onclick="regreso()">
-                <img class="imgregreso" src="../../src/imagenes/atras.png" />
+            <div class="col-3 justify-content-center align-items-center" >
+                <img class="imgregreso" src="../../src/imagenes/atras.png" onclick="regreso()" />
             </div>
             <div class="col-6  text-center  txtTitulo">
                 <span><i class="aTitulo">Ordenes de Trabajo</i><img class="imgIconoUsuarios" src="../../src/imagenes/productosiconogps.png" width="50px"></span>
@@ -71,20 +72,19 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
             <div class="col-1"></div>
             <div class="col-10">
                 <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
-                <?php 
-                   
-                   foreach($datos->fetch_all() as $dato){
+                    <?php
 
-                        if($dato[1]==14){
-                          echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
+                    foreach ($datos->fetch_all() as $dato) {
+
+                        if ($dato[1] == 14) {
+                            echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
                         }
+                    }
 
-                   }
-                   
-                   
-                   ?>
 
-                   
+                    ?>
+
+
                 </div>
             </div>
             <div class="col-1"></div>
@@ -105,24 +105,29 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
                     <div class="row">
 
-                        <div class="form-floating col-3 ">
+                        <div class="form-floating col-2 ">
                             <input type="text" class="form-control" id="filtroNFolio" name="filtroNFolio" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
                             <label>N.Folio</label>
                         </div>
 
-                        <div class="form-floating col-3 ">
+                        <div class="form-floating col-2 ">
                             <input type="text" class="form-control" id="filtroTrabajador" name="filtroTrabajador" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
                             <label>Trabajador</label>
                         </div>
 
-                        <div class="form-floating col-3 ">
+                        <div class="form-floating col-2 ">
                             <input type="text" class="form-control" id="filtroCliente" name="filtroCliente" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
                             <label>Cliente</label>
                         </div>
 
                         <div class="form-floating col-3 ">
-                            <input type="date" class="form-control" id="filtroFecha" name="filtroFecha" placeholder="Escriba el Numero de Parte" onchange="filtrarOrdenes()">
-                            <label>Fecha</label>
+                            <input type="date" class="form-control" id="filtroFechaI" name="filtroFechaI" placeholder="Escriba el Numero de Parte" onchange="filtrarOrdenes()">
+                            <label>Fecha Inicial</label>
+                        </div>
+
+                        <div class="form-floating col-3 ">
+                            <input type="date" class="form-control" id="filtroFechaF" name="filtroFechaF" placeholder="Escriba el Numero de Parte" onchange="filtrarOrdenes()">
+                            <label>Fecha Final</label>
                         </div>
 
 
@@ -167,9 +172,16 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             echo " <tr>
                                    <td class=\"text-center\">" . $columna[0] . "</td>
                                    <td class=\"text-center\">" . $columna[1] . "</td>
-                                   <td class=\"text-center\">" . $columna[2] . " " . $columna[3] . "</td>
-                                   <td class=\"text-center\">" . $columna[8] . "</td>
-                                   <td class=\"text-center\">" . $columna[4] . "</td>
+                                   <td class=\"text-center\">" . $columna[2] . " " . $columna[3] . "</td>";
+
+
+                            if ($columna[8] != "") {
+                                echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[8] . "</div><img src=\"../../src/imagenes/evidenciagps.png\" width=\"30px\" onclick=\"abrirEvidenciaFactura(".$columna[6].")\"></td>";
+                            } else {
+                                echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[6] . ")\" width=\"30px\"></td>";
+                            }
+
+                            echo  "<td class=\"text-center\">" . $columna[4] . "</td>
                                    <td class=\"text-center\">$columna[7]</td>
                                    <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[6] . ")\"></td>
                                    <td class=\"text-center\">" . $columna[5] . "</td>
@@ -204,25 +216,13 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <table id="tablaPagos" class="table table-hover" ></table>
 
-                    <form id="frmPagos">
-                        <input type="text" id="estado" name="estado" value=1 hidden>
-                        <input type="text" id="id" name="id" hidden>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Escriba una Descripcion">
-                            <label>Cantidad</label>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">Evidencia</label>
-                            <input class="form-control" type="file" id="evidencia" name="evidencia" enctype="multipart/form-data">
-                        </div>
-
-                    </form>
+                    <?php frmpagos() ?>
+                    <?php frmFacturas() ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" id="btnNuevoPago" onclick="nuevoPago()">Nuevo pago</button>
-                    <button type="button" class="btn btn-secondary"  onclick="cerrarPago()" >Close</button>
+                    <button type="button" class="btn btn-secondary" onclick="cerrarPago()">Close</button>
                 </div>
             </div>
         </div>
