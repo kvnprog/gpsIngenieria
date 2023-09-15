@@ -26,11 +26,12 @@ function abrirSeccion(opcion) {
 
 function crearProducto() {
 
-    const data = new FormData(document.getElementById('frmRegistroNParte'));
+    const formulario  = document.getElementById('frmRegistroNParte');
+    const formData = new FormData(formulario);
 
     const options = {
         method: "POST",
-        body: data
+        body: formData,
 
     };
 
@@ -39,7 +40,8 @@ function crearProducto() {
         .then(response => response.json())
         .then(data => {
 
-            console.log(data["query"]);
+            console.log(data);
+
             if (data["resultado"]) {
                 alertImage('EXITO', 'Se creo el producto con existo', 'success')
                 actualiza(data);
@@ -67,6 +69,7 @@ function actualiza(data) {
         "<th class=\"text-center\" scope=\"col\">Agregar</th>" +
         "<th class=\"text-center\" scope=\"col\">Comentarios</th>" +
         "<th class=\"text-center\" scope=\"col\">Precio Por Unidad</th>" +
+        "<th class=\"text-center\" scope=\"col\">Foto</th>" +
         "<th class=\"text-center\" colspan=\"2\" scope=\"col\"></th>" +
         "</tr>" +
         "</thead>";
@@ -85,6 +88,7 @@ function actualiza(data) {
         var existentes = data[i]["existentes"];
         var comentarios = data[i]["comentarios"];
         var precio = data[i]["precio"];
+        var ruta = data[i]["rutaFoto"];
 
         cadenaProductos = cadenaProductos + " <tr> " +
             "<td class=\"text-center\">" + nParte + "</td> " +
@@ -95,12 +99,15 @@ function actualiza(data) {
             "<td class=\"text-center\">" + existentes + "</td> " +
             "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-"+id+"\" onclick=\"abrirNuevasExistencias("+id+")\"><input type=\"number\" id=\"existenciasNuevas-"+id+"\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,"+id+")\"></td>"+
             "<td class=\"text-center\">" + comentarios + "</td> " +
-            "<td class=\"text-center\">" + precio + "</td> " +
-            "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"')\"></td> " +
-
-            "</tr>"
-
-
+            "<td class=\"text-center\">" + precio + "</td> ";
+            
+            if(ruta==null || ruta=="" || !ruta){
+                cadenaProductos += "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/src/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
+            }else{
+                cadenaProductos += "<td class=\"text-center\"><img src=\"" + ruta + "\" style=\"width:120px; height:80px;\"/></td>";
+            }
+            cadenaProductos += "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"','"+ruta+"')\"></td> " +
+            "</tr>";
     }
 
     cadenaProductos = cadenaProductos + "</tbody>";

@@ -46,8 +46,8 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
         <!-- //div de logo y regreso -->
         <div class="row">
-            <div class="col-3 justify-content-center align-items-center" onclick="regreso()">
-                <img class="imgregreso" src="../../src/imagenes/atras.png" />
+            <div class="col-3 justify-content-center align-items-center">
+                <img class="imgregreso" src="../../src/imagenes/atras.png" onclick="regreso()"/>
             </div>
             <div class="col-6  text-center  txtTitulo">
                 <span><i class="aTitulo">Productos</i><img class="imgIconoUsuarios" src="../../src/imagenes/productosiconogps.png" width="50px"></span>
@@ -160,6 +160,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             <th class="text-center" scope="col">Agregar</th>
                             <th class="text-center" scope="col">Comentarios</th>
                             <th class="text-center" scope="col">Precio Por Unidad</th>
+                            <th class="text-center" scope="col">Foto</th>
                             <th class="text-center" colspan="2" scope="col"></th>
                         </tr>
 
@@ -175,17 +176,21 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
 
                             echo " <tr>
-                                   <td class=\"text-center\">" . $columna[1] . "</td>
-                                   <td class=\"text-center\">" . $columna[2] . "</td>
-                                   <td class=\"text-center\">" . $columna[8] . "</td>
-                                   <td class=\"text-center\">" . $columna[4] . "</td>
-                                   <td class=\"text-center\">" . $columna[5] . "</td>
-                                   <td class=\"text-center\">" . $columna[6] . "</td>
-                                   <td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-".$columna[0]."\" onclick=\"abrirNuevasExistencias(".$columna[0].")\"><input type=\"number\" id=\"existenciasNuevas-".$columna[0]."\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,".$columna[0].")\"></td>
-                                   <td class=\"text-center\">" . $columna[7] . "</td>
-                                   <td class=\"text-center\">" . $columna[8] . "</td>
-                                   <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "','" . $columna[8] . "')\"></td>
-                                   
+                                        <td class=\"text-center\">" . $columna[1] . "</td>
+                                        <td class=\"text-center\">" . $columna[2] . "</td>
+                                        <td class=\"text-center\">" . $columna[8] . "</td>
+                                        <td class=\"text-center\">" . $columna[4] . "</td>
+                                        <td class=\"text-center\">" . $columna[5] . "</td>
+                                        <td class=\"text-center\">" . $columna[6] . "</td>
+                                        <td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-".$columna[0]."\" onclick=\"abrirNuevasExistencias(".$columna[0].")\"><input type=\"number\" id=\"existenciasNuevas-".$columna[0]."\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,".$columna[0].")\"></td>
+                                        <td class=\"text-center\">" . $columna[7] . "</td>
+                                        <td class=\"text-center\">" . $columna[8] . "</td>";
+                                        if($columna[8]==null || $columna[9]=="" || !isset($columna[9])){
+                                                echo "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/src/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
+                                        }else{
+                                                echo "<td class=\"text-center\"><img src=\"$columna[9]\" style=\"width:120px; height:80px;\"/></td>";
+                                        }
+                                        echo "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "','" . $columna[8] . "','" . $columna[9] . "')\"></td>
                                   </tr>";
                         }
 
@@ -210,7 +215,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
         </div>
         <div class="col-1"></div>
         <div class="col-10">
-            <form class="frmRegistroNParte" id="frmRegistroNParte">
+            <form class="frmRegistroNParte" id="frmRegistroNParte" method="POST" enctype="multipart/form-data">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="nParte" name="nParte" placeholder="Escriba el Numero de Parte">
                     <label>Numero de Parte</label>
@@ -263,6 +268,11 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="precio" name="precio" placeholder="Coloque los Comentarios">
                     <label>Precio por Unidad</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="file" class="form-control" style="line-height: 3.5; padding-top: 0;" accept="image/*" id="fotoProducto" name="fotoProducto" placeholder="Coloque la foto">
+                    <!-- <label>Foto producto</label> -->
                 </div>
 
                 <button type="button" class="btn btn-success" onclick="crearProducto()">Guardar</button>

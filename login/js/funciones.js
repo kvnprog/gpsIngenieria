@@ -2,7 +2,7 @@
 
 function validarEntrada() {
 
-    console.log("entre en el js");
+    console.log("entre en el js!!!");
 
     const data = new FormData(document.getElementById('frmLogin'));
 
@@ -16,13 +16,12 @@ function validarEntrada() {
       fetch("../../login/php/loginAJAX.php", options)
         .then(response => response.json())
         .then(data => {
+      
           if(data[0]){
-
+            console.log("aquiiiii entre");
             window.open("../../menuPrincipal/php/menuPrincipal.php", "_self");
 
           }else{
-        
-
             Swal.fire({
               title: "Error",
               text: "El usuario o contraseña son incorrectos",
