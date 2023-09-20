@@ -30,7 +30,7 @@ include "../../fGenerales/bd/conexion.php";
 include "../../fGenerales/php/funciones.php";
 
 $conexionOrdenes = new conexion;
-$queryOrdenes = "SELECT ot.numfolio,u.nombre ,c.nombre as nombrecliente , c.apellidos  ,ot.totalpago,ot.fecha,ot.ordenid,ot.saldopendiente,ot.factura  
+$queryOrdenes = "SELECT ot.numfolio,u.nombre ,c.nombre as nombrecliente , c.apellidos  ,ot.totalpago,ot.fecha,ot.ordenid,ot.saldopendiente,ot.factura,ot.flete  
 FROM ordentrabajo ot,usuarios u,clientes c 
 WHERE ot.idusuario = u.idusuario AND ot.idcliente = c.idcliente";
 $resultados = $conexionOrdenes->conn->query($queryOrdenes);
@@ -151,6 +151,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             <th class="text-center" scope="col">Cliente</th>
                             <th class="text-center" scope="col">Factura</th>
                             <th class="text-center" scope="col">Pago Total</th>
+                            <th class="text-center" scope="col">Flete</th>
                             <th class="text-center" scope="col">Deuda</th>
                             <th class="text-center" scope="col">Pagos</th>
                             <th class="text-center" scope="col">Fecha</th>
@@ -182,6 +183,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             }
 
                             echo  "<td class=\"text-center\">" . $columna[4] . "</td>
+                                   <td class=\"text-center\">" . $columna[9] . "</td>
                                    <td class=\"text-center\">$columna[7]</td>
                                    <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[6] . ")\"></td>
                                    <td class=\"text-center\">" . $columna[5] . "</td>

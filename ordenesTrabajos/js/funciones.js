@@ -24,7 +24,7 @@ function filtrarOrdenes() {
     };
 
     // Petición HTTP
-    fetch("../../ordenesTrabajos/php/filtrarTablaAJAX.php?filtroNFolio=" + filtroNFolio + "&filtroTrabajador=" + filtroTrabajador + "&filtroCliente=" + filtroCliente + "&filtroFechaI=" + filtroFechaI + "&filtroFechaF="+filtroFechaF, options)
+    fetch("../../ordenesTrabajos/php/filtrarTablaAJAX.php?filtroNFolio=" + filtroNFolio + "&filtroTrabajador=" + filtroTrabajador + "&filtroCliente=" + filtroCliente + "&filtroFechaI=" + filtroFechaI + "&filtroFechaF=" + filtroFechaF, options)
         .then(response => response.json())
         .then(data => {
 
@@ -46,6 +46,7 @@ function actualiza(data) {
         "<th class=\"text-center\" scope=\"col\">Cliente</th>" +
         "<th class=\"text-center\" scope=\"col\">Factura</th>" +
         "<th class=\"text-center\" scope=\"col\">Pago Total</th>" +
+        "<th class=\"text-center\" scope=\"col\">Flete</th>" +
         "<th class=\"text-center\" scope=\"col\">Deuda</th>" +
         "<th class=\"text-center\" scope=\"col\">Pagos</th>" +
         "<th class=\"text-center\" scope=\"col\">Fecha</th>" +
@@ -65,6 +66,7 @@ function actualiza(data) {
         var numfolio = data[i]["numfolio"];
         var factura = data[i]["factura"];
         var pagoP = data[i]["pagoP"];
+        var flete = data[i]["flete"];
 
 
 
@@ -74,20 +76,21 @@ function actualiza(data) {
             "<td class=\"text-center\">" + cliente + "</td> ";
 
 
-            //checando si tiene factura
-            console.log(factura)
-            if(factura!=null){
-                cadenaProductos = cadenaProductos + "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" + factura + "</div><img src=\"../../src/imagenes/evidenciagps.png\"  width=\"30px\" onclick=\"abrirEvidenciaFactura("+id+")\"  ></td> ";
+        //checando si tiene factura
+        console.log(factura)
+        if (factura != null) {
+            cadenaProductos = cadenaProductos + "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" + factura + "</div><img src=\"../../src/imagenes/evidenciagps.png\"  width=\"30px\" onclick=\"abrirEvidenciaFactura(" + id + ")\"  ></td> ";
 
-            }else{
-                cadenaProductos = cadenaProductos +"<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar("+id+")\" width=\"30px\"></td>";
-            }
+        } else {
+            cadenaProductos = cadenaProductos + "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" + id + ")\" width=\"30px\"></td>";
+        }
 
 
 
-        cadenaProductos = cadenaProductos +"<td class=\"text-center\">" + total + "</td> " +
+        cadenaProductos = cadenaProductos + "<td class=\"text-center\">" + total + "</td> " +
+            "<td class=\"text-center\">" + flete + "</td> " +
             "<td class=\"text-center\">" + pagoP + "</td> " +
-            "<td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" +id+ ")\"></td>"+
+            "<td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" + id + ")\"></td>" +
             "<td class=\"text-center\">" + fecha + "</td> " +
             "<td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden(" + id + ")\"></td>" +
             "</tr>"
@@ -101,12 +104,12 @@ function actualiza(data) {
 
 }
 
-function abrirEvidenciaFactura(id){
+function abrirEvidenciaFactura(id) {
 
 
-  window.open("../evidenciasFacturas/evidencia"+id+".jpg","_black");
+    window.open("../evidenciasFacturas/evidencia" + id + ".jpg", "_black");
 
-} 
+}
 
 function checarOrden(ordenid) {
 
@@ -177,7 +180,7 @@ function abrirModalFacturaAgregar(id) {
 
     var frmFactura = document.getElementById("frmFactura");
 
-    frmFactura.id.value=id;
+    frmFactura.id.value = id;
 
     modalAbierto(2);
 
@@ -191,29 +194,29 @@ function agregarFactura() {
 
     const data = new FormData(document.getElementById('frmFactura'));
 
-        const options = {
-            method: "POST",
-            body: data
+    const options = {
+        method: "POST",
+        body: data
 
-        };
+    };
 
-        // Petición HTTP
-        fetch("../../ordenesTrabajos/php/subirFacturaAJAX.php", options)
-            .then(response => response.json())
-            .then(data => {
-                if (data["resultado"]) {
-                    alertImage('EXITO', 'Se agrego la factura con exito', 'success')
-                    var formulario = document.getElementById("frmFactura");
-                    formulario.reset();
-                    actualiza(data)
-                    $("#miModal").modal('hide');
-                } else {
-                    alertImage('ERROR', 'hubo un error', 'error')
-                    
+    // Petición HTTP
+    fetch("../../ordenesTrabajos/php/subirFacturaAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
+            if (data["resultado"]) {
+                alertImage('EXITO', 'Se agrego la factura con exito', 'success')
+                var formulario = document.getElementById("frmFactura");
+                formulario.reset();
+                actualiza(data)
+                $("#miModal").modal('hide');
+            } else {
+                alertImage('ERROR', 'hubo un error', 'error')
 
-                }
 
-            });
+            }
+
+        });
 
 }
 
@@ -243,7 +246,7 @@ function modalAbierto(elemento) {
 
 
 
-        if(divPagos!=null){
+        if (divPagos != null) {
 
             formularioPagos.style.display = "none";
             divPagos.style.display = "none";
@@ -251,7 +254,7 @@ function modalAbierto(elemento) {
         }
 
         btnFormulario.textContent = "Agregar Factura";
-        
+
         formularioFactura.style.display = "block"
         btnFormulario.onclick = function () {
             agregarFactura();
@@ -303,17 +306,20 @@ function nuevoPago() {
         fetch("../../ordenesTrabajos/php/subirPagoAJAX.php", options)
             .then(response => response.json())
             .then(data => {
-                if (data["resultado"]) {
+                if (data["resultado"] == 1) {
                     alertImage('EXITO', 'Se agrego el pago con exito', 'success')
                     var formulario = document.getElementById("frmPagos");
                     formulario.reset();
+
+                    actualiza(data);
 
                     var btnNuevoPago = document.getElementById("btnNuevoPago");
 
                     btnNuevoPago.textContent = "Nuevo Pago"
                     $("#miModal").modal('hide');
-                } else {
-                    alertImage('ERROR', 'hubo un error', 'error')
+                }
+                if (data["resultado"] == 0) {
+                    alertImage('ERROR', 'La cantidad ya fue completada', 'error')
 
                 }
 
@@ -331,17 +337,17 @@ function cerrarPago() {
 
     var formularioPagos = document.getElementById("frmPagos");
     var formularioFactura = document.getElementById("frmFactura");
-    
 
-    if(formularioPagos!=null){
+
+    if (formularioPagos != null) {
         formularioPagos.estado.value = 1
         formularioPagos.reset();
     }
 
-    if(formularioFactura!=null){
+    if (formularioFactura != null) {
         formularioFactura.reset();
     }
-   
+
 
     var btnNuevoPago = document.getElementById("btnNuevoPago");
 

@@ -21,6 +21,8 @@ $problemas = $datosOrden->problemas;
 $trabajo = $datosOrden->trabajo;
 $usuarioid = $datosOrden->usuarioid;
 $productos = $datosOrden->productos;
+$flete = $datosOrden->flete;
+$total = $datosOrden->total;
 
 $arrResultados = [];
 
@@ -66,11 +68,14 @@ $pathEmpleado = "firmaEmpleado" . $idImagen . ".jpg";
 // Guardar la imagen en el disco
 file_put_contents("../../ordenesTrabajos/src/firmas/" . $pathEmpleado, $imgEmpleado);
 
+//CALCULANDO SALDO PENDIENTE 
+
+$saldoPendiente = $total - $flete;
 
 //INSERTANDO LA ORDEN DE TRABAJO
 
 $conexionInsertaOrden = new conexion;
-$queryInsertaOrden = "INSERT INTO ordentrabajo (idusuario, trabajorealizado, problema, numfolio, idcliente, firmaempleadoid, firmaclienteid, totalpago, flete, saldopendiente, fecha) VALUES (" . $usuarioid . ", '" . $trabajo . "', '" . $problemas . "'," . ($idImagen + 1) . "," . $clienteid . "," . $idImagen . "," . $idImagen . ",'0', '0', '0',NOW());";
+$queryInsertaOrden = "INSERT INTO ordentrabajo (idusuario, trabajorealizado, problema, numfolio, idcliente, firmaempleadoid, firmaclienteid, totalpago, flete, saldopendiente, fecha) VALUES (" . $usuarioid . ", '" . $trabajo . "', '" . $problemas . "'," . ($idImagen + 1) . "," . $clienteid . "," . $idImagen . "," . $idImagen . ",'".$total."', '".$flete."', '".$saldoPendiente."',NOW());";
 
 
 if ($conexionInsertaOrden->conn->query($queryInsertaOrden) == true) {

@@ -1,6 +1,7 @@
 <?php
 
 include "../../fGenerales/bd/conexion.php";
+include "funciones.php";
 
 $filtroNFolio = filter_input(INPUT_GET,"filtroNFolio");
 $filtroTrabajador = filter_input(INPUT_GET,"filtroTrabajador");
@@ -37,27 +38,7 @@ if($filtroTrabajador != ""){
 //TRAYENDO LOS DATOS
 
 $conexionDatos = new conexion;
-$queryDatos = "SELECT ot.ordenid,ot.numfolio,c.nombre ,c.apellidos,u.nombre,ot.totalpago,ot.fecha,ot.saldopendiente,ot.factura   FROM ordentrabajo ot,clientes c,usuarios u  WHERE ot.idcliente = c.idcliente and u.idusuario = ot.idusuario  " . $cadena;
-//echo $queryDatos;
 
-$datos = $conexionDatos->conn->query($queryDatos);
-
-$resultado["noDatos"] = $datos->num_rows;
-$resultado["query"] = $queryDatos;
-
-foreach ($datos->fetch_all() as $i => $dato) {
-
-    $resultado[$i]["id"] = $dato[0];
-    $resultado[$i]["numfolio"] = $dato[1];
-    $resultado[$i]["cliente"] = $dato[2]." ".$dato[3];
-    $resultado[$i]["trabajador"] = $dato[4];
-    $resultado[$i]["total"] = $dato[5];
-    $resultado[$i]["fecha"] = $dato[6];
-    $resultado[$i]["factura"] = $dato[8];
-    $resultado[$i]["pagoP"] = $dato[7];
-    
-    
-    
-}
+datosTabla($resultado,$conexionDatos,$cadena);
 
 echo json_encode($resultado);
