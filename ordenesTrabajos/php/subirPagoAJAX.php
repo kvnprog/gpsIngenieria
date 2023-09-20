@@ -5,8 +5,12 @@ include "funciones.php";
 
 $id = filter_input(INPUT_POST, "id");
 $cantidad = filter_input(INPUT_POST, "cantidad");
-
 $evidencia = $_FILES["evidencia"];
+
+
+// $id = filter_input(INPUT_GET, "id");
+// $cantidad = filter_input(INPUT_GET, "cantidad");
+// $evidencia = "";
 
 
 
@@ -17,6 +21,8 @@ $resultado = [];
 $conexionTraerPedientePago = new conexion;
 
 $queryTraerPedientePago =  "SELECT saldopendiente FROM ordentrabajo WHERE ordenid =  " . $id;
+
+//echo $queryTraerPedientePago;
 
 $datos = $conexionTraerPedientePago->conn->query($queryTraerPedientePago);
 
@@ -50,11 +56,13 @@ if ($cantidadFaltante > 0) {
 
         $cantidadPendienteNueva = 0;
 
-        foreach ($datos->fetch_all() as $i => $dato) {
+           
 
-            $cantidadPendienteNueva = $dato[0] - $cantidad; //PENIEDO EL NUEVO VALOR QUE TENDRA LO PENDIENTE QUE DEBE
+            $cantidadPendienteNueva = $cantidadFaltante - $cantidad; //PENIEDO EL NUEVO VALOR QUE TENDRA LO PENDIENTE QUE DEBE
 
-        }
+            // echo $cantidadPendienteNueva;
+
+       
 
 
         $conexionPendienteNueva = new conexion;
