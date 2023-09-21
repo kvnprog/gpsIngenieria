@@ -11,45 +11,18 @@ $existentes = filter_input(INPUT_POST, "existentes");
 $comentarios = filter_input(INPUT_POST, "comentarios");
 $precio = filter_input(INPUT_POST, "precio");
 
-$fotoProducto = $_FILES["fotoProducto"];
-
-$directorioDestino = "/gpsIngenieria/productos/src/";
-
-if (isset($_FILES["fotoProducto"])) {
-    if($_FILES["fotoProducto"]["error"] === 0){
-
-        $nombreTemporal = $_FILES["fotoProducto"]["tmp_name"];
-        $nombreArchivo = $_FILES["fotoProducto"]["name"];
-
-        $url_target = '../src/' . $nombreArchivo;
-
-        if (move_uploaded_file($nombreTemporal, $url_target)) {
-            // echo "Ha sido cargado con éxito.";
-        } else {
-            // echo "Ha habido un error al cargar tu archivo.";
-        }
-        
-        $ruta = $directorioDestino.$nombreArchivo;
-        
-    }else{
-        $ruta = '/gpsIngenieria/productos/src/sinImagen.png';
-    }
-}else{
-    $ruta = '/gpsIngenieria/productos/src/sinImagen.png';
-}
-
 $conexionCrearProducto = new conexion;
-$queryCrearProducto = "INSERT INTO productos(nparte,descripcion,categoria,maximos,minimos,existentes,comentarios,precioxunidad,rutaFoto)". 
-"VALUES ('" . $nParte . "','" . $descripcion . "'," . $categoria . "," . $maximos . "," . $minimos . "," . $existentes . ",'" . $comentarios . "','" . $precio . "','" .$ruta. "')";
+$queryCrearProducto = "INSERT INTO productos(nparte,descripcion,categoria,maximos,minimos,existentes,comentarios,precioxunidad)". 
+"VALUES ('" . $nParte . "','" . $descripcion . "','" . $categoria . "','" . $maximos . "','" . $minimos . "','" . $existentes . "','" . $comentarios . "','" . $precio . "')";
 
 
 $resultados = [];
-$resultados["query"] = $queryCrearProducto;
+
 if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
 
     //INSERTANDO LAS ENTRADAS 
     $conexionEntradas = new conexion;
-    $queryEntradas = "INSERT INTO entradassalidas(tipoid,idproducto,cantidad) VALUES (1,".$conexionCrearProducto->conn->insert_id.",".$existentes.") ";
+    $queryEntradas = "INSERT INTO entradassalidas(tipoid,idproducto,cantidad) VALUES (1,'".$conexionCrearProducto->conn->insert_id."','".$existentes."')";
     $conexionEntradas->conn->query($queryEntradas);
 
     $resultados["resultado"] = true;
@@ -66,14 +39,45 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
         $resultados[$i]["nParte"] = $datos[1];
         $resultados[$i]["descripcion"] = $datos[2];
         $resultados[$i]["idcategoria"] = $datos[3];
-        $resultados[$i]["categoria"] = $datos[10];
+        $resultados[$i]["categoria"] = $datos[9];
         $resultados[$i]["maximos"] = $datos[4];
         $resultados[$i]["minimos"] = $datos[5];
         $resultados[$i]["existentes"] = $datos[6];
         $resultados[$i]["comentarios"] = $datos[7];
         $resultados[$i]["precio"] = $datos[8];
-        $resultados[$i]["rutaFoto"] = $datos[9];
     }
+
+    if (isset($_FILES["fotoProducto"])) {
+    
+        if($_FILES["fotoProducto"]["error"] === 0){
+
+            $nombreTemporal = $_FILES["fotoProducto"]["tmp_name"];
+            $nombreArchivo = $_FILES["fotoProducto"]["name"];
+
+            $conSelectProducto = new conexion;
+            $querySelectProducto = "SELECT idproducto FROM productos order by idproducto DESC limit 1";
+            $resultadoSelectProducto = $conSelectProducto->conn->query($querySelectProducto);
+
+            // $idProducto = $resultadoSelectProducto[0];
+            foreach($resultadoSelectProducto->fetch_all() as $res){
+                $idProducto = $res[0];
+            }
+
+            $url_target = '../imgsProductos/producto_' . $idProducto . '.jpg';
+
+            if (move_uploaded_file($nombreTemporal, $url_target)) {
+                // echo "Ha sido cargado con éxito.";
+            } else {
+                // echo "Ha habido un error al cargar tu archivo.";
+            }
+            
+        }else{
+            
+        }
+    }else{
+        
+    }
+
 } else {
 
     $resultados["resultado"] = false;

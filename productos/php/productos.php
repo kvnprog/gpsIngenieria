@@ -185,12 +185,14 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                                         <td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-".$columna[0]."\" onclick=\"abrirNuevasExistencias(".$columna[0].")\"><input type=\"number\" id=\"existenciasNuevas-".$columna[0]."\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,".$columna[0].")\"></td>
                                         <td class=\"text-center\">" . $columna[7] . "</td>
                                         <td class=\"text-center\">" . $columna[8] . "</td>";
-                                        if($columna[8]==null || $columna[9]=="" || !isset($columna[9])){
-                                                echo "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/src/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
-                                        }else{
-                                                echo "<td class=\"text-center\"><img src=\"$columna[9]\" style=\"width:120px; height:80px;\"/></td>";
+                            
+                                        $imagenPath = "/gpsIngenieria/productos/imgsProductos/producto_" . $columna[0] . ".jpg";
+                                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagenPath)) {
+                                            echo "<td class=\"text-center\"><img src=\"$imagenPath\" style=\"width:120px; height:80px;\"/></td>";
+                                        } else {
+                                            echo "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/imgsProductos/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
                                         }
-                                        echo "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "','" . $columna[8] . "','" . $columna[9] . "')\"></td>
+                            echo "      <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "','" . $columna[8] . "')\"></td>
                                   </tr>";
                         }
 

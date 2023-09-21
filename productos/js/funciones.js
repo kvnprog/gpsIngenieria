@@ -88,7 +88,18 @@ function actualiza(data) {
         var existentes = data[i]["existentes"];
         var comentarios = data[i]["comentarios"];
         var precio = data[i]["precio"];
-        var ruta = data[i]["rutaFoto"];
+
+        var img = new Image();
+        img.src = "../imgsProductos/producto_" + id + ".jpg";
+        img.style.width = "120px";
+        img.style.height = "80px";
+
+        img.onerror = function () {
+            img.src = "../imgsProductos/sinImagen.png";
+        };
+        if(img.onerror){
+            img.src = "../imgsProductos/sinImagen.png";
+        }
 
         cadenaProductos = cadenaProductos + " <tr> " +
             "<td class=\"text-center\">" + nParte + "</td> " +
@@ -99,14 +110,10 @@ function actualiza(data) {
             "<td class=\"text-center\">" + existentes + "</td> " +
             "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-"+id+"\" onclick=\"abrirNuevasExistencias("+id+")\"><input type=\"number\" id=\"existenciasNuevas-"+id+"\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,"+id+")\"></td>"+
             "<td class=\"text-center\">" + comentarios + "</td> " +
-            "<td class=\"text-center\">" + precio + "</td> ";
-            
-            if(ruta==null || ruta=="" || !ruta){
-                cadenaProductos += "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/src/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
-            }else{
-                cadenaProductos += "<td class=\"text-center\"><img src=\"" + ruta + "\" style=\"width:120px; height:80px;\"/></td>";
-            }
-            cadenaProductos += "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"','"+ruta+"')\"></td> " +
+            "<td class=\"text-center\">" + precio + "</td> ";         
+
+        cadenaProductos += "<td class=\"text-center\"><img src=\"" + img.src + "\" style=\"width:120px; height:80px;\"/></td>";
+        cadenaProductos += "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"')\"></td> " +
             "</tr>";
     }
 
