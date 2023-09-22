@@ -40,26 +40,40 @@
 
         <!-- //div de logo y regreso -->
         <div class="row">
-            <div class="col-1 "></div>
-            <div class="col-10  justify-content-center align-items-center ">
+            <div class="justify-content-center align-items-center ">
                 <div class="row">
-                    <div class="col text-center ">
+                    <div class="col text-center">
                         <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirUsuarios()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/configuracionesgps.png" width="200px">
-                             <div class="card-button">Usuarios</div>
-                        </div>
-                        
+                                <img class="imgConfiguracion" src="../../src/imagenes/configuracionesgps.png" width="200px">
+                                <div class="card-button">Usuarios</div>
+                        </div> 
                     </div>
+
                     <div class="col text-center">
-                    <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirInventarios()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/inventariosgps.png" width="200px">
-                             <div class="card-button">Inventarios</div>
+                        <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirInventarios()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/inventariosgps.png" width="200px">
+                                <div class="card-button">Inventarios</div>
                         </div>
                     </div>
+
                     <div class="col text-center">
-                    <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirVentas()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/ordenestrabajo.png" width="200px">
-                             <div class="card-button">Ventas</div>
+                        <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirVentas()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/ordenestrabajo.png" width="200px">
+                                <div class="card-button">Ventas</div>
+                        </div>
+                    </div>
+
+                    <div class="col text-center">
+                        <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirEmpleados()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/empleados.png" width="110px">
+                                <div class="card-button">Empleados</div>
+                        </div>
+                    </div>
+
+                    <div class="col text-center">
+                        <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirResponsivas()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/responsivas.png" width="110px">
+                                <div class="card-button">Responsivas</div>
                         </div>
                     </div>
                     

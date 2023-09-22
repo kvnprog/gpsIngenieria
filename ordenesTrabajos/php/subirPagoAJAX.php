@@ -12,8 +12,6 @@ $evidencia = $_FILES["evidencia"];
 // $cantidad = filter_input(INPUT_GET, "cantidad");
 // $evidencia = "";
 
-
-
 $resultado = [];
 
 
