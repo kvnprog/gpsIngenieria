@@ -16,3 +16,6 @@ function abrirVentas(){
 
 }
 
+function abrirRH(){
+  window.open("../../menuRH/php/menuRH.php","_self");
+}

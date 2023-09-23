@@ -1,0 +1,83 @@
+body{
+
+    font-family: 'Roboto';
+    src: url('../../src/fuentes/Roboto-Regular.ttf');
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 500px;
+    height: 500px;
+    border-radius: 30px;
+    background-color: #438C36;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.row {
+    margin: 10px;
+}
+
+input[type="text"], input[type="password"] {
+    height: 50px;
+    width: 100%;
+}
+
+button {
+    height: 50px;
+    width: 100%;
+    
+}
+
+.divLogo {
+    /* position: absolute; */  
+    
+    margin: auto auto;
+    width: 300px;
+   
+  }
+
+  .imgLogo {
+    
+    width: 100%;
+    
+   
+  }
+
+
+  .imgregreso {
+  
+    width: 75px;
+   
+  }
+
+  .imgregreso:hover {
+  
+    transform: scale(1.15);
+    
+    cursor: pointer;
+  }
+
+  .btn-menu{
+
+    
+
+    background-color: #438C36;
+    margin: auto auto;
+    border-radius: 10px;
+    width: 200px;
+    height: 150px;
+
+  }
+
+  .btn-menu:hover{
+    cursor: pointer;
+  }
+
+  
+
+  .imgConfiguracion{
+    margin-top: 20px;
+  }
