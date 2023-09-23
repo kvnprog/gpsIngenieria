@@ -13,10 +13,12 @@
     <script src="../js/funciones.js"></script>
     <script src="../../fGenerales/js/funciones.js"></script>
     <script src="../../fGenerales/js/alerts.js"></script>
+    
 
     <title>gpsingenieria
     </title>
 </head>
+
 
 
 <body class=" justify-content-center align-items-center">
@@ -38,32 +40,14 @@
 
         <!-- //div de logo y regreso -->
         <div class="row">
-            <div class="col-1 "></div>
-            <div class="col-10  justify-content-center align-items-center ">
+            <div class="justify-content-center align-items-center ">
                 <div class="row">
-                     <!-- CATEGORIA PRODUCTOS -->
-                     <div class="col text-center">
-                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirCategoriaProductos()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/categoriaProductosgps.png" width="125px">
-                             <div class="card-button">Categorias </div>
-                        </div>
-                        
-                    </div>
-                    <!-- PRODUCTOS -->
                     <div class="col text-center">
-                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirProductos()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/productos.png" width="125px">
-                             <div class="card-button">productos</div>
-                        </div>
-                    </div>
-                     <!-- REPORTES -->
-                    <div class="col text-center">
-                    <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirReportes()">
-                        
-                             <img class="imgConfiguracion" src="../../src/imagenes/graficasgps.png" width="125px">
-                             <div class="card-button">Reportes</div>
-                        </div>
-                    </div>
+                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirEmpleados()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/empleados.png" width="110px">
+                                <div class="card-button">Empleados</div>
+                        </div> 
+                    </div>                    
                 </div>
             </div>
 

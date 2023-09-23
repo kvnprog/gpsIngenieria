@@ -55,8 +55,8 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
         <!-- //div de logo y regreso -->
         <div class="row">
-            <div class="col-3 justify-content-center align-items-center" onclick="regreso()">
-                <img class="imgregreso" src="../../src/imagenes/atras.png" />
+            <div class="col-3 justify-content-center align-items-center">
+                <img class="imgregreso" src="../../src/imagenes/atras.png" onclick="regreso()"/>
             </div>
             <div class="col-6  text-center  txtTitulo">
                 <span><i class="aTitulo">Usuarios</i><img class="imgIconoUsuarios" src="../../src/imagenes/usuarios.png" width="50px"></span>
