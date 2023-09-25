@@ -7,6 +7,8 @@ include "../../fGenerales/bd/conexion.php";
 $filtroTipo = filter_input(INPUT_POST, "filtroTipo");
 $filtroMovimiento = filter_input(INPUT_POST, "filtroMovimiento");
 $filtroProducto = filter_input(INPUT_POST, "filtroProducto");
+$filtroFechaInicial = filter_input(INPUT_POST, "filtroFechaInicial");
+$filtroFechaFinal = filter_input(INPUT_POST, "filtroFechaFinal");
 
 //checando si trane datos
 $parametros = "";
@@ -51,13 +53,26 @@ if ($filtroProducto != "") {
     }
 }
 
+//AGREGANDO LOS FILTROS DE FECHAS
+
+if ($filtroFechaInicial != "" && $filtroFechaFinal != "") {
+
+    if ($parametros == "") {
+
+        $parametros = $parametros . " WHERE  DATE(e.fecha) BETWEEN '".$filtroFechaInicial."' AND '".$filtroFechaFinal."' ";
+    } else {
+
+        $parametros = $parametros . " AND DATE(e.fecha) BETWEEN '".$filtroFechaInicial."' AND '".$filtroFechaFinal."' ";
+    }
+
+}
+
 $arrResultados = [];
 
 //haciendo la consulta de las entradas y salidas 
 
 $conexionENReporte = new conexion;
-$queryENReporte = "select p.nparte ,p.descripcion ,e.cantidad,e.ventaid ,e.ordenid,e.tipoid  from entradassalidas e 
-join productos p on p.idproducto = e.idproducto " . $parametros;
+$queryENReporte = "select p.nparte ,p.descripcion ,e.cantidad,e.ventaid ,e.ordenid,e.tipoid,e.fecha  from entradassalidas e join productos p on p.idproducto = e.idproducto " . $parametros;
 $resutadosENReporte = $conexionENReporte->conn->query($queryENReporte);
 //echo $queryENReporte."<br>";
 
@@ -78,6 +93,7 @@ if ($resutadosENReporte) {
             $arrResultados[$index]["nparte"] = $datos[0];
             $arrResultados[$index]["descripcion"] = $datos[1];
             $arrResultados[$index]["cantidad"] = $datos[2];
+            $arrResultados[$index]["fecha"] = $datos[6];
 
             if (isset($datos[3])) {
                 $arrResultados[$index]["ventaid"] = $datos[3];
@@ -91,13 +107,12 @@ if ($resutadosENReporte) {
             } else {
                 $arrResultados[$index]["ordenid"] = 0;
             }
-            
-            if($datos[5]==1){
+
+            if ($datos[5] == 1) {
                 $arrResultados[$index]["tipo"] = "Entrada";
-            }else{
+            } else {
                 $arrResultados[$index]["tipo"] = "Salida";
             }
-
         }
     }
 }

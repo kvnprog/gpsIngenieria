@@ -94,7 +94,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
                     <div class="row">
 
-                    <div class="form-floating mb-3 col-3">
+                    <div class="form-floating mb-3 col-2">
                             <select class="form-select" id="filtroTipo" name="filtroTipo" aria-label="Floating label select example" ">
                                
                                 <?php
@@ -113,7 +113,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             <label for="floatingSelect">Categoria</label>
                         </div>
 
-                        <div class="form-floating mb-3 col-3">
+                        <div class="form-floating mb-3 col-2">
                             <select class="form-select" id="filtroMovimiento" name="filtroMovimiento" aria-label="Floating label select example" onchange="filtrarProductos()">
                                
                                 <?php
@@ -128,9 +128,19 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             <label for="floatingSelect">Movimiento</label>
                         </div>
 
-                        <div class="form-floating col-3 ">
+                        <div class="form-floating col-2 ">
                             <input type="text" class="form-control" id="filtroProducto" name="filtroProducto" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
                             <label>Producto</label>
+                        </div>
+
+                        <div class="form-floating col-2 ">
+                            <input type="date" class="form-control" id="filtroFechaInicial" name="filtroFechaInicial" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
+                            <label>Fecha Inicial</label>
+                        </div>
+
+                        <div class="form-floating col-2 ">
+                            <input type="date" class="form-control" id="filtroFechaFinal" name="filtroFechaFinal" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
+                            <label>Fecha Final</label>
                         </div>
 
                         <div class="form-floating col-2 ">
@@ -158,7 +168,9 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             <th class="text-center" scope="col">N.parte</th>
                             <th class="text-center" scope="col">Descripcion</th>
                             <th class="text-center" scope="col">Tipo</th>
-                            <th class="text-center" scope="col">Cantidad</th>    
+                            <th class="text-center" scope="col">Cantidad</th>   
+                            <th class="text-center" scope="col">Fecha</th>
+                            <th class="text-center" scope="col">Hora</th>     
                         </tr>
 
 

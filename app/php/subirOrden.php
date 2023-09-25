@@ -121,7 +121,7 @@ if ($conexionInsertaOrden->conn->query($queryInsertaOrden) == true) {
         //creando las salidas
 
         $conexionSalidas = new conexion;
-        $querySalidas = "INSERT INTO entradassalidas(ordenid,tipoid,idproducto,cantidad) VALUES (".$ordeId.",2,".$producto["id"].",".$producto["salidas"].")";
+        $querySalidas = "INSERT INTO entradassalidas(ordenid,tipoid,idproducto,cantidad,fecha) VALUES (".$ordeId.",2,".$producto["id"].",".$producto["salidas"].",now())";
 
         //echo $querySalidas;
         $conexionSalidas->conn->query($querySalidas);

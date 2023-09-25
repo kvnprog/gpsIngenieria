@@ -36,7 +36,7 @@ foreach($resultados->fetch_row() as $existencias){
     //creando las entradas 
 
     $conexionEntrada = new conexion;
-    $queryEntrada = "INSERT INTO entradassalidas(tipoid,idproducto,cantidad) VALUES (1,".$id.",".$existenciasNuevas.")";
+    $queryEntrada = "INSERT INTO entradassalidas(tipoid,idproducto,cantidad,fecha) VALUES (1,".$id.",".$existenciasNuevas.",now())";
     $conexionEntrada->conn->query($queryEntrada);
 
 
