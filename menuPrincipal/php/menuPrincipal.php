@@ -13,29 +13,21 @@
     <script src="../js/funciones.js"></script>
     <script src="../../fGenerales/js/funciones.js"></script>
     <script src="../../fGenerales/js/alerts.js"></script>
-    
+
 
     <title>gpsingenieria
     </title>
+
 </head>
 
+<?php include "../../fGenerales/php/funciones.php";?>
 
-
-<body class=" justify-content-center align-items-center">
+<body class="justify-content-center align-items-center">
 
     <!-- //div principal -->
     <div class="col-12">
         <!-- //div de logo y regreso -->
-        <div class="row">
-            <div class="col-3 justify-content-center align-items-center">
-                <img class="imgregreso" src="../../src/imagenes/atras.png" onclick="regreso()"/>
-            </div>
-            <div class="col-6 divLogo justify-content-center align-items-center ">
-                <img class="imgLogo" src="../../src/imagenes/logo.png" />
-            </div>
-            <div class="col-3" ></div>
-
-        </div>
+       <?php pintarNavBar();?>
         <!-- //div de logo y regreso fin -->
 
         <!-- //div de logo y regreso -->
@@ -44,39 +36,39 @@
                 <div class="row">
                     <div class="col text-center">
                         <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirUsuarios()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/configuracionesgps.png" width="200px">
-                                <div class="card-button">Usuarios</div>
-                        </div> 
+                            <img class="imgConfiguracion" src="../../src/imagenes/settings.svg" width="100px">
+                            <div class="card-button">Usuarios</div>
+                        </div>
                     </div>
 
                     <div class="col text-center">
                         <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirInventarios()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/inventariosgps.png" width="200px">
-                                <div class="card-button">Inventarios</div>
+                            <img class="imgConfiguracion" src="../../src/imagenes/inventory.svg" width="100px">
+                            <div class="card-button">Inventarios</div>
                         </div>
                     </div>
 
                     <div class="col text-center">
                         <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirVentas()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/ordenestrabajo.png" width="200px">
-                                <div class="card-button">Ventas</div>
+                            <img class="imgConfiguracion" src="../../src/imagenes/sales.svg" width="100px">
+                            <div class="card-button">Ventas</div>
                         </div>
                     </div>
 
                     <div class="col text-center">
                         <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirRH()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/rh.png" width="130px">
-                                <div class="card-button">RH</div>
+                            <img class="imgConfiguracion" src="../../src/imagenes/humanresources.svg" width="100px">
+                            <div class="card-button">RH</div>
                         </div>
                     </div>
 
                     <div class="col text-center">
                         <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirResponsivas()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/responsivas.png" width="110px">
-                                <div class="card-button">Responsivas</div>
+                            <img class="imgConfiguracion" src="../../src/imagenes/responsive.svg" width="110px">
+                            <div class="card-button">Responsivas</div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
 

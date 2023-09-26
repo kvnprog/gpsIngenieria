@@ -44,7 +44,7 @@
                      <!-- CATEGORIA PRODUCTOS -->
                      <div class="col text-center">
                         <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirCategoriaProductos()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/categoriaProductosgps.png" width="125px">
+                             <img class="imgConfiguracion" src="../../src/imagenes/category.svg" width="100px">
                              <div class="card-button">Categorias </div>
                         </div>
                         
@@ -52,7 +52,7 @@
                     <!-- PRODUCTOS -->
                     <div class="col text-center">
                         <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirProductos()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/productos.png" width="125px">
+                             <img class="imgConfiguracion" src="../../src/imagenes/products.svg" width="100px">
                              <div class="card-button">productos</div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                     <div class="col text-center">
                     <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirReportes()">
                         
-                             <img class="imgConfiguracion" src="../../src/imagenes/graficasgps.png" width="125px">
+                             <img class="imgConfiguracion" src="../../src/imagenes/reports.svg" width="100px">
                              <div class="card-button">Reportes</div>
                         </div>
                     </div>

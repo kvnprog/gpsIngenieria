@@ -73,3 +73,18 @@ function checarPermisosSeccion($usuarioid){
   return $datos;
 
 }
+
+function pintarNavBar(){
+
+  echo " <div class=\"row\">
+  <div class=\"col-3 justify-content-center align-items-center\">
+      <img class=\"imgregreso\" src=\"../../src/imagenes/back.svg\" onclick=\"regreso()\" />
+  </div>";
+  echo "<div class=\"col-6 divLogo justify-content-center align-items-center \">
+      <img class=\"imgLogo\" src=\"../../src/imagenes/logo.png\" />
+  </div>";
+  echo "<div class=\"col-3\"></div>";
+
+  echo "</div>";
+
+}

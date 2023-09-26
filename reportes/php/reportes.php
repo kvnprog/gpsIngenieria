@@ -99,14 +99,11 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                                
                                 <?php
 
-                               
-
                                     print_r("<option value=0 >TIPO..</option>");
                                     print_r("<option value=1 >Ventas..</option>");
                                     print_r("<option value=2 >Ordenes..</option>");
                                     print_r("<option value=3 >Otros..</option>");
                                 
-
                                 ?>
 
                             </select>
@@ -147,10 +144,6 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                         <button type="button" class="btn btn-success btnReporteES" onclick="buscarES()">Buscar</button>
                         </div>
 
-
-                        
-
-
                     </div>
                 </div>
                 <div class="col-1"></div>
@@ -172,15 +165,9 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                             <th class="text-center" scope="col">Fecha</th>
                             <th class="text-center" scope="col">Hora</th>     
                         </tr>
-
-
-                        
-                    
                     </thead>
                     <tbody>
                         <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                      
-
                     </tbody>
                 </table>
             </div>
@@ -191,18 +178,6 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
         <!-- Tabla de datos Usuarios final-->
     </div>
     <!-- //div principal fin -->
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

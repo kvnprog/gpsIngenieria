@@ -44,26 +44,26 @@
                 <div class="row">
                     <div class="col text-center ">
                         <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirClientes()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/clientes.png" width="100px">
+                             <img class="imgConfiguracion" src="../../src/imagenes/clients.svg" width="100px">
                              <div class="card-button">Clientes</div>
                         </div>
                         
                     </div>
                     <div class="col text-center">
                     <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirServicios()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/servicios.png" width="150px">
+                             <img class="imgConfiguracion" src="../../src/imagenes/services.svg" width="100px">
                              <div class="card-button">Servicios</div>
                         </div>
                     </div>
                     <div class="col text-center">
                     <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirVentas()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/inventariosgps.png" width="200px">
+                             <img class="imgConfiguracion" src="../../src/imagenes/sales2.svg" width="100px">
                              <div class="card-button">Ventas</div>
                         </div>
                     </div>
                     <div class="col text-center">
                     <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirOT()" >
-                             <img class="imgConfiguracion" src="../../src/imagenes/ordenestrabajo.png" width="200px">
+                             <img class="imgConfiguracion" src="../../src/imagenes/workorders.svg" width="100px">
                              <div class="card-button">Ordenes de Trabajo</div>
                         </div>
                     </div>

@@ -18,6 +18,11 @@
     opacity: 1;
    }
 
+   .btnMenu:hover  .imgConfiguracion{
+    filter: invert(42%) sepia(100%) saturate(4599%) hue-rotate(219deg) brightness(0%) contrast(114%);
+    transition: 0.3s ease-out;
+}
+
    .card-button {
     transform: translate(50%, 25%);
     width: 50%;
