@@ -36,7 +36,7 @@ function crearProducto() {
         .then(response => response.json())
         .then(data => {
 
-            console.log(data);
+            // console.log(data);
 
             if (data["resultado"]) {
                 alertImage('EXITO', 'Se creo el producto con existo', 'success')
@@ -84,6 +84,7 @@ function actualiza(data) {
         var existentes = data[i]["existentes"];
         var comentarios = data[i]["comentarios"];
         var precio = data[i]["precio"];
+        var img = data[i]["img"];
 
         cadenaProductos = cadenaProductos + " <tr> " +
             "<td class=\"text-center\">" + nParte + "</td> " +
@@ -96,9 +97,7 @@ function actualiza(data) {
             "<td class=\"text-center\">" + comentarios + "</td> " +
             "<td class=\"text-center\">" + precio + "</td> ";         
 
-            console.log(data["img"]);
-
-        cadenaProductos += data[i]["img"];
+        cadenaProductos += "<td class=\"text-center\">"+img+"</td>";
         cadenaProductos += "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"')\"></td> " +
             "</tr>";
     }
@@ -122,17 +121,13 @@ function abrirModal(productoid, nParte, descripcion, idcategoria, categoria, max
     formulario.comentarios.value = comentarios;
     formulario.precio.value = precio;
 
-
     $("#miModal").modal('show');
-
-
 
 }
 
 
 
 function modificarUsuario() {
-
 
     const data = new FormData(document.getElementById('frmModificar'));
 
@@ -173,11 +168,10 @@ const options = {
  fetch("../../productos/php/filtrarTablaAJAX.php?nParte="+filtroNParte+"&descripcion="+filtroDescripcion+"&categoriaid="+filtroCategoria, options)
  .then(response => response.json())
  .then(data => {
-     
-         actualiza(data);
-     
 
- });
+    actualiza(data);
+ 
+});
 
  
 
@@ -187,8 +181,6 @@ function abrirNuevasExistencias(id){
 
     var btnExistencia = document.getElementById("btnNuevasExitencias-"+id );
     var inputExitencias = document.getElementById("existenciasNuevas-"+id);
-
-
     
     if (btnExistencia.src.includes("agregargps")) {
         btnExistencia.src = btnExistencia.src.replace("agregargps","eliminargps");
@@ -199,8 +191,6 @@ function abrirNuevasExistencias(id){
         btnExistencia.src = btnExistencia.src.replace("eliminargps","agregargps");
     }
 
-    
-   
 }
 
 
@@ -215,7 +205,6 @@ function mandarExistencias(event,id){
 
             color="#03B559";
             color2="#B50309";
-
 
                 swal.fire({
                     title: "Atencion!",

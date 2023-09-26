@@ -1,21 +1,19 @@
 <?php
     include "../../fGenerales/bd/conexion.php";
-
-    $nombre = filter_input(INPUT_POST, "nombre");
-    $apellidos = filter_input(INPUT_POST, "apellidos");
-    $correo = filter_input(INPUT_POST, "correo");
-    $telefono = filter_input(INPUT_POST, "TelefonoCelular");
-    $puesto = filter_input(INPUT_POST, "puesto");
+    
+    $id = filter_input(INPUT_GET, "id");
 
     $resultados = [];
 
-    //CREAR NUEVO EMPLEADO
     $resultados[0]["resultado"] = 0; //HUBO UN ERROR
-
-    $conexionEmpleado = new conexion;
-    $queryEmpleado = "INSERT INTO empleados(nombre,apellidos,correo,telefono,puesto,status) VALUES ('".$nombre."', '".$apellidos."', '".$correo."', ".$telefono." , '".$puesto."',1)";
     
-    if($conexionEmpleado->conn->query($queryEmpleado)){
+    // CONEXION PARA ELIMINAR USUARIO
+    $conexionEliminar = new conexion;
+    $queryEliminar = "UPDATE empleados SET status = 2 WHERE idEmpleado = ".$id;
+
+    $resultados[0]["query"] = $queryEliminar;
+
+    if($conexionEliminar->conn->query($queryEliminar)){
         $resultados[0]["resultado"] = 1;
 
         //TRAYENDO LOS DATOS 
@@ -35,6 +33,5 @@
             $resultados[$key]["puesto"] = $empleado[5];
         }
     }
-
     echo json_encode($resultados);
 ?>

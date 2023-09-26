@@ -31,29 +31,13 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
     $queryDatos = "SELECT p.*,c.nombre  FROM productos p , categoriasproductos c  WHERE c.idcategoriaproducto = p.categoria ";
     $datos = $conexionDatos->conn->query($queryDatos);
 
-    $resultados["noDatos"] = $datos->num_rows;
-
-    foreach ($datos->fetch_all() as $i => $datos) {
-
-        $resultados[$i]["id"] = $datos[0];
-        $resultados[$i]["nParte"] = $datos[1];
-        $resultados[$i]["descripcion"] = $datos[2];
-        $resultados[$i]["idcategoria"] = $datos[3];
-        $resultados[$i]["categoria"] = $datos[9];
-        $resultados[$i]["maximos"] = $datos[4];
-        $resultados[$i]["minimos"] = $datos[5];
-        $resultados[$i]["existentes"] = $datos[6];
-        $resultados[$i]["comentarios"] = $datos[7];
-        $resultados[$i]["precio"] = $datos[8];
-    }
-
-    $conSelectProducto = new conexion;
-    $querySelectProducto = "SELECT idproducto FROM productos order by idproducto DESC limit 1";
-    $resultadoSelectProducto = $conSelectProducto->conn->query($querySelectProducto);
-
     if (isset($_FILES["fotoProducto"])) {
     
         if($_FILES["fotoProducto"]["error"] === 0){
+            
+            $conSelectProducto = new conexion;
+            $querySelectProducto = "SELECT idproducto FROM productos order by idproducto DESC limit 1";
+            $resultadoSelectProducto = $conSelectProducto->conn->query($querySelectProducto);
 
             $nombreTemporal = $_FILES["fotoProducto"]["tmp_name"];
             $nombreArchivo = $_FILES["fotoProducto"]["name"];
@@ -74,19 +58,30 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
         }
     }
 
-    $img = [];
+    $resultados["noDatos"] = $datos->num_rows;
 
-    if ($resultadoSelectProducto && $resultadoSelectProducto->num_rows > 0) {
-        foreach ($resultadoSelectProducto->fetch_all() as $columna) {
-            $imagenPath = "/gpsIngenieria/productos/imgsProductos/producto_" . $columna[0] . ".jpg";
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagenPath)) {
-                $img[] = "<td class=\"text-center\"><img src=\"$imagenPath\" style=\"width:120px; height:80px;\"/></td>";
-            } else {
-                $img[] = "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/imgsProductos/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
-            }
+    foreach ($datos->fetch_all() as $i => $datos) {
+
+        $resultados[$i]["id"] = $datos[0];
+        $resultados[$i]["nParte"] = $datos[1];
+        $resultados[$i]["descripcion"] = $datos[2];
+        $resultados[$i]["idcategoria"] = $datos[3];
+        $resultados[$i]["categoria"] = $datos[9];
+        $resultados[$i]["maximos"] = $datos[4];
+        $resultados[$i]["minimos"] = $datos[5];
+        $resultados[$i]["existentes"] = $datos[6];
+        $resultados[$i]["comentarios"] = $datos[7];
+        $resultados[$i]["precio"] = $datos[8];
+
+        $imagenPath = "/gpsIngenieria/productos/imgsProductos/producto_" . $datos[0] . ".jpg";
+
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagenPath)) {
+            $resultados[$i]["img"] = "<img src=\"$imagenPath\" style=\"width:120px; height:80px;\"/>";
+        } else {
+            $resultados[$i]["img"] = "<img src=\"/gpsIngenieria/productos/imgsProductos/sinImagen.png\" style=\"width:120px; height:80px;\"/>";
         }
     }
-    $resultados["img"] = $img;
+
 } else {
     $resultados["resultado"] = false;
 }
