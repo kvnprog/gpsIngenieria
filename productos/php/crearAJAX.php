@@ -47,16 +47,16 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
         $resultados[$i]["precio"] = $datos[8];
     }
 
+    $conSelectProducto = new conexion;
+    $querySelectProducto = "SELECT idproducto FROM productos order by idproducto DESC limit 1";
+    $resultadoSelectProducto = $conSelectProducto->conn->query($querySelectProducto);
+
     if (isset($_FILES["fotoProducto"])) {
     
         if($_FILES["fotoProducto"]["error"] === 0){
 
             $nombreTemporal = $_FILES["fotoProducto"]["tmp_name"];
             $nombreArchivo = $_FILES["fotoProducto"]["name"];
-
-            $conSelectProducto = new conexion;
-            $querySelectProducto = "SELECT idproducto FROM productos order by idproducto DESC limit 1";
-            $resultadoSelectProducto = $conSelectProducto->conn->query($querySelectProducto);
 
             // $idProducto = $resultadoSelectProducto[0];
             foreach($resultadoSelectProducto->fetch_all() as $res){
@@ -71,15 +71,23 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
                 // echo "Ha habido un error al cargar tu archivo.";
             }
             
-        }else{
-            
         }
-    }else{
-        
     }
 
-} else {
+    $img = [];
 
+    if ($resultadoSelectProducto && $resultadoSelectProducto->num_rows > 0) {
+        foreach ($resultadoSelectProducto->fetch_all() as $columna) {
+            $imagenPath = "/gpsIngenieria/productos/imgsProductos/producto_" . $columna[0] . ".jpg";
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagenPath)) {
+                $img[] = "<td class=\"text-center\"><img src=\"$imagenPath\" style=\"width:120px; height:80px;\"/></td>";
+            } else {
+                $img[] = "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/imgsProductos/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
+            }
+        }
+    }
+    $resultados["img"] = $img;
+} else {
     $resultados["resultado"] = false;
 }
 

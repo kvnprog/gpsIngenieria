@@ -1,0 +1,17 @@
+######################################
+SCRIPT BD GPSINGENIERIA
+
+INSERT INTO `areas` (`nombre`) VALUES (`empleados`);
+
+INSERT INTO `seccionesareas` (`idarea`, `nombre`) VALUES ('10', 'catalogo'), ('10', 'registro');
+
+CREATE TABLE empleados (
+idEmpleado int autoIncremental,
+nombre varchar (50),
+apellidos varchar (100),
+correo varchar (50),
+telefono bigint,
+puesto varchar (50),
+status int
+);
+

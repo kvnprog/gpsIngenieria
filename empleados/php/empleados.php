@@ -27,7 +27,7 @@
 
 <?php
     $conexionEmpleados = new conexion;
-    $queryEmpleados = "SELECT nombreusuario,nombre,correo,idusuario FROM usuarios WHERE estadoid=1";
+    $queryEmpleados = "SELECT idEmpleado,nombre,apellidos,correo,telefono,puesto FROM empleados WHERE status=1";
     $resultados = $conexionEmpleados->conn->query($queryEmpleados);
 
     // checando permisos del usuario en la seccion
@@ -85,27 +85,26 @@
                 <table id="catalogoEmpleados" class="table table-hover">
                     <thead>
                         <tr>
-
                             <th class="text-center" scope="col">Nombre</th>
-                            <th class="text-center" scope="col">Apellidos</th>
                             <th class="text-center" scope="col">Correo</th>
                             <th class="text-center" scope="col">Telefono celular</th>
                             <th class="text-center" scope="col">Puesto</th>
-                            <th class="text-center" colspan="2" scope="col"></th>
+                            <th class="text-center" colspan='2' scope="col">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!--LLENADO LOS DATOS DE LAS TABLAS   -->
                         <?php
-                        //     foreach ($resultados->fetch_all() as $columna) {
-                        //         echo " <tr>
-                        //             <td class=\"text-center\">" . $columna[1] . "</td>
-                        //             <td class=\"text-center\">" . $columna[0] . "</td>
-                        //             <td class=\"text-center\">" . $columna[2] . "</td>
-                        //             <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[3] . ",'" . $columna[1] . "','" . $columna[0] . "','" . $columna[2] . "')\"></td>
-                        //             <td class=\"text-center\"><img src=\"../../src/imagenes/eliminargps.png\" width=\"40px\" onclick=\"eliminarUsuario(" . $columna[3] . ")\"></td>
-                        //             </tr>";
-                        //     }
+                            foreach ($resultados->fetch_all() as $columna) {
+                                echo " <tr>
+                                    <td class=\"text-center\">" . $columna[1] . " " . $columna[2] . "</td>
+                                    <td class=\"text-center\">" . $columna[3] . "</td>
+                                    <td class=\"text-center\">" . $columna[4] . "</td>
+                                    <td class=\"text-center\">" . $columna[5] . "</td>
+                                    <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "','" . $columna[3] . "','" . $columna[4] . "','" . $columna[5] . "')\"></td>
+                                    <td class=\"text-center\"><img src=\"../../src/imagenes/eliminargps.png\" width=\"40px\" onclick=\"eliminarUsuario(" . $columna[0] . ")\"></td>
+                                    </tr>";
+                            }
                         ?>
                     </tbody>
                 </table>

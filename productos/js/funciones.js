@@ -2,7 +2,6 @@ function abrirSeccion(opcion) {
 
     if (opcion == 1) {
 
-
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'flex';
         document.getElementById("registros").style.display = 'none';
@@ -14,8 +13,6 @@ function abrirSeccion(opcion) {
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'none';
         document.getElementById("registros").style.display = 'flex';
-
-
 
     }
 
@@ -32,7 +29,6 @@ function crearProducto() {
     const options = {
         method: "POST",
         body: formData,
-
     };
 
     // Petición HTTP
@@ -89,18 +85,6 @@ function actualiza(data) {
         var comentarios = data[i]["comentarios"];
         var precio = data[i]["precio"];
 
-        var img = new Image();
-        img.src = "../imgsProductos/producto_" + id + ".jpg";
-        img.style.width = "120px";
-        img.style.height = "80px";
-
-        img.onerror = function () {
-            img.src = "../imgsProductos/sinImagen.png";
-        };
-        if(img.onerror){
-            img.src = "../imgsProductos/sinImagen.png";
-        }
-
         cadenaProductos = cadenaProductos + " <tr> " +
             "<td class=\"text-center\">" + nParte + "</td> " +
             "<td class=\"text-center\">" + descripcion + "</td> " +
@@ -112,7 +96,9 @@ function actualiza(data) {
             "<td class=\"text-center\">" + comentarios + "</td> " +
             "<td class=\"text-center\">" + precio + "</td> ";         
 
-        cadenaProductos += "<td class=\"text-center\"><img src=\"" + img.src + "\" style=\"width:120px; height:80px;\"/></td>";
+            console.log(data["img"]);
+
+        cadenaProductos += data[i]["img"];
         cadenaProductos += "<td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + id + ",'" + nParte + "','" + descripcion + "'," + idcategoria + ",'" + categoria + "'," + maximos + "," + minimos + "," + existentes + ",'" + comentarios + "','"+precio+"')\"></td> " +
             "</tr>";
     }

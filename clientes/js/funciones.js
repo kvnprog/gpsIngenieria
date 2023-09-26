@@ -42,7 +42,7 @@ function crearCliente(){
                 //CHECANDO SI HUBO UN ERROR
                 if(data[0]["resultado"] == 1){
     
-                    alertImage('EXITO', 'Se registro el usuario con existo', 'success')
+                    alertImage('EXITO', 'Se registró el usuario con éxito', 'success')
                     
                     actualizar(data);
     
