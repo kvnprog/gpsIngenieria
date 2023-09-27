@@ -13,7 +13,3 @@ function abrirVentas(){
 function abrirRH(){
   window.open("../../menuRH/php/menuRH.php","_self");
 }
-
-function abrirResponsivas(){
-  window.open("../../responsivas/php/responsivas.php","_self");
-}

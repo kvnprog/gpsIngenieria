@@ -43,6 +43,13 @@
                                 <div class="card-button">Reportes</div>
                             </div>
                         </div>
+                        <!-- RESPONSIVAS -->
+                        <div class="col text-center">
+                            <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirResponsivas()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/responsive.svg" width="110px">
+                                <div class="card-button">Responsivas</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
