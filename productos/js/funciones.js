@@ -16,8 +16,6 @@ function abrirSeccion(opcion) {
 
     }
 
-
-
 }
 
 

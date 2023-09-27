@@ -1,5 +1,8 @@
 ######################################
 SCRIPT BD GPSINGENIERIA
+######################################
+
+============================= # 20/09/2023
 
 INSERT INTO `areas` (`nombre`) VALUES (`empleados`);
 
@@ -15,3 +18,9 @@ puesto varchar (50),
 status int
 );
 
+
+============================= # 27/09/2023
+
+INSERT INTO `areas` (`nombre`) VALUES ('responsivas'); 
+
+INSERT INTO `seccionesareas` (`idarea`, `nombre`) VALUES ('11', 'catalogo');

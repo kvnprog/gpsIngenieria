@@ -11,61 +11,51 @@
 
 
 <body class=" justify-content-center align-items-center">
+    <div class="contenedorCont">
+        <!-- //div principal -->
+        <div class="col-12">
 
-    <!-- //div principal -->
-    <div class="col-12">
-        <!-- //div de logo y regreso -->
-        <div class="row">
-            <div class="col-3 justify-content-center align-items-center">
-                <img class="imgregreso" src="../../src/imagenes/atras.png" onclick="regreso()"/>
-            </div>
-            <div class="col-6 divLogo justify-content-center align-items-center ">
-                <img class="imgLogo" src="../../src/imagenes/logo.png" />
-            </div>
-            <div class="col-3" ></div>
-
-        </div>
-        <!-- //div de logo y regreso fin -->
-
-        <!-- //div de logo y regreso -->
-        <div class="row">
-            <div class="col-1 "></div>
-            <div class="col-10  justify-content-center align-items-center ">
-                <div class="row">
-                     <!-- CATEGORIA PRODUCTOS -->
-                     <div class="col text-center">
-                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirCategoriaProductos()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/category.svg" width="100px">
-                             <div class="card-button">Categorias </div>
+            <?php pintarEncabezado('',''); ?>
+            
+            <div class="row">
+                <div class="col-1 "></div>
+                <div class="col-10  justify-content-center align-items-center ">
+                    <div class="row">
+                        <!-- CATEGORIA PRODUCTOS -->
+                        <div class="col text-center">
+                            <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirCategoriaProductos()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/category.svg" width="100px">
+                                <div class="card-button">Categorias </div>
+                            </div>
+                            
                         </div>
-                        
-                    </div>
-                    <!-- PRODUCTOS -->
-                    <div class="col text-center">
-                        <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirProductos()">
-                             <img class="imgConfiguracion" src="../../src/imagenes/products.svg" width="100px">
-                             <div class="card-button">productos</div>
+                        <!-- PRODUCTOS -->
+                        <div class="col text-center">
+                            <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirProductos()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/products.svg" width="100px">
+                                <div class="card-button">productos</div>
+                            </div>
                         </div>
-                    </div>
-                     <!-- REPORTES -->
-                    <div class="col text-center">
-                    <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirReportes()">
-                        
-                             <img class="imgConfiguracion" src="../../src/imagenes/reports.svg" width="100px">
-                             <div class="card-button">Reportes</div>
+                        <!-- REPORTES -->
+                        <div class="col text-center">
+                            <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirReportes()">
+                                <img class="imgConfiguracion" src="../../src/imagenes/reports.svg" width="100px">
+                                <div class="card-button">Reportes</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+            <!-- //div de logo y regreso fin -->
 
         </div>
-        <!-- //div de logo y regreso fin -->
-
+        <!-- //div principal fin -->
     </div>
-    <!-- //div principal fin -->
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    
+    <?php pintarFooter()?>
 
 </body>
 

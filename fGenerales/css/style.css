@@ -37,6 +37,7 @@
 body {
     font-family: 'Roboto';
     src: url('../../src/fuentes/Roboto-Regular.ttf');
+    background-color: #4ba63b44;
 }
 
 .container {
@@ -109,4 +110,284 @@ button {
 
 .btnUsuarios:hover {
     opacity: 0.9 !important;
+}
+
+/* CONTENEDOR PARA EL CONTENIDO DE LA PAGINA
+============================================== */
+.contenedorCont{
+    margin-bottom: 100px;
+}
+
+/* ============================================================================================
+                                            FOOTER 
+===============================================================================================*/
+
+/* CONTENEDOR DEL FOOTER 
+==========================*/
+.footer-distributed{
+	background: #414141;
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	padding: 10px 50px;
+    padding-top: 0;
+    bottom: -240px;
+    transition: transform 0.3s;
+    position: fixed;
+}
+
+/* CONTENEDOR DONDE SE VISUALIZA LA FLECHA DEL FOOTER 
+=======================================================*/
+.footer-distributed .contenedorFlecha{
+    justify-content: center;
+    display: flex;
+    margin-bottom: 10px;
+    padding-top: 0;
+}
+
+/* FLECHA DE ABAJO 
+=====================*/
+.footer-distributed:hover .flecha{
+    content: url('../../src/imagenes/flechaAbajo.svg');
+    padding-top: 0;
+    margin-top: 0px;
+    width: 60px;
+}
+
+/* FLECHA DE ARRIBA 
+====================*/
+.footer-distributed .flecha{
+    content: url('../../src/imagenes/flechaArriba.svg');
+    padding-top: 0;
+    /* margin-top: -80px; */
+    margin-bottom: 10px;
+    width: 60px;
+}
+
+/* APARECE EL FOOTER AL HACER HOVER 
+=====================================*/
+.footer-distributed:hover{
+    transform: translateY(-240px);
+}
+
+/* ALINEACIÓN CONTENIDO 
+=========================*/
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+	display: inline-block;
+}
+
+/* APARTADO DEL FOOTER IZQUIERDO IZQUIERDA 
+============================================*/
+.footer-distributed .footer-left{
+	width: 40%;
+}
+
+/* LOGO DE LA EMPRESA 
+=======================*/
+.footer-distributed h3{
+	margin: 0;
+    text-align: center;
+}
+
+/* CONTENEDOR DE LOS LINKS 
+============================*/
+.footer-distributed .footer-links{
+	color:  #ffffff;
+	margin-top: 10px;
+	padding: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* LINKS 
+==========*/
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+    font-weight:400;
+	text-decoration: none;
+	color:  inherit;
+}
+
+/* CRÉDITOS 
+=============*/
+.footer-distributed .footer-company-name{
+	color:  #ffffff;
+	font-size: 14px;
+	font-weight: normal;
+    justify-content: center;
+    display: flex;
+	margin: 0;
+}
+
+/* APARTADO DEL FOOTER DERECHO CENTRADO 
+=========================================*/
+.footer-distributed .footer-center{
+	width: 35%;
+    vertical-align: top;
+}
+
+/* ICONOS DE CONTACTO 
+=======================*/
+.footer-distributed .footer-center i{
+	background-color:  #4ba63b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+}
+
+/* ICONO DE CORREO ELECTRÓNICO 
+================================*/
+.footer-distributed .footer-center i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+/* TEXTO ICONOS 
+=================*/
+.footer-distributed .footer-center p{
+	display: inline-block;
+	color: #ffffff;
+    font-weight:400;
+	vertical-align: middle;
+	margin:0;
+}
+
+/* TEXTO 1 DE LA UBICACIÓN 
+============================*/
+.footer-distributed .footer-center p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+/* COLOR DEL TEXTO DEL CORREO 
+===============================*/
+.footer-distributed .footer-center p a{
+	color:  #4ba63b;
+	text-decoration: none;;
+}
+
+/* SEPARADOR DE LOS LINKS 
+===========================*/
+.footer-distributed .footer-links a:before {
+  content: "|";
+  font-weight:100;
+  font-size: 30px;
+  left: 0;
+  color: #4ba63b;
+  display: inline-block;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+/* QUITA EL SEPARADOR INICIAL DEL PRIMER LINK 
+===============================================*/
+.footer-distributed .footer-links .link-1:before {
+  content: none;
+}
+
+/* CONTENIDO IZQUIERDO DEL FOOTER ACERCA DE 
+=============================================*/
+.footer-distributed .footer-right{
+	width: 20%;
+    vertical-align: top;
+}
+
+/* TEXTO DEL ACERCA DE 
+========================*/
+.footer-distributed .footer-company-about{
+	line-height: 20px;
+	color:  #92999f;
+	font-size: 15px;
+	font-weight: normal;
+	margin: 0;
+    text-align: center;
+}
+
+/* TITULO DEL ACERCA DE 
+=========================*/
+.footer-distributed .footer-company-about span{
+    text-align: center;
+	display: block;
+	color:  #ffffff;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+/* CONTENEDOR DE ICONOS DE REDES SOCIALES 
+========================================================*/
+.footer-distributed .footer-icons{
+	margin-top: 25px;
+    text-align: center;
+}
+
+/* ICONOS DE REDES SOCIALES 
+=============================*/
+.footer-distributed .footer-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color:  #4ba63b;
+	border-radius: 3px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 5px;
+    margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+/* FOOTER RESPONSIVE 
+======================*/
+@media (max-width: 880px) {
+    /* CONTENEDOR DE LA PAGINA 
+    ============================*/
+    .contenedorCont{
+        margin-bottom: 0;
+    }
+
+    /* CONTENEDOR FOOTER 
+    ======================*/
+	.footer-distributed{
+		font: bold 14px sans-serif;
+        position: relative;
+	}
+
+    /* QUITA LA ACCIÓN DEL HOVER EN EL FOOTER
+    ===========================================*/
+    .footer-distributed:hover{
+        transform: translateY(0px);
+    }
+
+    /* ALINEACIÓN DEL CONTENIDO 
+    =============================*/
+	.footer-distributed .footer-left,
+	.footer-distributed .footer-center,
+	.footer-distributed .footer-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+    /* ICONOS DE CONTACTO */
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+
 }
