@@ -113,59 +113,58 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                 <div class="col-1"></div>
                 <!-- Empiezo de tabla -->
                 <div class="col-10">
-                    <table id="catalogoProductos" class="table table-hover">
-                        <thead>
-                            <tr>
+                    <div class="table-responsive">
+                        <table id="catalogoProductos" class="table table-hover">
+                            <thead>
+                                <tr>
 
-                                <th class="text-center" scope="col">N.Folio</th>
-                                <th class="text-center" scope="col">Trabajador</th>
-                                <th class="text-center" scope="col">Cliente</th>
-                                <th class="text-center" scope="col">Factura</th>
-                                <th class="text-center" scope="col">Pago Total</th>
-                                <th class="text-center" scope="col">Flete</th>
-                                <th class="text-center" scope="col">Deuda</th>
-                                <th class="text-center" scope="col">Pagos</th>
-                                <th class="text-center" scope="col">Fecha</th>
-                                <th class="text-center" scope="col">Orden de Trabajo</th>
+                                    <th class="text-center" scope="col">N.Folio</th>
+                                    <th class="text-center" scope="col">Trabajador</th>
+                                    <th class="text-center" scope="col">Cliente</th>
+                                    <th class="text-center" scope="col">Factura</th>
+                                    <th class="text-center" scope="col">Pago Total</th>
+                                    <th class="text-center" scope="col">Flete</th>
+                                    <th class="text-center" scope="col">Deuda</th>
+                                    <th class="text-center" scope="col">Pagos</th>
+                                    <th class="text-center" scope="col">Fecha</th>
+                                    <th class="text-center" scope="col">Orden de Trabajo</th>
 
-                            </tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
+                                <!--LLENADO LOS DATOS DE LAS TABLAS   -->
+                                <?php
 
-
-                            <th class="text-center" colspan="6" scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                            <?php
-
-                            foreach ($resultados->fetch_all() as $columna) {
+                                foreach ($resultados->fetch_all() as $columna) {
 
 
-                                echo " <tr>
-                                    <td class=\"text-center\">" . $columna[0] . "</td>
-                                    <td class=\"text-center\">" . $columna[1] . "</td>
-                                    <td class=\"text-center\">" . $columna[2] . " " . $columna[3] . "</td>";
+                                    echo " <tr>
+                                        <td class=\"text-center\">" . $columna[0] . "</td>
+                                        <td class=\"text-center\">" . $columna[1] . "</td>
+                                        <td class=\"text-center\">" . $columna[2] . " " . $columna[3] . "</td>";
 
 
-                                if ($columna[8] != "") {
-                                    echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[8] . "</div><img src=\"../../src/imagenes/evidenciagps.png\" width=\"30px\" onclick=\"abrirEvidenciaFactura(".$columna[6].")\"></td>";
-                                } else {
-                                    echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[6] . ")\" width=\"30px\"></td>";
+                                    if ($columna[8] != "") {
+                                        echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[8] . "</div><img src=\"../../src/imagenes/evidenciagps.png\" width=\"30px\" onclick=\"abrirEvidenciaFactura(".$columna[6].")\"></td>";
+                                    } else {
+                                        echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[6] . ")\" width=\"30px\"></td>";
+                                    }
+
+                                    echo  "<td class=\"text-center\">" . $columna[4] . "</td>
+                                        <td class=\"text-center\">" . $columna[9] . "</td>
+                                        <td class=\"text-center\">$columna[7]</td>
+                                        <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[6] . ")\"></td>
+                                        <td class=\"text-center\">" . $columna[5] . "</td>
+                                        <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden(" . $columna[6] . ")\"></td>
+                                        </tr>";
                                 }
 
-                                echo  "<td class=\"text-center\">" . $columna[4] . "</td>
-                                    <td class=\"text-center\">" . $columna[9] . "</td>
-                                    <td class=\"text-center\">$columna[7]</td>
-                                    <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[6] . ")\"></td>
-                                    <td class=\"text-center\">" . $columna[5] . "</td>
-                                    <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden(" . $columna[6] . ")\"></td>
-                                    </tr>";
-                            }
+                                ?>
 
-                            ?>
-
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- Empiezo tabla final -->
                 <div class="col-1"></div>

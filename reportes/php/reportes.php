@@ -129,21 +129,24 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                 <div class="col-1"></div>
                 <!-- Empiezo de tabla -->
                 <div class="col-10">
-                    <table id="catalogoProductos" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">N.parte</th>
-                                <th class="text-center" scope="col">Descripcion</th>
-                                <th class="text-center" scope="col">Tipo</th>
-                                <th class="text-center" scope="col">Cantidad</th>   
-                                <th class="text-center" scope="col">Fecha</th>
-                                <th class="text-center" scope="col">Hora</th>     
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="catalogoProductos" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">N.parte</th>
+                                    <th class="text-center" scope="col">Descripcion</th>
+                                    <th class="text-center" scope="col">Tipo</th>
+                                    <th class="text-center" scope="col">Cantidad</th>   
+                                    <th class="text-center" scope="col">Fecha</th>
+                                    <th class="text-center" scope="col">Hora</th>     
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
+                                <!--LLENADO LOS DATOS DE LAS TABLAS   -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- Empiezo tabla final -->
                 <div class="col-1"></div>

@@ -151,3 +151,23 @@ function pintarFooter(){
             </div>
           </footer>";
 }
+
+function pantallaCarga(){
+  echo "<div class='contenedorCarga'>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div> 
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div> 
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div>
+          <div class='cuadrocarga'></div> 
+        </div>";
+}

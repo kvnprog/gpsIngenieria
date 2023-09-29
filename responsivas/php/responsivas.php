@@ -124,6 +124,7 @@
                                 </thead>
                                 <!-- CONTENIDO DE LA TABLA -->
                                 <tbody>
+                                    <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
                                     <?php
                                         foreach ($resultados->fetch_all() as $columna) {
                                             echo " <tr>

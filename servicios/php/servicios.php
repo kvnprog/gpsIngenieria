@@ -77,40 +77,43 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                 <div class="col-1"></div>
                 <!-- Empiezo de tabla -->
                 <div class="col-10">
-                    <table id="catalogoServicios" class="table table-hover">
-                        <thead>
-                            <tr>
+                    <div class="table-responsive">
+                        <table id="catalogoServicios" class="table table-hover">
+                            <thead>
+                                <tr>
 
-                                <th class="text-center" scope="col">Nombre</th>
-                                <th class="text-center" scope="col">Descripcion</th>
-                                <th class="text-center" scope="col">Precio</th>
-                                <th class="text-center" colspan="2" scope="col"></th>
-                            </tr>
-
-
-                            <th class="text-center" colspan="6" scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                            <?php
-
-                            foreach ($resultados->fetch_all() as $columna) {
+                                    <th class="text-center" scope="col">Nombre</th>
+                                    <th class="text-center" scope="col">Descripcion</th>
+                                    <th class="text-center" scope="col">Precio</th>
+                                    <th class="text-center" colspan="2" scope="col"></th>
+                                </tr>
 
 
-                                echo " <tr>
-                                    <td class=\"text-center\">" . $columna[1] . "</td>
-                                    <td class=\"text-center\">" . $columna[2] . "</td>
-                                    <td class=\"text-center\">" . $columna[3] . "</td>
-                                    <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "','" . $columna[3] . "')\"></td>
-                                    
-                                    </tr>";
-                            }
+                                <th class="text-center" colspan="6" scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
+                                <!--LLENADO LOS DATOS DE LAS TABLAS   -->
+                                <?php
 
-                            ?>
+                                foreach ($resultados->fetch_all() as $columna) {
 
-                        </tbody>
-                    </table>
+
+                                    echo " <tr>
+                                        <td class=\"text-center\">" . $columna[1] . "</td>
+                                        <td class=\"text-center\">" . $columna[2] . "</td>
+                                        <td class=\"text-center\">" . $columna[3] . "</td>
+                                        <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "','" . $columna[3] . "')\"></td>
+                                        
+                                        </tr>";
+                                }
+
+                                ?>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- Empiezo tabla final -->
                 <div class="col-1"></div>

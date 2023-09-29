@@ -89,34 +89,37 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                 <div class="col-1"></div>
                 <!-- Empiezo de tabla -->
                 <div class="col-10">
-                    <table id="catalogoCategorias" class="table table-hover">
-                        <thead>
-                            <tr>
+                    <div class="table-responsive">
+                        <table id="catalogoCategorias" class="table table-hover">
+                            <thead>
+                                <tr>
 
-                                <th class="text-center" scope="col">Nombre</th>
+                                    <th class="text-center" scope="col">Nombre</th>
 
-                                <th class="text-center" colspan="1" scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                            <?php
+                                    <th class="text-center" colspan="1" scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
+                                <!--LLENADO LOS DATOS DE LAS TABLAS   -->
+                                <?php
 
-                            foreach ($resultados->fetch_all() as $columna) {
+                                foreach ($resultados->fetch_all() as $columna) {
 
 
-                                echo " <tr>
-                                    <td class=\"text-center\">" . $columna[1] . "</td>
-                                    
-                                    <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "')\"></td>
-                                    
-                                    </tr>";
-                            }
+                                    echo " <tr>
+                                        <td class=\"text-center\">" . $columna[1] . "</td>
+                                        
+                                        <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "')\"></td>
+                                        
+                                        </tr>";
+                                }
 
-                            ?>
+                                ?>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- Empiezo tabla final -->
                 <div class="col-1"></div>

@@ -37,7 +37,7 @@
 body {
     font-family: 'Roboto';
     src: url('../../src/fuentes/Roboto-Regular.ttf');
-    background-color: #4ba63b44;
+    background-color: #6c8e7b49;
 }
 
 .container {
@@ -110,6 +110,49 @@ button {
 
 .btnUsuarios:hover {
     opacity: 0.9 !important;
+}
+
+/*==================================================================================
+                                    TABLA
+====================================================================================*/
+
+/* MARCA DE AGUA DE LA TABLA 
+==============================*/
+.marcaAguaTabla{
+    position: absolute;
+    opacity: .1;
+    left: 50%;
+    margin-top: 50px;
+    transform: translate(-50%);
+}
+
+/* COLOR DE FONDO DE LA TABLA
+===============================*/
+table{
+    background: linear-gradient(to bottom,#4bb538a7, transparent);
+}
+
+/* TÍTULOS DE LAS COLUMNAS DE LA TABLA 
+========================================*/
+table th{
+    background: #414141 !important; 
+    color: #ffffff;
+    font-size: 15px;
+    vertical-align: middle;
+}
+table td {
+    font-size: 14px;
+}
+
+/* ESTILO PARA LA PRIMERA FILA DE LA TABLA 
+============================================*/
+table tr:nth-child(odd){
+    color: #000000;
+}
+
+/* ESTILO PARA LA SIGUIENTE FILA DE LA TABLA */
+table tr:nth-child(even){
+    color: #000000;
 }
 
 /* CONTENEDOR PARA EL CONTENIDO DE LA PAGINA
@@ -391,3 +434,74 @@ button {
 	}
 
 }
+
+/* ==============================================================
+                        PANTALLA DE CARGA 
+=================================================================*/
+
+.contenedorCarga {
+    display: flex;
+    flex-wrap: wrap;
+    width: 15em;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    scale: 3;
+  }
+  
+  .cuadrocarga {
+    width: 40px;
+    height: 40px;
+    border-top-left-radius: 10px;
+    background: lightgrey;
+    transition: .4s ease-in-out, .2s background-color;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    margin: .2em;
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: 2s loading90 infinite;
+  }
+  
+  .cuadrocarga:nth-child(2) {
+    animation-delay: 1s;
+  }
+  
+  .cuadrocarga:nth-child(4) {
+    animation-delay: 1s;
+  }
+  
+  .cuadrocarga:nth-child(6) {
+    animation-delay: 1s;
+  }
+  
+  .cuadrocarga:nth-child(8) {
+    animation-delay: 1s;
+  }
+  
+  .cuadrocarga:nth-child(10) {
+    animation-delay: 1s;
+  }
+  
+  .cuadrocarga:nth-child(12) {
+    animation-delay: 1s;
+  }
+  
+  .cuadrocarga:nth-child(14) {
+    animation-delay: 1s;
+  }
+  
+  @keyframes loading90 {
+    0% {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  
+    50% {
+      background: limegreen;
+    }
+  
+    100% {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
