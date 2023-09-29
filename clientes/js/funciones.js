@@ -1,12 +1,12 @@
 
 function abrirSeccion(opcion) {
-
+    pantallaCarga('on');
     if (opcion == 1) {
-
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'flex';
         document.getElementById("registros").style.display = 'none';
+        pantallaCarga('off');
        
     }
 
@@ -15,15 +15,12 @@ function abrirSeccion(opcion) {
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'none';
         document.getElementById("registros").style.display = 'flex';
-        
-
-
+        pantallaCarga('off');
     }
 
 }
 
 function crearCliente(){
-
 
         const data = new FormData(document.getElementById('frmRegistroCliente')); 
     

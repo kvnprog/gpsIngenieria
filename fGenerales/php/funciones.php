@@ -152,22 +152,19 @@ function pintarFooter(){
           </footer>";
 }
 
-function pantallaCarga(){
-  echo "<div class='contenedorCarga'>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div> 
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div> 
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div>
-          <div class='cuadrocarga'></div> 
+function pantallaCarga($vis){
+  if($vis=='on'){
+    $visibilidad = 'display:flex;';
+  } else {
+    $visibilidad = 'display:none;';
+  }
+  echo "<div id='pantallaCarga' class='dots' style='--size: 200px; --dot-size: 15px; --dot-count: 6; --color: #ffffff; --speed: 1s; --spread: 60deg; ".$visibilidad." '>
+          <div class='fondoDot'></div>
+          <div style='--i: 0;' class='dot'></div>
+          <div style='--i: 1;' class='dot'></div>
+          <div style='--i: 2;' class='dot'></div>
+          <div style='--i: 3;' class='dot'></div>
+          <div style='--i: 4;' class='dot'></div>
+          <div style='--i: 5;' class='dot'></div>
         </div>";
 }

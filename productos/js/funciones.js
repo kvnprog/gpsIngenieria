@@ -1,11 +1,12 @@
 function abrirSeccion(opcion) {
-
+    document.getElementById('pantallaCarga').style.display='flex';
     if (opcion == 1) {
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'flex';
         document.getElementById("registros").style.display = 'none';
 
+        document.getElementById('pantallaCarga').style.display='none';
     }
 
     if (opcion == 2) {
@@ -14,6 +15,7 @@ function abrirSeccion(opcion) {
         document.getElementById("catalogo").style.display = 'none';
         document.getElementById("registros").style.display = 'flex';
 
+        document.getElementById('pantallaCarga').style.display='none';
     }
 
 }
@@ -193,7 +195,7 @@ function abrirNuevasExistencias(id){
 
 
 function mandarExistencias(event,id){
-
+    document.getElementById('pantallaCarga').style.display='flex';
     if (event.keyCode == 13) {
         console.log('Se presionó la tecla Enter');
 
@@ -237,25 +239,18 @@ function mandarExistencias(event,id){
                                 alertImage('ERROR', 'Hubo un error', 'error') 
                             }
                                  //actualiza(data);
-                             
-                        
                          });
                     }
                     else{
                         console.log('NO');
                     }
                 })  
-             
-
         }else{
-            alertImage('ERROR', 'No se pueden poner letras', 'error')
+            alertImage('ERROR', 'No se pueden poner letras', 'error');
+            document.getElementById('pantallaCarga').style.display='none';
         }
-
-
         // Aquí puedes agregar la lógica que quieras realizar al presionar Enter
-      }
-
-
+    }
 }
 
 

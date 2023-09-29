@@ -177,6 +177,7 @@ table tr:nth-child(even){
     bottom: -240px;
     transition: transform 0.3s;
     position: fixed;
+    z-index: 400;
 }
 
 /* CONTENEDOR DONDE SE VISUALIZA LA FLECHA DEL FOOTER 
@@ -434,74 +435,95 @@ table tr:nth-child(even){
 	}
 
 }
+.sticky-top{
+    z-index: 800;
+}
 
 /* ==============================================================
                         PANTALLA DE CARGA 
 =================================================================*/
 
-.contenedorCarga {
-    display: flex;
-    flex-wrap: wrap;
-    width: 15em;
-    position: absolute;
-    align-items: center;
+/* CONTENEDOR DE CARGA 
+========================*/
+.dots {
+    width: var(--size);
+    height: var(--size);
+    position: fixed;
+    margin-top: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     justify-content: center;
-    scale: 3;
-  }
+    align-items: center;
+    display: flex;
+    z-index: 1000;
+    background-color: #00000085;
+    backdrop-filter:blur(1.5px);
+    overflow: hidden;
+}
+
+/* CONTENIDO DE LA PANTALLA DE CARGA 
+======================================*/
+.dot {
+    width: var(--size);
+    height: var(--size);
+    animation: dwl-dot-spin calc(var(--speed) * 5) infinite linear both;
+    animation-delay: calc(var(--i) * var(--speed) / (var(--dot-count) + 2) * -1);
+    rotate: calc(var(--i) * var(--spread) / (var(--dot-count) - 1));
+    position: absolute;
+    filter: drop-shadow(0 0 10px #000000);
+}
+.dot::before {
+    content: "";
+    display: block;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    background-color: var(--color);
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    bottom: 0;
+    left: 50%;
+}
   
-  .cuadrocarga {
-    width: 40px;
-    height: 40px;
-    border-top-left-radius: 10px;
-    background: lightgrey;
-    transition: .4s ease-in-out, .2s background-color;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    margin: .2em;
-    border-radius: 5px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    animation: 2s loading90 infinite;
-  }
-  
-  .cuadrocarga:nth-child(2) {
-    animation-delay: 1s;
-  }
-  
-  .cuadrocarga:nth-child(4) {
-    animation-delay: 1s;
-  }
-  
-  .cuadrocarga:nth-child(6) {
-    animation-delay: 1s;
-  }
-  
-  .cuadrocarga:nth-child(8) {
-    animation-delay: 1s;
-  }
-  
-  .cuadrocarga:nth-child(10) {
-    animation-delay: 1s;
-  }
-  
-  .cuadrocarga:nth-child(12) {
-    animation-delay: 1s;
-  }
-  
-  .cuadrocarga:nth-child(14) {
-    animation-delay: 1s;
-  }
-  
-  @keyframes loading90 {
+/* ANIMACIONES 
+================*/
+@keyframes dwl-dot-spin {
     0% {
-      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(0deg);
+      animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
+      opacity: 1;
     }
-  
-    50% {
-      background: limegreen;
+    2% {
+      transform: rotate(20deg);
+      animation-timing-function: linear;
+      opacity: 1;
     }
-  
+    30% {
+      transform: rotate(180deg);
+      animation-timing-function: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+      opacity: 1;
+    }
+    41% {
+      transform: rotate(380deg);
+      animation-timing-function: linear;
+      opacity: 1;
+    }
+    69% {
+      transform: rotate(520deg);
+      animation-timing-function: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+      opacity: 1;
+    }
+    76% {
+      opacity: 1;
+    }
+    76.1% {
+      opacity: 0;
+    }
+    80% {
+      transform: rotate(720deg);
+    }
     100% {
-      background: rgba(255, 255, 255, 0.2);
+      opacity: 0;
     }
-  }
+}
