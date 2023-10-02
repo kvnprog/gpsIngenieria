@@ -1,12 +1,14 @@
 function abrirSeccion(opcion) {
-
+    
+    pantallaCarga('on');
+    
     if (opcion == 1) {
-
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'flex';
         document.getElementById("registros").style.display = 'none';
 
+        pantallaCarga('off');
     }
 
     if (opcion == 2) {
@@ -15,17 +17,15 @@ function abrirSeccion(opcion) {
         document.getElementById("catalogo").style.display = 'none';
         document.getElementById("registros").style.display = 'flex';
 
-
-
+        pantallaCarga('off');
     }
-
-
-
 }
 
 
 function crearNuevoElemento() {
 
+    pantallaCarga('on');
+    
     const data = new FormData(document.getElementById('frmRegistroServicio'));
 
     const options = {
@@ -47,7 +47,7 @@ function crearNuevoElemento() {
                 alertImage('ERROR', 'Surgio un error en el registro', 'error')
             }
 
-
+            pantallaCarga('off');
         });
 
 }
@@ -112,6 +112,7 @@ function abrirModal(id, nombre, descripcion, precio) {
 
 function modificarUsuario() {
 
+    pantallaCarga('on');
 
     const data = new FormData(document.getElementById('frmModificar'));
 
@@ -133,33 +134,32 @@ function modificarUsuario() {
 
             }
 
+            pantallaCarga('off');
         });
 
 }
 
 function filtrarProductos(){
+    
+    pantallaCarga('on');
+    
+    var filtroNParte = document.getElementById("filtroNParte").value;
+    var filtroDescripcion = document.getElementById("filtroDescripcion").value;
+    var filtroCategoria = document.getElementById("filtroCategoria").value;
 
-var filtroNParte = document.getElementById("filtroNParte").value;
-var filtroDescripcion = document.getElementById("filtroDescripcion").value;
-var filtroCategoria = document.getElementById("filtroCategoria").value;
+    const options = {
+        method: "GET"
+    };
 
+    // Petición HTTP
+    fetch("../../productos/php/filtrarTablaAJAX.php?nParte="+filtroNParte+"&descripcion="+filtroDescripcion+"&categoriaid="+filtroCategoria, options)
+    .then(response => response.json())
+    .then(data => {
+        
+        actualiza(data);
 
-const options = {
-    method: "GET"
-};
-
- // Petición HTTP
- fetch("../../productos/php/filtrarTablaAJAX.php?nParte="+filtroNParte+"&descripcion="+filtroDescripcion+"&categoriaid="+filtroCategoria, options)
- .then(response => response.json())
- .then(data => {
-     
-         actualiza(data);
-     
-
- });
-
- 
-
+        pantallaCarga('off');
+    });
 }
 
 

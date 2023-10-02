@@ -1,23 +1,26 @@
 function abrirSeccion(opcion) {
-
+    
+    pantallaCarga('on');
+    
     if (opcion == 1) {
-
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'flex';
-    }
 
+        pantallaCarga('off');
+    }
 }
 
 
 function filtrarOrdenes() {
+
+    pantallaCarga('on');
 
     var filtroNFolio = document.getElementById("filtroNFolio").value;
     var filtroTrabajador = document.getElementById("filtroTrabajador").value;
     var filtroCliente = document.getElementById("filtroCliente").value;
     var filtroFechaI = document.getElementById("filtroFechaI").value;
     var filtroFechaF = document.getElementById("filtroFechaF").value;
-
 
     const options = {
         method: "GET"
@@ -30,6 +33,7 @@ function filtrarOrdenes() {
 
             actualiza(data);
 
+            pantallaCarga('off');
 
         });
 
@@ -191,7 +195,9 @@ function abrirModalFacturaAgregar(id) {
 
 
 function agregarFactura() {
-
+    
+    pantallaCarga('on');
+    
     const data = new FormData(document.getElementById('frmFactura'));
 
     const options = {
@@ -210,9 +216,13 @@ function agregarFactura() {
                 formulario.reset();
                 actualiza(data)
                 $("#miModal").modal('hide');
+
+                pantallaCarga('off');
+
             } else {
                 alertImage('ERROR', 'hubo un error', 'error')
 
+                pantallaCarga('off');
 
             }
 

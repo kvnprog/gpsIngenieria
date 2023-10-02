@@ -1,12 +1,15 @@
 function abrirSeccion(opcion) {
+    
+    pantallaCarga('on');
 
     if (opcion == 1) {
-
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'flex';
         document.getElementById("registros").style.display = 'none';
         document.getElementById("permisos").style.display = 'none';
+        
+        pantallaCarga('off');
     }
 
     if (opcion == 2) {
@@ -16,7 +19,7 @@ function abrirSeccion(opcion) {
         document.getElementById("registros").style.display = 'flex';
         document.getElementById("permisos").style.display = 'none';
 
-
+        pantallaCarga('off');
     }
 
     if (opcion == 3) {
@@ -26,12 +29,14 @@ function abrirSeccion(opcion) {
         document.getElementById("registros").style.display = 'none';
         document.getElementById("permisos").style.display = 'flex';
 
-
+        pantallaCarga('off');
     }
 
 }
 
 function eliminarUsuario(id) {
+    
+    pantallaCarga('on');
 
     var color = '#FFFFFF';
     var icono = 'warning';
@@ -60,22 +65,25 @@ function eliminarUsuario(id) {
 
 
             fetch("../../usuarios/php/eliminarAJAX.php?id=" + id, options)
-                .then(response => response.json())
-                .then(data => {
+            .then(response => response.json())
+            .then(data => {
 
-                    if (data[0]["resultado"] == 1) {
+                if (data[0]["resultado"] == 1) {
 
-                        alertImage('EXITO', 'Se elimino el usuario con existo', 'success')
+                    alertImage('EXITO', 'Se elimino el usuario con existo', 'success');
 
-                        actualizar(data);
+                    actualizar(data);
 
-                    } else {
+                    pantallaCarga('off');
 
-                        alertImage('ERROR', 'Error al tratar eliminar registro', 'error')
+                } else {
 
-                    }
+                    alertImage('ERROR', 'Error al tratar eliminar registro', 'error')
 
-                });
+                    pantallaCarga('off');
+                }
+
+            });
         }
 
     })
@@ -98,6 +106,7 @@ function abrirModal(usuarioid, nombre, login, correo) {
 
 function modificarUsuario() {
 
+    pantallaCarga('on');
 
     const data = new FormData(document.getElementById('frmModificar'));
 
@@ -113,12 +122,15 @@ function modificarUsuario() {
         .then(data => {
             if (data[0]["resultado"] == 0)
                 alertImage('ERROR', 'Error en el registro', 'error')
+                pantallaCarga('off');
 
             if (data[0]["resultado"] == 1)
                 alertImage('ERROR', 'Nesesita llenar todos los campos', 'error')
+                pantallaCarga('off');
 
             if (data[0]["resultado"] == 2)
                 alertImage('EXITO', 'Se modifico el usuario con existo', 'success')
+                pantallaCarga('off');
 
                 actualizar(data);
 
@@ -157,7 +169,9 @@ function actualizar(data){
 }
 
 function crearUsuario() {
-
+    
+    pantallaCarga('on');
+    
     const data = new FormData(document.getElementById('frmRegistroUsuario')); 
 
     console.log(data);
@@ -179,11 +193,14 @@ function crearUsuario() {
                 
                 actualizar(data);
 
+                pantallaCarga('off');
             }else{
 
                if(data[0]["resultado"] == 0)alertImage('ERROR', 'Surgio un error al hacer el registro', 'error')
 
                if(data[0]["resultado"] == 1)alertImage('ERROR', 'El nombre o usuario ya fueron registrados', 'error')
+               
+               pantallaCarga('off');
             }
            
         })
@@ -191,7 +208,9 @@ function crearUsuario() {
 }
 
 function cargaPermisos(idusuario){
-
+    
+    pantallaCarga('on');
+    
     const options = {
         method: "GET"
 
@@ -247,13 +266,15 @@ function cargaPermisos(idusuario){
 
         divPermisos.innerHTML = cadenaPermisos;
 
-       
+        pantallaCarga('off');
     })
 
 }
 
 function ponerPermiso(idseccion,idusuario){
-
+    
+    pantallaCarga('on');
+    
     const options = {
         method: "GET"
 
@@ -265,8 +286,10 @@ function ponerPermiso(idseccion,idusuario){
 
         if(data["resultado"]){
             alertImage('EXITO', 'Se hiso el cambio en el permiso', 'success')
+            pantallaCarga('off');
         }else{
             alertImage('EXITO', 'Se hiso el cambio en el permiso', 'success')
+            pantallaCarga('off');
         }
 
     });

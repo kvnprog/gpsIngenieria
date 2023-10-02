@@ -17,10 +17,11 @@ function abrirSeccion(opcion) {
         document.getElementById("registros").style.display = 'flex';
         pantallaCarga('off');
     }
-
 }
 
 function crearCliente(){
+    
+    pantallaCarga('on');
 
         const data = new FormData(document.getElementById('frmRegistroCliente')); 
     
@@ -42,12 +43,15 @@ function crearCliente(){
                     alertImage('EXITO', 'Se registró el usuario con éxito', 'success')
                     
                     actualizar(data);
+
+                    pantallaCarga('off');
     
                 }else{
     
                    if(data[0]["resultado"] == 0)alertImage('ERROR', 'Surgio un error al hacer el registro', 'error')
     
                    //if(data[0]["resultado"] == 1)alertImage('ERROR', 'El nombre o usuario ya fueron registrados', 'error')
+                   pantallaCarga('off');
                 }
                
             })
@@ -77,6 +81,7 @@ function abrirModal(idcliente, nombres, apellidos, domicilio,estado,codigoPostal
 
 function modificarCliente() {
 
+    pantallaCarga('on');
 
     const data = new FormData(document.getElementById('frmModificar'));
 
@@ -92,12 +97,15 @@ function modificarCliente() {
         .then(data => {
             if (data[0]["resultado"] == 0)
                 alertImage('ERROR', 'Error en el registro', 'error')
+                pantallaCarga('off');
 
             if (data[0]["resultado"] == 1)
                 alertImage('ERROR', 'Nesesita llenar todos los campos', 'error')
+                pantallaCarga('off');
 
             if (data[0]["resultado"] == 2)
                 alertImage('EXITO', 'Se modifico el usuario con existo', 'success')
+                pantallaCarga('off');
 
                 actualizar(data);
 
