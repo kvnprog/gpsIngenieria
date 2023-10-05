@@ -87,7 +87,7 @@ function pintarEncabezado($titulo,$img){
     echo "<div class='row'>
             <!-- BOTON DE IR ATRAS -->
             <div class='col-3 justify-content-center align-items-center'>
-              <img class='imgregreso' src='../../src/imagenes/atras.png' onclick='regreso()'/>
+              <img class='imgregreso' src='../../src/imagenes/backgps.svg' onclick='regreso()'/>
             </div>
 
             <!-- TITULO DEL MODULO -->
