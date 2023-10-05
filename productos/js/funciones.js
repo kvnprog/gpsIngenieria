@@ -1,12 +1,14 @@
 function abrirSeccion(opcion) {
-    document.getElementById('pantallaCarga').style.display='flex';
+
+    pantallaCarga('on');
+    
     if (opcion == 1) {
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'flex';
         document.getElementById("registros").style.display = 'none';
 
-        document.getElementById('pantallaCarga').style.display='none';
+        pantallaCarga('off');
     }
 
     if (opcion == 2) {
@@ -15,13 +17,15 @@ function abrirSeccion(opcion) {
         document.getElementById("catalogo").style.display = 'none';
         document.getElementById("registros").style.display = 'flex';
 
-        document.getElementById('pantallaCarga').style.display='none';
+        pantallaCarga('off');
     }
 
 }
 
 
 function crearProducto() {
+
+    pantallaCarga('on');
 
     const formulario  = document.getElementById('frmRegistroNParte');
     const formData = new FormData(formulario);
@@ -33,21 +37,23 @@ function crearProducto() {
 
     // Petición HTTP
     fetch("../../productos/php/crearAJAX.php", options)
-        .then(response => response.json())
-        .then(data => {
+    .then(response => response.json())
+    .then(data => {
 
-            // console.log(data);
+        // console.log(data);
 
-            if (data["resultado"]) {
-                alertImage('EXITO', 'Se creo el producto con existo', 'success')
-                actualiza(data);
-            } else {
-                alertImage('ERROR', 'Surgio un error en el registro', 'error')
-            }
+        if (data["resultado"]) {
+            alertImage('EXITO', 'Se creo el producto con existo', 'success')
+            actualiza(data);
 
+            pantallaCarga('off');
 
-        });
+        } else {
+            alertImage('ERROR', 'Surgio un error en el registro', 'error')
 
+            pantallaCarga('off');
+        }
+    });
 }
 
 function actualiza(data) {
@@ -128,6 +134,7 @@ function abrirModal(productoid, nParte, descripcion, idcategoria, categoria, max
 
 
 function modificarUsuario() {
+    pantallaCarga('on');
 
     const data = new FormData(document.getElementById('frmModificar'));
 
@@ -144,9 +151,11 @@ function modificarUsuario() {
             if (data["resultado"]){
                 alertImage('EXITO', 'Se modifico el registro con exito', 'success')
                 actualiza(data);
+
+                pantallaCarga('off');
             }else{
                 alertImage('ERROR', 'hubo un error', 'error')
-
+                pantallaCarga('off');
             }
 
         });
@@ -154,27 +163,26 @@ function modificarUsuario() {
 }
 
 function filtrarProductos(){
+    
+    pantallaCarga('on');
 
-var filtroNParte = document.getElementById("filtroNParte").value;
-var filtroDescripcion = document.getElementById("filtroDescripcion").value;
-var filtroCategoria = document.getElementById("filtroCategoria").value;
+    var filtroNParte = document.getElementById("filtroNParte").value;
+    var filtroDescripcion = document.getElementById("filtroDescripcion").value;
+    var filtroCategoria = document.getElementById("filtroCategoria").value;
 
 
-const options = {
-    method: "GET"
-};
+    const options = {
+        method: "GET"
+    };
 
- // Petición HTTP
- fetch("../../productos/php/filtrarTablaAJAX.php?nParte="+filtroNParte+"&descripcion="+filtroDescripcion+"&categoriaid="+filtroCategoria, options)
- .then(response => response.json())
- .then(data => {
+    // Petición HTTP
+    fetch("../../productos/php/filtrarTablaAJAX.php?nParte="+filtroNParte+"&descripcion="+filtroDescripcion+"&categoriaid="+filtroCategoria, options)
+    .then(response => response.json())
+    .then(data => {
 
-    actualiza(data);
- 
-});
-
- 
-
+        actualiza(data);
+        pantallaCarga('off');
+    });
 }
 
 function abrirNuevasExistencias(id){

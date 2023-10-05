@@ -1,6 +1,8 @@
 <?php
     include "../../fGenerales/bd/conexion.php";
     include "../../fGenerales/php/funciones.php";
+
+    pantallaCarga('on')
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +11,7 @@
     <?php pintarHead('Menu') ?>
 </head>
 
-<body class="justify-content-center align-items-center">
+<body class="justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
     <div class="contenedorCont">
         <!-- //div principal -->
         <div class="col-12">

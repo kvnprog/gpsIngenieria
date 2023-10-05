@@ -1,19 +1,17 @@
 function abrirSeccion(opcion) {
 
+    pantallaCarga('on');
+    
     if (opcion == 1) {
-
-
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("reporteES").style.display = 'flex';
-
-
+        pantallaCarga('off');
     }
-
-
 }
 
 function buscarES() {
 
+    pantallaCarga('on');
 
     var filtroTipo = document.getElementById("filtroTipo").value;
     var filtroMovimiento = document.getElementById("filtroMovimiento").value;
@@ -39,8 +37,8 @@ function buscarES() {
     fetch("../../reportes/php/traerReporteESAJAX.php", options)
         .then(response => response.json())
         .then(data => {
-
-
+            
+            pantallaCarga('off');
 
             var catalogoProductos = document.getElementById('catalogoProductos');
 
