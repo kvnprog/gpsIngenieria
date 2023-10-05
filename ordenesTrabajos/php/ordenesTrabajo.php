@@ -146,9 +146,9 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
 
                                     if ($columna[8] != "") {
-                                        echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[8] . "</div><img src=\"../../src/imagenes/evidenciagps.png\" width=\"30px\" onclick=\"abrirEvidenciaFactura(".$columna[6].")\"></td>";
+                                        echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[8] . "</div><img src=\"../../src/imagenes/bills.svg\" width=\"40px\" onclick=\"abrirEvidenciaFactura(".$columna[6].")\"></td>";
                                     } else {
-                                        echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[6] . ")\" width=\"30px\"></td>";
+                                        echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[6] . ")\" width=\"40px\"></td>";
                                     }
 
                                     echo  "<td class=\"text-center\">" . $columna[4] . "</td>

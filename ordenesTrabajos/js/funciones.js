@@ -79,10 +79,10 @@ function actualiza(data) {
         //checando si tiene factura
         console.log(factura)
         if (factura != null) {
-            cadenaProductos = cadenaProductos + "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" + factura + "</div><img src=\"../../src/imagenes/evidenciagps.png\"  width=\"30px\" onclick=\"abrirEvidenciaFactura(" + id + ")\"  ></td> ";
+            cadenaProductos = cadenaProductos + "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" + factura + "</div><img src=\"../../src/imagenes/bills.svg\"  width=\"40px\" onclick=\"abrirEvidenciaFactura(" + id + ")\"  ></td> ";
 
         } else {
-            cadenaProductos = cadenaProductos + "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" + id + ")\" width=\"30px\"></td>";
+            cadenaProductos = cadenaProductos + "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" + id + ")\" width=\"40px\"></td>";
         }
 
 

@@ -16,4 +16,9 @@ function abrirOT(){
 
 }
 
+function abrirVentas(){
+
+    window.open("../../ventas/php/ventas.php","_self");
+
+}
 

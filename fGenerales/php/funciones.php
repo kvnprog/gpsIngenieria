@@ -75,7 +75,7 @@ function pintarEncabezado($titulo,$img){
   if($titulo=='' && $img==''){
     echo "<div class='row'>
             <div class='col-3 justify-content-center align-items-center'>
-              <img class='imgregreso' src='../../src/imagenes/atras.png' onclick='regreso()'/>
+              <img class='imgregreso' src='../../src/imagenes/backgps.svg' onclick='regreso()'/>
             </div>
             
             <div class='col-6 divLogo justify-content-center align-items-center'>
