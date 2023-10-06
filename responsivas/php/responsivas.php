@@ -53,50 +53,6 @@
 
                 <div class="row" id="catalogo" style="display: none;">
 
-                    <!-- FILTROS PARA BUSCAR PRODUCTOS -->
-                    <div class="row text-center">
-
-                        <div class="col-1"></div>
-
-                        <div class="col-10">
-                            <div class="row">
-
-                                <!-- FILTRO POR NUMERO DE PARTE -->
-                                <div class="form-floating col-4 ">
-                                    <input type="text" class="form-control" id="filtroNParte" name="filtroNParte" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                                    <label>Numero de Parte</label>
-                                </div>
-
-                                <!-- FILTRO POR DESCRIPCIÓN -->
-                                <div class="form-floating col-4 ">
-                                    <input type="text" class="form-control" id="filtroDescripcion" name="filtroDescripcion" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                                    <label>Descripcion</label>
-                                </div>
-
-                                <!-- FILTRO POR CATEGORÍA -->
-                                <div class="form-floating mb-3 col-4">
-                                    <select class="form-select" id="filtroCategoria" name="filtroCategoria" aria-label="Floating label select example" onchange="filtrarProductos()">
-                                        <option value=0 selected>Categorias....</option>
-                                        <?php
-                                            $conexionCategorias = new conexion;
-                                            $queryCategorias = "SELECT*FROM categoriasproductos";
-                                            $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                                            foreach ($categorias->fetch_all() as $index => $categoria) {
-
-                                                print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                            }
-                                        ?>
-                                    </select>
-                                    <label for="floatingSelect">Categoria</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-1"></div>
-                    
-                    </div>
-
                     <!-- TITULO DEL CONTENIDO -->
                     <div class="col-12 text-center">
                         <h3>Catalogo de Productos</h3>
@@ -112,16 +68,10 @@
                                 <thead>
                                     <tr class="sticky-top">
                                         <th class="text-center" scope="col">Numero de Parte</th>
-                                        <th class="text-center" scope="col">Descripcion</th>
-                                        <th class="text-center" scope="col">Categoria</th>
-                                        <th class="text-center" scope="col">Maximos</th>
-                                        <th class="text-center" scope="col">Minimos</th>
                                         <th class="text-center" scope="col">Existentes</th>
-                                        <th class="text-center" scope="col">Agregar</th>
-                                        <th class="text-center" scope="col">Comentarios</th>
                                         <th class="text-center" scope="col">Precio Por Unidad</th>
                                         <th class="text-center" scope="col">Foto</th>
-                                        <th class="text-center" colspan="2" scope="col"></th>
+                                        <th class="text-center" colspan="2" scope="col">Acción</th>
                                     </tr>
                                 </thead>
                                 <!-- CONTENIDO DE LA TABLA -->
@@ -131,13 +81,7 @@
                                         foreach ($resultados->fetch_all() as $columna) {
                                             echo " <tr>
                                                         <td class=\"text-center\">" . $columna[1] . "</td>
-                                                        <td class=\"text-center\">" . $columna[2] . "</td>
-                                                        <td class=\"text-center\">" . $columna[8] . "</td>
-                                                        <td class=\"text-center\">" . $columna[4] . "</td>
-                                                        <td class=\"text-center\">" . $columna[5] . "</td>
                                                         <td class=\"text-center\">" . $columna[6] . "</td>
-                                                        <td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-".$columna[0]."\" onclick=\"abrirNuevasExistencias(".$columna[0].")\"><input type=\"number\" id=\"existenciasNuevas-".$columna[0]."\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,".$columna[0].")\"></td>
-                                                        <td class=\"text-center\">" . $columna[7] . "</td>
                                                         <td class=\"text-center\">" . $columna[8] . "</td>";
                                             
                                                         $imagenPath = "/gpsIngenieria/productos/imgsProductos/producto_" . $columna[0] . ".jpg";
@@ -146,7 +90,8 @@
                                                         } else {
                                                             echo "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/imgsProductos/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
                                                         }
-                                            echo "      <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "','" . $columna[8] . "')\"></td>
+                                            
+                                            echo "      <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50px\" onclick=\"modalResponsiva('".$columna[0]."','".$columna[1]."','".$columna[2]."','".$columna[3]."','".$columna[4]."','".$columna[5]."','".$columna[6]."','".$columna[7]."','".$columna[8]."','".$columna[9]."')\" title=\"Generar responsiva\"></td>
                                                 </tr>";
                                         }
                                     ?>
@@ -157,6 +102,30 @@
 
                     <div class="col-1"></div>
 
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalResponsiva" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Datos de responsiva</label>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmModalResponsiva">
+                            <input type="text" id="idProductoHid" style="display: none">
+                            <input type="text" id="existenciasHid" style="display: none">
+                            <label for="cantidadProd">Cantidad producto:</label><input class="form-control" type="number" min="1" id="cantidadProd" name="cantidadProd">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="generarResponsiva()">Generar responsiva</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
