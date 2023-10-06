@@ -11,5 +11,5 @@ function abrirReportes() {
 }
 
 function abrirResponsivas(){
-    window.open("../../responsivas/php/responsivas.php","_self");
+    window.open("../../responsivas/php/menuResponsivas.php","_self");
 }

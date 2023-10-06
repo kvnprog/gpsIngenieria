@@ -12,20 +12,42 @@ function abrirSeccion(opcion) {
 
 }
 
-function modalResponsiva(id, nparte, descripcion, categoria, maximos, minimos, existentes, comentarios, precio, nombre){
+function modalResponsiva(){
     
-    document.getElementById('frmModalResponsiva').reset();
+    const checkboxes = document.querySelectorAll('#catalogoProductos input[type="checkbox"]');
+    const registrosSeleccionados = [];
+
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+
+            registrosSeleccionados.push({
+                idProducto: checkbox.value,
+            });
+
+        }
+    });
     
-    document.getElementById('idProductoHid').value = "";
-    document.getElementById('idProductoHid').value = id;
+    if(registrosSeleccionados != "" || registrosSeleccionados.length != 0){
 
-    document.getElementById('existenciasHid').value = "";
-    document.getElementById('existenciasHid').value = existentes;
+        pantallaCarga('on');
 
-    var cantidadProd = document.getElementById('cantidadProd');
-    cantidadProd.setAttribute("max",existentes);
+        const options = { method: "GET" };
+        const variables = "?arrRegSeleccionados="+JSON.stringify(registrosSeleccionados);
+        const url = "../php/AJAX/traeProductosAJAX.php"+variables;
 
-    $("#modalResponsiva").modal('show');
+        fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+            pantallaCarga('off');
+            console.log(data);
+
+            $("#modalResponsiva").modal('show');    
+        });
+        
+    } else {
+        alertImage('Error','Debe seleccionar al menos un producto para generar la responsiva','error');
+    }
+    
 }
 
 function generarResponsiva(){
@@ -35,8 +57,11 @@ function generarResponsiva(){
     var existencias = document.getElementById('existenciasHid').value;
 
     if(cantidadProd!=""){
-        if(cantidadProd<=existencias){
-            window.open("../../responsivas/php/formatoResponsiva.php?idProductoHid="+idProductoHid, "_blank");
+        if(cantidadProd <= existencias){
+            console.log('aqui');
+            // window.open("../../responsivas/php/formatoResponsiva.php?idProductoHid="+idProductoHid, "_blank");
+        } else {
+            alertImage('Error','No puedes poner una cantidad mayor a las existencias','error');
         }
     } else {
         alertImage('Error', 'Para generar la responsiva debe ingresar la cantidad de producto correcta', 'error');

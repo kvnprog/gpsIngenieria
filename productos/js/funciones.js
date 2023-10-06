@@ -44,6 +44,7 @@ function crearProducto() {
 
         if (data["resultado"]) {
             alertImage('EXITO', 'Se creo el producto con existo', 'success')
+            formulario.reset();
             actualiza(data);
 
             pantallaCarga('off');
