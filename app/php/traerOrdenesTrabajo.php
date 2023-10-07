@@ -1,5 +1,7 @@
 <?php
 
+
+
 include "../../fGenerales/php/funciones.php";
 include "../../fGenerales/bd/conexion.php";
 
@@ -62,23 +64,21 @@ $resultado = $conexionOrden->conn->query($queryOrden);
 $arrResultados = [];
 
 
+
 foreach($resultado->fetch_all() as $index=>$orden){
 
-    $arreglo = [];
+    $arreglo = [
+       "idorden" => $orden[0],
+       "numFolio" => $orden[1],
+       "nombreEmpleado" => $orden[2],
+       "nombreCliente" => $orden[3],
+       "TotalPago" => $orden[4],
 
-    $arreglo["idorden"] = $orden[0];
-    $arreglo["numFolio"] = $orden[1];
-    $arreglo["nombreEmpleado"] = $orden[2];
-    $arreglo["nombreCliente"] = $orden[3];
-    $arreglo["TotalPago"] = $orden[4];
+    ];
 
     array_push($arrResultados,$arreglo);
 
 }
-
-$arrResultados = array_values($arrResultados); 
-
-
 
 
 echo json_encode($arrResultados);
