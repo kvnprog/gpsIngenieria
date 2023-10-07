@@ -61,17 +61,25 @@ $resultado = $conexionOrden->conn->query($queryOrden);
 
 $arrResultados = [];
 
-$arrResultados["noDatos"] = $resultado->num_rows;
 
 foreach($resultado->fetch_all() as $index=>$orden){
 
-    $arrResultados[$index]["idorden"] = $orden[0];
-    $arrResultados[$index]["numFolio"] = $orden[1];
-    $arrResultados[$index]["nombreEmpleado"] = $orden[2];
-    $arrResultados[$index]["nombreCliente"] = $orden[3];
-    $arrResultados[$index]["TotalPago"] = $orden[4];
+    $arreglo = [];
+
+    $arreglo["idorden"] = $orden[0];
+    $arreglo["numFolio"] = $orden[1];
+    $arreglo["nombreEmpleado"] = $orden[2];
+    $arreglo["nombreCliente"] = $orden[3];
+    $arreglo["TotalPago"] = $orden[4];
+
+    array_push($arrResultados,$arreglo);
 
 }
+
+$arrResultados = array_values($arrResultados); 
+
+
+
 
 echo json_encode($arrResultados);
 

@@ -4,10 +4,9 @@
 <head>   
   <?php 
     include "../../fGenerales/php/funciones.php";
-    include "body.php";
     pintarHead('Ventas') ?>
 </head>
 <!-- //BUSCANDO Usuarios -->
-<?php body();?>
+<?php include "body.php";?>
 
 </html>
