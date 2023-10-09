@@ -17,7 +17,7 @@ $cadenaCliente2 = $filtroCliente!= ""? " AND ce.empresa like '%".$filtroCliente.
 $cadenaTrabajador = $filtroTrabajador!= "" ? " AND u.nombreusuario like '%".$filtroTrabajador."%' ":"";
 $cadenaCompra = $filtroCompra != "" ? " AND v.nombrecompra like '%".$filtroCompra."%'":""; 
 $cadenaFecha = $filtroFechaI != "" && $filtroFechaF != "" ? " AND v.fecha BETWEEN '".$filtroFechaI."' AND '".$filtroFechaF."' ":""; 
-    
+
 
 //HACIENDO LA CONSULTA
 $conexionVentas = new conexion;

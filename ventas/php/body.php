@@ -15,7 +15,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
         <!-- //div principal -->
         <div class="col-12">
 
-            <?php pintarEncabezado('Ventas','sales.svg');?>
+            <?php pintarEncabezado('Ventas','salestitle.svg');?>
 
             <?php include "botones.php";?>
             <!-- Catalogo de ventas -->
