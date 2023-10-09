@@ -70,7 +70,7 @@ file_put_contents("../../ordenesTrabajos/src/firmas/" . $pathEmpleado, $imgEmple
 
 //CALCULANDO SALDO PENDIENTE 
 
-$saldoPendiente = $total - $flete;
+$saldoPendiente = floatval($total) - floatval($flete);
 
 //INSERTANDO LA ORDEN DE TRABAJO
 
