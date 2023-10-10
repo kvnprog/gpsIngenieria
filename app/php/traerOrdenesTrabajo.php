@@ -37,7 +37,7 @@ $cadenaOrden = "";
 
 if ($fechaI != "" && $fechaF != "") {
 
-    $cadenaOrden = " AND o.fecha::DATE BETWEEN '".$fechaI."' AND '".$fechaF."' ";
+    $cadenaOrden = " AND date(o.fecha) BETWEEN '".$fechaI."' AND '".$fechaF."' ";
 
 }
 
@@ -46,6 +46,8 @@ if($nFolio!=""){
     $cadenaOrden = " AND o.numfolio = ".$nFolio;
 
 }
+
+ 
 
 //HACIENDO LA QUERY PARA TRAER LOS RESULTADOS
 
@@ -57,6 +59,8 @@ JOIN usuarios u ON o.idusuario = u.idusuario " . $cadenaTrabajador .
     " JOIN clientes c ON c.idcliente = o.idcliente " . $cadenaCliente .
     " WHERE o.banderaautorizadar = 1 " .$cadenaOrden;
 
+     
+    
 $resultado = $conexionOrden->conn->query($queryOrden);
 
 //MANDANDO LOS DATOS EN UN JSON
