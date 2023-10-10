@@ -1,6 +1,6 @@
 <!-- MODAL 1 DE RESPONSIVAS -->
-<div class="modal fade" id="modalResponsiva" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal" id="modalResponsiva" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Datos de responsiva</label>
@@ -8,9 +8,14 @@
             </div>
             <div class="modal-body">
                 <form id="frmModalResponsiva">
-                    <input type="text" id="idProductoHid" style="display: none">
-                    <input type="text" id="existenciasHid" style="display: none">
-                    <label for="cantidadProd">Cantidad producto:</label><input class="form-control" type="number" min="1" id="cantidadProd" name="cantidadProd">
+
+                    <div class="contenedorCont">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table id="tablaProdSel" class="table table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

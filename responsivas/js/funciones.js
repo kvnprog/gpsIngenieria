@@ -15,19 +15,12 @@ function abrirSeccion(opcion) {
 function modalResponsiva(){
     
     const checkboxes = document.querySelectorAll('#catalogoProductos input[type="checkbox"]');
-    const registrosSeleccionados = [];
-
-    checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-
-            registrosSeleccionados.push({
-                idProducto: checkbox.value,
-            });
-
-        }
-    });
+    const registrosSeleccionados = Array.from(checkboxes)
     
-    if(registrosSeleccionados != "" || registrosSeleccionados.length != 0){
+    .filter(checkbox => checkbox.checked)
+    .map(checkbox => checkbox.value);
+    
+    if(registrosSeleccionados != "" || registrosSeleccionados.length > 0){
 
         pantallaCarga('on');
 
@@ -38,10 +31,40 @@ function modalResponsiva(){
         fetch(url, options)
         .then(response => response.json())
         .then(data => {
-            pantallaCarga('off');
-            console.log(data);
 
-            $("#modalResponsiva").modal('show');    
+            pantallaCarga('off');
+            // console.log(data);
+
+            if(data['bandera'] == 0){
+                alertImage('Error','Ocurrió un error, inténtalo más tarde.','error');
+            }
+            if(data['bandera'] == 1){
+                
+                var tablaProdSel = document.getElementById('tablaProdSel');
+                var conTabla = "<tr></tr>";
+                
+                conTabla = "<thead><tr class='sticky-top text-center'><th>#</th><th>Numero de parte</th><th>Descripción</th><th>Existentes</th><th>Precio por unidad</th><th>Nombre</th><th>Cantidad</th></tr></thead>";
+
+                for(puntero = 0 ; puntero < data['array'].length ; puntero++){
+                    var indice = puntero+1;
+                    conTabla += "<thead>";
+                        conTabla += "<tr class='text-center'>";
+                            conTabla += "<td>"+indice+"</td>";
+                            conTabla += "<td>"+data['numParte'][puntero]+"</td>";
+                            conTabla += "<td>"+data['descripcion'][puntero]+"</td>";
+                            conTabla += "<td>"+data['existentes'][puntero]+"</td>";
+                            conTabla += "<td>"+data['precioxunidad'][puntero]+"</td>";
+                            conTabla += "<td>"+data['nombre'][puntero]+"</td>";
+                            conTabla += "<td><div class='form-floating mb-3'><input onkeyup='validarInput(this, "+data['existentes'][puntero]+")' type='number' class='form-control' id='"+data['array'][puntero]+"' name='cantidad' placeholder='Ingrese la cantidad'><label>Cantidad</label></div></td>";
+                        conTabla += "</tr>";
+                    conTabla += "</thead>";
+                }
+                
+                tablaProdSel.innerHTML = conTabla;
+
+                $("#modalResponsiva").modal('show');   
+                
+            } 
         });
         
     } else {
@@ -51,19 +74,55 @@ function modalResponsiva(){
 }
 
 function generarResponsiva(){
-    var cantidadProd = document.getElementById('cantidadProd').value;
-    var idProductoHid = document.getElementById('idProductoHid').value;
 
-    var existencias = document.getElementById('existenciasHid').value;
+    var inputs = document.querySelectorAll("#tablaProdSel .form-control");
 
-    if(cantidadProd!=""){
-        if(cantidadProd <= existencias){
-            console.log('aqui');
-            // window.open("../../responsivas/php/formatoResponsiva.php?idProductoHid="+idProductoHid, "_blank");
+    var todosValidos = true;
+    var valores = new Array;
+    var ids = new Array;
+
+    for (var i = 0; i < inputs.length; i++) {
+
+        var valor = inputs[i].value.trim();
+        var valorid = inputs[i];
+        
+        if (valor === "") {
+            todosValidos = false;
+            break;
         } else {
-            alertImage('Error','No puedes poner una cantidad mayor a las existencias','error');
+            valores[i] = valor;
+            ids[i] = valorid.id;
+        }
+    }
+
+    if (todosValidos) {
+
+        const variables = "?arrayId="+ids+"&arrayValores="+valores;
+        const url = "../php/AJAX/formatoResponsiva.php"+variables;
+
+        window.open(url, "_blank");
+
+    } else {
+        alertImage('Error','Ingrese las cantidades faltantes, al menos un campo esta vació','error');
+    }
+
+}
+
+function validarInput(input, max) {
+    var min = 1;
+    
+    valor = input.value.trim();
+
+    if (!isNaN(valor)) {
+        var numero = parseInt(valor);
+
+        if (numero >= min && numero <= max) {
+            return true;
+        } else {
+            input.value = valor.substring(0, 0);
         }
     } else {
-        alertImage('Error', 'Para generar la responsiva debe ingresar la cantidad de producto correcta', 'error');
+        input.value = valor.substring(0, 0);
+        return false;
     }
 }
