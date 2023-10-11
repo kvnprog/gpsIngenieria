@@ -3,10 +3,16 @@ function abrirSeccion(opcion) {
     pantallaCarga('on');
     
     if (opcion == 1) {
-
         //MOVIENDO LA VISIBILIDAD
-        document.getElementById("catalogo").style.display = 'flex';
+        document.getElementById("crearResponsivas").style.display = 'flex';
+        document.getElementById('catalogoResponsivas').style.display = 'none';
 
+        pantallaCarga('off');
+    }
+    if(opcion == 2){
+        //MOVIENDO LA VISIBILIDAD
+        document.getElementById("crearResponsivas").style.display = 'none';
+        document.getElementById('catalogoResponsivas').style.display = 'flex';
         pantallaCarga('off');
     }
 
@@ -55,7 +61,7 @@ function modalResponsiva(){
                             conTabla += "<td>"+data['existentes'][puntero]+"</td>";
                             conTabla += "<td>"+data['precioxunidad'][puntero]+"</td>";
                             conTabla += "<td>"+data['nombre'][puntero]+"</td>";
-                            conTabla += "<td><div class='form-floating mb-3'><input onkeyup='validarInput(this, "+data['existentes'][puntero]+")' type='number' class='form-control' id='"+data['array'][puntero]+"' name='cantidad' placeholder='Ingrese la cantidad'><label>Cantidad</label></div></td>";
+                            conTabla += "<td><div class='form-floating mb-3'><input onkeyup='validarInput(this, "+data['existentes'][puntero]+")' type='number' min='1' max='"+data['existentes'][puntero]+"' class='form-control' id='"+data['array'][puntero]+"' name='cantidad' placeholder='Ingrese la cantidad'><label>Cantidad</label></div></td>";
                         conTabla += "</tr>";
                     conTabla += "</thead>";
                 }
@@ -74,38 +80,45 @@ function modalResponsiva(){
 }
 
 function generarResponsiva(){
+    var selectEmpleado = document.getElementById('empleado');
+    var opcionSeleccionada = selectEmpleado.options[selectEmpleado.selectedIndex];
+    var contenidoSelect = opcionSeleccionada.textContent;
 
-    var inputs = document.querySelectorAll("#tablaProdSel .form-control");
+    if(selectEmpleado.value != ""){
 
-    var todosValidos = true;
-    var valores = new Array;
-    var ids = new Array;
+        var inputs = document.querySelectorAll("#tablaProdSel .form-control");
 
-    for (var i = 0; i < inputs.length; i++) {
+        var todosValidos = true;
+        var valores = new Array;
+        var ids = new Array;
 
-        var valor = inputs[i].value.trim();
-        var valorid = inputs[i];
-        
-        if (valor === "") {
-            todosValidos = false;
-            break;
-        } else {
-            valores[i] = valor;
-            ids[i] = valorid.id;
+        for (var i = 0; i < inputs.length; i++) {
+
+            var valor = inputs[i].value.trim();
+            var valorid = inputs[i];
+            
+            if (valor === "") {
+                todosValidos = false;
+                break;
+            } else {
+                valores[i] = valor;
+                ids[i] = valorid.id;
+            }
         }
-    }
 
-    if (todosValidos) {
+        if (todosValidos) {
 
-        const variables = "?arrayId="+ids+"&arrayValores="+valores;
-        const url = "../php/AJAX/formatoResponsiva.php"+variables;
+            const variables = "?arrayId="+ids+"&arrayValores="+valores+"&empleado="+contenidoSelect+"&idempleado="+selectEmpleado.value;
+            const url = "../php/AJAX/formatoResponsiva.php"+variables;
 
-        window.open(url, "_blank");
+            window.open(url);
 
+        } else {
+            alertImage('Error','Ingrese las cantidades faltantes, al menos un campo esta vació','error');
+        }
     } else {
-        alertImage('Error','Ingrese las cantidades faltantes, al menos un campo esta vació','error');
+        alertImage('Error','Debes ingresar el empleado para asignar responsiva','error');
     }
-
 }
 
 function validarInput(input, max) {

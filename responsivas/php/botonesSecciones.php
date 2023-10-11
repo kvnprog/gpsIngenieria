@@ -16,7 +16,10 @@
             foreach ($datos->fetch_all() as $dato) {
 
                 if ($dato[1] == 17) {
-                    echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
+                    echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Crear responsiva</button>";
+                }
+                if ($dato[1] == 18) {
+                    echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(2)\">Catalogo responsivas</button>";
                 }
             }
             ?>

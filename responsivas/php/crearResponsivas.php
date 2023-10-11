@@ -5,11 +5,11 @@
     $resultados = $conexionProductos->conn->query($queryProductos);
 ?>
 
-<div class="row" id="catalogo" style="display: none;">
+<div class="row" id="crearResponsivas" style="display: none;">
 
     <!-- TITULO DEL CONTENIDO -->
     <div class="col-12 text-center">
-        <h3>Catalogo de Productos</h3>
+        <h3>Productos</h3>
     </div>
 
     <div class="col-1"></div>
