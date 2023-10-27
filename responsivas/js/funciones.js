@@ -3,16 +3,17 @@ function abrirSeccion(opcion) {
     pantallaCarga('on');
     
     if (opcion == 1) {
-        //MOVIENDO LA VISIBILIDAD
+        //MOVIENDO LA VISIBILIDAD PARA VER EL APARTADO DE CREAR RESPONSIVAS
         document.getElementById("crearResponsivas").style.display = 'flex';
         document.getElementById('catalogoResponsivas').style.display = 'none';
-
+        verProductos();
         pantallaCarga('off');
     }
     if(opcion == 2){
-        //MOVIENDO LA VISIBILIDAD
+        //MOVIENDO LA VISIBILIDAD PARA VER CATALOGO DE RESPONSIVAS
         document.getElementById("crearResponsivas").style.display = 'none';
         document.getElementById('catalogoResponsivas').style.display = 'flex';
+        verCatalogoResponsivas();
         pantallaCarga('off');
     }
 
@@ -20,7 +21,7 @@ function abrirSeccion(opcion) {
 
 function modalResponsiva(){
     
-    const checkboxes = document.querySelectorAll('#catalogoProductos input[type="checkbox"]');
+    const checkboxes = document.querySelectorAll('#tablaProductosResponsivas input[type="checkbox"]');
     const registrosSeleccionados = Array.from(checkboxes)
     
     .filter(checkbox => checkbox.checked)
@@ -107,11 +108,24 @@ function generarResponsiva(){
         }
 
         if (todosValidos) {
+            pantallaCarga('on');
 
+            const options = { method: "GET" };
             const variables = "?arrayId="+ids+"&arrayValores="+valores+"&empleado="+contenidoSelect+"&idempleado="+selectEmpleado.value;
             const url = "../php/AJAX/formatoResponsiva.php"+variables;
 
-            window.open(url);
+            fetch(url, options)
+            .then(response => response.text())
+            .then(data => {
+
+                pantallaCarga('off');
+                verProductos();
+                verCatalogoResponsivas();
+
+            })
+            .catch(error => {
+                console.error('Error al cargar el archivo de texto:', error);
+            });
 
         } else {
             alertImage('Error','Ingrese las cantidades faltantes, al menos un campo esta vació','error');
@@ -138,4 +152,115 @@ function validarInput(input, max) {
         input.value = valor.substring(0, 0);
         return false;
     }
+}
+
+function verCatalogoResponsivas(){
+    pantallaCarga('on');
+
+    const options = { method: "GET" };
+    const variables = "";
+    const url = "../php/AJAX/catalogoResponsivasAJAX.php"+variables;
+
+        fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+
+            pantallaCarga('off');
+            
+            var tablaCatalogo = document.getElementById('tablaCatalogoResponsivas');
+            var contenidoTablaCatalogo = "";
+            tablaCatalogo.innerHTML = "<tr></tr>";
+
+            contenidoTablaCatalogo =    "<thead>" +
+                                            "<tr class='sticky-top'>" +
+                                                "<th class='text-center'>#</th>" +
+                                                "<th class='text-center'>Usuario creador</th>" +
+                                                "<th class='text-center'>Fecha de creación</th>" +
+                                                "<th class='text-center'>Firmado</th>" +
+                                            "</tr>" +
+                                        "</thead>";
+
+            if(data["bandera"] == 0){
+                contenidoTablaCatalogo +=   "<tbody>" +
+                                                "<tr>" + 
+                                                    "<td class='text-center' colspan='3'>Sin resultados</td>" +
+                                                "</tr>" + 
+                                            "</tbody>";
+            }
+            if(data["bandera"] == 1){
+                contenidoTablaCatalogo +=   "<tbody>";
+                for(punt = 0 ; punt < data['idResponsiva'].length ; punt++){
+                    var num = punt + 1;
+                    contenidoTablaCatalogo += "<tr><td class='text-center'>"+num+"</td><td class='text-center'>"+data['nombreUsuario'][punt]+"</td><td class='text-center'>"+data['fechaCreacion'][punt]+"</td><td class='text-center'>"+data['firmado'][punt]+"</td></tr>";
+                }
+
+                contenidoTablaCatalogo +=   "</tbody>";                       
+                                                
+            }
+            tablaCatalogo.innerHTML = contenidoTablaCatalogo;
+        });
+}
+
+function verProductos(){
+    pantallaCarga('on');
+
+    const options = { method: "GET" };
+    const variables = "";
+    const url = "../php/AJAX/productosResponsivasAJAX.php"+variables;
+
+    fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+        
+        pantallaCarga('off');
+            
+        var tablaProductos = document.getElementById('tablaProductosResponsivas');
+        var contenidoTablaProductos = "";
+        tablaProductos.innerHTML = "<tr></tr>";
+
+        contenidoTablaProductos =   "<thead>" +
+                                        "<tr class='sticky-top'>" +
+                                            "<th class='text-center'>#</th>" +
+                                            "<th class='text-center'>Numero de Parte</th>" +
+                                            "<th class='text-center'>Existentes</th>" +
+                                            "<th class='text-center'>Precio Por Unidad</th>" +
+                                            "<th class='text-center'>Foto</th>" +
+                                            "<th class='text-center'>Acción</th>" +
+                                        "</tr>" +
+                                    "</thead>";
+
+        if(data["bandera"] == 0){
+            contenidoTablaProductos +=  "<tbody>" +
+                                            "<tr>" + 
+                                                "<td class='text-center' colspan='6'>Sin resultados</td>" +
+                                            "</tr>" + 
+                                        "</tbody>";
+        }
+        if(data["bandera"] == 1){
+            contenidoTablaProductos +=   "<tbody>";
+            for(punt = 0 ; punt < data['idProducto'].length ; punt++){
+                var num = punt + 1;
+
+                contenidoTablaProductos += "<tr>" +
+                                                "<td class='text-center'>"+num+"</td>"+
+                                                "<td class='text-center'>"+data['numParte'][punt]+"</td>"+
+                                                "<td class='text-center'>"+data['existencias'][punt]+"</td>"+
+                                                "<td class='text-center'>"+data['precioUnidad'][punt]+"</td>"+
+                                                "<td class='text-center'><img src='"+data['foto'][punt]+"' width='100px'></td>";
+                if(data['existencias'][punt] > 0){
+                    contenidoTablaProductos +=  "<td class='text-center'>"+
+                                                    "<label class='containerCheck'>" + 
+                                                       "<input type='checkbox' value='"+data['idProducto'][punt]+"'>" +
+                                                       "<div class='checkmark'></div>" +
+                                                    "</label>"+
+                                                "</td>";
+                } else {
+                    contenidoTablaProductos += "<td></td>";
+                }
+                                            "</tr>";
+            }
+            contenidoTablaProductos +=   "</tbody>";                       
+            tablaProductos.innerHTML = contenidoTablaProductos;
+        }
+    });
 }

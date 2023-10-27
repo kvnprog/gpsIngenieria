@@ -24,7 +24,7 @@
                 <!-- PINTA LOS BOTONES DE LAS SECCIONES -->
                 <?php include_once './botonesSecciones.php' ?>
                 
-                <!-- PINTA EL CATALOGO -->
+                <!-- PINTA PRA CREAR RESPONSIVA -->
                 <?php include_once './crearResponsivas.php'?>
 
                 <!-- PINTA EL CATALOGO -->

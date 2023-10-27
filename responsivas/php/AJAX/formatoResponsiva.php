@@ -134,11 +134,20 @@
                 $precioXunidad = $datosResponsiva[8];
                 $nombre = $datosResponsiva[9];
 
+                $restaExistencias = $existentes - $arrayValores[$puntero];
+
+                $updateExistencias = new conexion;
+                $queryUpdateExistencias = "UPDATE productos SET existentes = " . $restaExistencias . " WHERE idproducto = " . $arrayIds[$puntero];
+                $updateExistencias->conn->query($queryUpdateExistencias);
+
                 $pdf->Cell(40, $ancho, utf8_decode($numParte), "BTLR", 0, "C"); //REGISTRO
                 $pdf->Cell(100, $ancho, utf8_decode($nombre), "BTLR", 0, "C"); //REGISTRO
                 // $pdf->Cell(55, $ancho, utf8_decode($descripcion), "BTLR", 0, "C"); //REGISTRO
                 $pdf->Cell(30, $ancho, $precioXunidad, "BTLR", 0, "C"); //REGISTRO
                 $pdf->Cell(20, $ancho, $arrayValores[$puntero], "BTLR", 0, "C"); //REGISTRO
+
+
+
 
                 $pdf->Ln(); // SALTO DE LINEA
             }
@@ -167,16 +176,16 @@
                     descargarPDF();
                 header('Location: ' . $rutaDestino);
                 exit;
-                // echo 'El archivo se ha movido exitosamente a la carpeta de destino.';
+                //  'El archivo se ha movido exitosamente a la carpeta de destino.';
             } else {
-                // echo 'Hubo un error al mover el archivo a la carpeta de destino.';
+                //  'Hubo un error al mover el archivo a la carpeta de destino.';
             }
 
         } else {
-            // echo 'Error al obtener el último ID de responsiva.';
+            //  'Error al obtener el último ID de responsiva.';
         }
     } else {
-        // echo 'Error al insertar la responsiva en la base de datos.';
+        //  'Error al insertar la responsiva en la base de datos.';
     }
 
     
@@ -208,8 +217,13 @@
             readfile($rutaDestino);
             exit;
         } else {
-            echo 'El archivo PDF no se encontró en la ubicación especificada.';
+            // 'El archivo PDF no se encontró en la ubicación especificada.';
         }
     }
+  
+    $respuesta = [
+        'mensaje' => 'Formato pdf generado',
+    ];
 
+    echo json_encode($respuesta);
 ?>
