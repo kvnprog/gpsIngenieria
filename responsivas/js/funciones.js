@@ -177,6 +177,7 @@ function verCatalogoResponsivas(){
                                                 "<th class='text-center'>Usuario creador</th>" +
                                                 "<th class='text-center'>Fecha de creación</th>" +
                                                 "<th class='text-center'>Firmado</th>" +
+                                                "<th class='text-center'>Acción</th>" +
                                             "</tr>" +
                                         "</thead>";
 

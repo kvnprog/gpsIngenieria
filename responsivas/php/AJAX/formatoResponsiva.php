@@ -134,11 +134,18 @@
                 $precioXunidad = $datosResponsiva[8];
                 $nombre = $datosResponsiva[9];
 
+                // RESTA LA CANTIDAD DESEADA CON LA EXISTENTE
                 $restaExistencias = $existentes - $arrayValores[$puntero];
-
+                
+                // ACTUALIZA LAS EXISTENCIAS 
                 $updateExistencias = new conexion;
                 $queryUpdateExistencias = "UPDATE productos SET existentes = " . $restaExistencias . " WHERE idproducto = " . $arrayIds[$puntero];
                 $updateExistencias->conn->query($queryUpdateExistencias);
+
+                // INSERTA LA RELACION DE LOS PRODUCTOS Y SU CANTIDAD
+                $insertRelacion = new conexion;
+                $queryRelacion = "INSERT INTO productorelacionentradassalidas (idresponsiva, idproducto, cantidad, estado) VALUES (".$idResponsiva.", ".$arrayIds[$puntero].", ".$arrayValores[$puntero].", 1)";
+                $insertRelacion->conn->query($queryRelacion);
 
                 $pdf->Cell(40, $ancho, utf8_decode($numParte), "BTLR", 0, "C"); //REGISTRO
                 $pdf->Cell(100, $ancho, utf8_decode($nombre), "BTLR", 0, "C"); //REGISTRO
@@ -146,12 +153,14 @@
                 $pdf->Cell(30, $ancho, $precioXunidad, "BTLR", 0, "C"); //REGISTRO
                 $pdf->Cell(20, $ancho, $arrayValores[$puntero], "BTLR", 0, "C"); //REGISTRO
 
-
-
-
                 $pdf->Ln(); // SALTO DE LINEA
             }
             
+            // INSERTA LA SALIDA DE TIPO RESPONSIVA
+            $insertEntradasSalidas = new conexion;
+            $queryEntradasSalidas = "INSERT INTO entradassalidas (idtipo, idmovimiento, idrelacion, estado) VALUES (3, 2, ".$idResponsiva.", 1)";
+            $insertEntradasSalidas->conn->query($queryEntradasSalidas);
+
             $pdf->Ln(); // SALTO DE LINEA
 
             $pdf->SetTextColor(0,0,0); //COLOR NEGRO
