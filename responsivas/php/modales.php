@@ -44,3 +44,22 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL 2 VER RESPONSIVAS -->
+<div class="modal modal-backdrop-static" id="modalVerResponsiva" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Responsiva</label>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:#d5d8d4; border-radius: 100px;"></button>
+            </div>
+            <div class="modal-body">
+               <iframe id="iframeVerPdf" height="100%" width="100%"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

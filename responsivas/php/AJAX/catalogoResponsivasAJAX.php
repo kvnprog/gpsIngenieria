@@ -3,8 +3,8 @@
 
     // TRAE LOS PRODUCTOS
     $conObtenerResponsivas = new conexion;
-    $queryObtenerResponsivas = "SELECT r.idresponsiva, u.nombreusuario, r.fechacreacion, r.banderafirmado, r.estadoid
-    FROM responsivas r, usuarios u WHERE u.idusuario = r.usuarioid";
+    $queryObtenerResponsivas = "SELECT r.idresponsiva, u.nombreusuario, r.fechacreacion, r.banderafirmado, r.estadoid, r.usuarioid
+    FROM responsivas r, usuarios u WHERE u.idusuario = r.usuarioid AND r.estadoid = 1";
     $resultados = $conObtenerResponsivas->conn->query($queryObtenerResponsivas);
 
     $bandera = 0;
@@ -12,6 +12,7 @@
     $nombreUsuario = array();
     $fechaCreacion = array();
     $firmado = array();
+    $usuarioid = array();
 
     if($resultados->num_rows > 0){
 
@@ -28,6 +29,7 @@
             } else {
                 $firmado[] = 'Si';
             }
+            $usuarioid[] = $responsiva[5];
         }
     }
 
@@ -37,7 +39,8 @@
         'idResponsiva' => $idResponsiva,
         'nombreUsuario' => $nombreUsuario,
         'firmado' => $firmado,
-        'fechaCreacion' => $fechaCreacion
+        'fechaCreacion' => $fechaCreacion,
+        'usuarioid' => $usuarioid
     ];
 
     header('Content-Type: application/json');

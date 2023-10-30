@@ -192,7 +192,8 @@ function verCatalogoResponsivas(){
                 contenidoTablaCatalogo +=   "<tbody>";
                 for(punt = 0 ; punt < data['idResponsiva'].length ; punt++){
                     var num = punt + 1;
-                    contenidoTablaCatalogo += "<tr><td class='text-center'>"+num+"</td><td class='text-center'>"+data['nombreUsuario'][punt]+"</td><td class='text-center'>"+data['fechaCreacion'][punt]+"</td><td class='text-center'>"+data['firmado'][punt]+"</td></tr>";
+                    var rutapdf = '../php/responsivas/Responsiva_'+data['idResponsiva']+'/'+data['usuarioid']+'.pdf';
+                    contenidoTablaCatalogo += "<tr><td class='text-center'>"+num+"</td><td class='text-center'>"+data['nombreUsuario'][punt]+"</td><td class='text-center'>"+data['fechaCreacion'][punt]+"</td><td class='text-center'>"+data['firmado'][punt]+"</td><td class='text-center'><i title='Ver responsiva' onclick='verPdf('"+rutapdf+"');' data-bs-toggle='tooltip' data-bs-placement='right' class='fa-solid fa-eye fa-lg' style='color: #0033b5;'></i></td></tr>";
                 }
 
                 contenidoTablaCatalogo +=   "</tbody>";                       
@@ -264,4 +265,9 @@ function verProductos(){
             tablaProductos.innerHTML = contenidoTablaProductos;
         }
     });
+}
+
+function verPdf(rutapdf){
+    document.getElementById('iframeVerPdf').src = rutapdf
+    $("#modalVerResponsiva").modal('show');   
 }
