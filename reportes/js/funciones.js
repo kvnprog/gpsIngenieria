@@ -53,22 +53,7 @@ function buscarES() {
 
                 for (var i = 0; i < data["noDatos"]; i++) {
 
-                    console.log(data[i]["ventaid"]);
-
-                    var tipo = "----"
-                    if (data[i]["ventaid"] != 0) {
-
-                      tipo = "Venta";
-
-
-                    }
-
-                    if (data[i]["ordenid"] != 0) {
-
-                        tipo = "orden";
-  
-  
-                      }
+                 
 
                       let fecha = "";
                       let hora = "";
@@ -90,17 +75,9 @@ function buscarES() {
 
                       }
 
-
-
-
-                    cadenaProductos = cadenaProductos + "<tr><td class=\"text-center\" >" + data[i]["nparte"] + "</td><td class=\"text-center\" >" + data[i]["descripcion"] + "</td><td class=\"text-center\" >" + tipo + "</td><td class=\"text-center\" >" + data[i]["tipo"] + "</td><td  class=\"text-center\">" + data[i]["cantidad"] + "</td><td  class=\"text-center\">" + fecha+ "</td><td class=\"text-center\">" + hora + "</td></tr>";
-
-
+                    cadenaProductos = cadenaProductos + "<tr><td class=\"text-center\" >" + data[i]["nparte"] + "</td><td class=\"text-center\" >" + data[i]["descripcion"] + "</td><td class=\"text-center\" >" + data[i]["tipo"] +"</td><td class=\"text-center\" >" + data[i]["movimiento"] + "</td><td  class=\"text-center\">" + data[i]["cantidad"] + "</td><td  class=\"text-center\">" + fecha+ "</td><td class=\"text-center\">" + hora + "</td></tr>";
 
                 }
-
-                
-
 
             } else {
                 alertImage('ERROR', 'Surgio un error en el registro', 'error')

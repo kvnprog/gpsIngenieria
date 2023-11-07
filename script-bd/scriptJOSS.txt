@@ -91,3 +91,31 @@ CREATE TABLE estados (
 );
 
 INSERT INTO `estados` (`idestado`, `nombreestado`) VALUES (NULL, 'Activo'), (NULL, 'Inactivo');
+
+
+============================= # 28/10/2023
+
+
+cambiar esta tabla por la otra
+
+
+CREATE TABLE productorelacionentradassalidas (
+    identradasalida int,
+    idproducto int,
+    cantidad int ,
+    estado int 
+)
+
+solo cambia el idresponsiva por el identradasalida ya que esta tabla se usara no solo en responsivas si no con todos los tipos
+
+CREATE TABLE entradassalidas (
+    identradasalida int auto_increment,
+    idtipo int,
+    idmovimiento int,
+    idrelacion int,
+    fecha datetime,
+    estado int,
+    primary key(identradasalida)
+)
+
+se agrego la fecha a entradas y salidas

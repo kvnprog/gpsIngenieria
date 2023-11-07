@@ -22,8 +22,14 @@ if ($conexionCrearProducto->conn->query($queryCrearProducto)) {
 
     //INSERTANDO LAS ENTRADAS 
     $conexionEntradas = new conexion;
-    $queryEntradas = "INSERT INTO entradassalidas(tipoid,idproducto,cantidad,fecha) VALUES (1,'".$conexionCrearProducto->conn->insert_id."','".$existentes."',now())";
+    $queryEntradas = "INSERT INTO entradassalidas(idtipo,idmovimiento,idrelacion,fecha,estado) VALUES (4,1,0,now(),1)";
     $conexionEntradas->conn->query($queryEntradas);
+
+    //CREANDO LAS EXISTENCIAS QUE SE CREARON EN LA ENTRADA DE PRODUCTO
+ 
+    $conexionCantidad = new conexion;
+    $queryCantidad = "INSERT INTO productorelacionentradassalidas (identradasalida,idproducto,cantidad,estado) VALUES (".$conexionEntradas->conn->insert_id.",".$conexionCrearProducto->conn->insert_id.",".$existentes.",1)";
+    $conexionCantidad->conn->query($queryCantidad);
 
     $resultados["resultado"] = true;
 

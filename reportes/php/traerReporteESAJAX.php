@@ -15,28 +15,18 @@ $parametros = "";
 
 if ($filtroTipo != 0) {
 
-    if ($filtroTipo == 1) {
-        $parametros = $parametros . " WHERE  e.ventaid is not null 1  and  e.ordenid is null";
-    }
+    
+        $parametros = $parametros . " AND  e.idtipo = ".$filtroTipo;
+    
 
-    if ($filtroTipo == 2) {
-        $parametros = $parametros . " WHERE  e.ordenid is not null and e.ventaid is null ";
-    }
-
-    if ($filtroTipo == 3) {
-        $parametros = $parametros . " WHERE  (e.ventaid is null  and e.ordenid is null) ";
-    }
 }
 
 if ($filtroMovimiento != 0) {
 
-    if ($parametros == "") {
+  
 
-        $parametros = $parametros . " WHERE  e.tipoid= " . $filtroMovimiento;
-    } else {
-
-        $parametros = $parametros . " AND  e.tipoid = " . $filtroMovimiento;
-    }
+        $parametros = $parametros . " AND  e.idmovimiento = " . $filtroMovimiento;
+    
 }
 
 
@@ -44,26 +34,15 @@ if ($filtroProducto != "") {
 
     //buscando aque producto corresponde y sacando el id 
 
-    if ($parametros == "") {
-
-        $parametros = $parametros . " WHERE  e.idproducto IN (SELECT idproducto FROM  productos WHERE nparte like '%" . $filtroProducto . "%' OR descripcion like '%" . $filtroProducto . "%') ";
-    } else {
-
-        $parametros = $parametros . " AND e.idproducto IN (SELECT idproducto FROM  productos WHERE nparte like '%" . $filtroProducto . "%' OR descripcion like '%" . $filtroProducto . "%') ";
-    }
+    $parametros = $parametros . " AND e.identradasalida  in (SELECT p3.identradasalida  FROM productorelacionentradassalidas p3 WHERE p3.idproducto in (SELECT p4.idproducto  FROM productos p4 where p4.nparte like '".$filtroProducto."' or p4.descripcion like '".$filtroProducto."' ))";
+    
 }
 
 //AGREGANDO LOS FILTROS DE FECHAS
 
 if ($filtroFechaInicial != "" && $filtroFechaFinal != "") {
 
-    if ($parametros == "") {
-
-        $parametros = $parametros . " WHERE  DATE(e.fecha) BETWEEN '".$filtroFechaInicial."' AND '".$filtroFechaFinal."' ";
-    } else {
-
         $parametros = $parametros . " AND DATE(e.fecha) BETWEEN '".$filtroFechaInicial."' AND '".$filtroFechaFinal."' ";
-    }
 
 }
 
@@ -72,7 +51,13 @@ $arrResultados = [];
 //haciendo la consulta de las entradas y salidas 
 
 $conexionENReporte = new conexion;
-$queryENReporte = "select p.nparte ,p.descripcion ,e.cantidad,e.ventaid ,e.ordenid,e.tipoid,e.fecha  from entradassalidas e join productos p on p.idproducto = e.idproducto " . $parametros;
+$queryENReporte = "SELECT e.identradasalida ,t.nombretipo,m.nombremovimiento,p2.nparte,p2.descripcion,p.cantidad,e.fecha  FROM entradassalidas e
+join tipo t on t.idtipo = e.idtipo
+join movimiento m on m.idmovimiento = e.idmovimiento 
+join productorelacionentradassalidas p on e.identradasalida = p.identradasalida 
+join productos p2 on p2.idproducto = p.idproducto 
+where e.estado = 1  " . $parametros."
+order by e.identradasalida asc";
 $resutadosENReporte = $conexionENReporte->conn->query($queryENReporte);
 //echo $queryENReporte."<br>";
 
@@ -90,29 +75,13 @@ if ($resutadosENReporte) {
         foreach ($resutadosENReporte->fetch_all() as $index => $datos) {
 
 
-            $arrResultados[$index]["nparte"] = $datos[0];
-            $arrResultados[$index]["descripcion"] = $datos[1];
-            $arrResultados[$index]["cantidad"] = $datos[2];
+            $arrResultados[$index]["nparte"] = $datos[3];
+            $arrResultados[$index]["descripcion"] = $datos[4];
+            $arrResultados[$index]["cantidad"] = $datos[5];
             $arrResultados[$index]["fecha"] = $datos[6];
-
-            if (isset($datos[3])) {
-                $arrResultados[$index]["ventaid"] = $datos[3];
-            } else {
-                $arrResultados[$index]["ventaid"] = 0;
-            }
-
-
-            if (isset($datos[4])) {
-                $arrResultados[$index]["ordenid"] = $datos[4];
-            } else {
-                $arrResultados[$index]["ordenid"] = 0;
-            }
-
-            if ($datos[5] == 1) {
-                $arrResultados[$index]["tipo"] = "Entrada";
-            } else {
-                $arrResultados[$index]["tipo"] = "Salida";
-            }
+            $arrResultados[$index]["tipo"] = $datos[1];
+            $arrResultados[$index]["movimiento"] = $datos[2];
+          
         }
     }
 }

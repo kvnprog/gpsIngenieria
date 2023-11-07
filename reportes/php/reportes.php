@@ -15,7 +15,7 @@
 <!-- //BUSCANDO Productos -->
 
 <?php
-
+// CREANDO LA CONSULTA PARA TRAER LAS ENTRADAS Y SALIDAS
 $conexionProductos = new conexion;
 $queryProductos = "SELECT p.*,c.nombre  FROM productos p , categoriasproductos c  WHERE c.idcategoriaproducto = p.categoria ";
 $resultados = $conexionProductos->conn->query($queryProductos);
