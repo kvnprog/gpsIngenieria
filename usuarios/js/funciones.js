@@ -209,66 +209,76 @@ function crearUsuario() {
 
 function cargaPermisos(idusuario){
     
-    pantallaCarga('on');
+    document.getElementById('divSeccionTipoPermiso').innerHTML = "";
+    document.getElementById("divSeccionPermiso").innerHTML = "";
+
+    if(idusuario != 0){
+
+        pantallaCarga('on');
+
+        const options = { method: "GET" };
+        
+        fetch("../../usuarios/php/traerPermisosAJAX.php?idusuario="+idusuario, options)
+        .then(response => response.json())
+        .then(data => {
+
+            var divSeccionPermiso = document.getElementById("divSeccionPermiso");
+            divSeccionPermiso.innerHTML = "";
+            var cadenaAreas = "";
+
+            //NUMERO DE AREAS 
+            nAreas = data["noDatosAreas"][0]["noDatos"];
     
-    const options = {
-        method: "GET"
+            cadenaAreas = "<div class='contenedorInputs'>";
 
-    };
+            for(var i = 0;i<nAreas;i++){
 
-    fetch("../../usuarios/php/traerPermisosAJAX.php?idusuario="+idusuario, options)
-    .then(response => response.json())
-    .then(data => {
-
-        var divPermisos = document.getElementById("divPermisos");
-
-        var selectUsuarios = document.getElementById("selectUsuarios").value;
-
-        
-
-        divPermisos.innerHTML = "";
-
-        var cadenaPermisos = "";
-
-
-
-        //trayendo las areas 
-        nAreas = data["areas"][0]["noDatos"];
-
-        nPermisos = data["secciones"][0]["noDatos"];
-
-        for(var i = 0;i<nAreas;i++){
-
-          cadenaPermisos = cadenaPermisos + 
-          "<button class=\"btn btn-success\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapse"+data["areas"][i]["nombre"]+"\" aria-expanded=\"false\" aria-controls=\"collapse"+data["areas"][i]["nombre"]+"\">"
-          +data["areas"][i]["nombre"]+"</button>";
-
-          cadenaPermisos= cadenaPermisos + "<ul class=\"list-group collapse collapse-vertical\" id=\"collapse"+data["areas"][i]["nombre"]+"\">";
-           
-          for(var j = 0;j<nPermisos;j++){
-
-            if(data["areas"][i]["id"]==data["secciones"][j]["idarea"]){
-                if(data["secciones"][j]["permiso"]){
-                    cadenaPermisos= cadenaPermisos + "<li class=\"list-group-item\"><label>"+data["secciones"][j]["nombre"]+"</label><input class=\"form-check-input\" type=\"checkbox\"  id=\""+data["secciones"][j]["idseccion"]+"\" checked onclick=\"ponerPermiso(this.id,"+selectUsuarios+")\" ></li>"; 
-                }else{
-                    cadenaPermisos= cadenaPermisos + "<li class=\"list-group-item\"><label>"+data["secciones"][j]["nombre"]+"</label><input class=\"form-check-input\" type=\"checkbox\"  id=\""+data["secciones"][j]["idseccion"]+"\" onclick=\"ponerPermiso(this.id,"+selectUsuarios+")\" ></li>";
-                }
-                
+                cadenaAreas +=   "<div class='contenedorInputs'>"+
+                                        "<button class='botonMenuLista' id='"+data["areas"][i]["id"]+"' onclick='verSeccionesDeArea("+idusuario+","+data["areas"][i]["id"]+","+JSON.stringify(data["noDatosSeccion"])+", "+JSON.stringify(data["noDatosAreas"])+", "+JSON.stringify(data["secciones"])+", "+JSON.stringify(data["areas"])+")'>"+                                        
+                                            data["areas"][i]["nombre"]+
+                                        "</button>"+
+                                    "</div>";
             }
+            cadenaAreas += "</div>";
 
-          }
+            divSeccionPermiso.innerHTML = cadenaAreas;
 
-          cadenaPermisos= cadenaPermisos + "</ul>";
+            pantallaCarga('off');
+        })
+    }
 
-        }
+}
+function verSeccionesDeArea(idusuario, idArea, noDatosSeccion, noDatosAreas,secciones, areas){
+    
+    var numDePermisos = noDatosSeccion[0]["noDatos"];
+    var numDeAreas = noDatosAreas[0]["noDatos"];
+    var divSeccionTipoPermiso = document.getElementById('divSeccionTipoPermiso');
 
-        
+    var cadenaPermiso = "";
 
-        divPermisos.innerHTML = cadenaPermisos;
+    for(var j = 0 ; j < numDePermisos ; j++){
 
-        pantallaCarga('off');
-    })
+        if(idArea == secciones[j]["idarea"]){
 
+            if(secciones[j]["permiso"]){
+                
+                cadenaPermiso +=    "<label class='containerCheck contenedorMargen'>" + 
+                                        secciones[j]["nombre"]+
+                                        "<input type='checkbox' id='"+secciones[j]["idseccion"]+"' checked='checked' onclick='ponerPermiso(this.id, "+idusuario+")'>" +
+                                        "<div class='checkmark'></div>" +
+                                    "</label>";
+            }else{
+
+                cadenaPermiso +=    "<label class='containerCheck contenedorMargen'>" + 
+                                        secciones[j]["nombre"]+
+                                        "<input type='checkbox' id='"+secciones[j]["idseccion"]+"' onclick='ponerPermiso(this.id, "+idusuario+")'>" +
+                                        "<div class='checkmark'></div>" +
+                                    "</label>";
+            }                        
+        } 
+
+        divSeccionTipoPermiso.innerHTML = cadenaPermiso;
+    }
 }
 
 function ponerPermiso(idseccion,idusuario){

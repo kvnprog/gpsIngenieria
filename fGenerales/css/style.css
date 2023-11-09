@@ -569,7 +569,7 @@ table tr:nth-child(even) {
     cursor: pointer;
     font-size: 20px;
     user-select: none;
-    animation: jello-horizontal 0.9s both;
+    /* animation: jello-horizontal 0.9s both; */
 }
 
 .checkmark:hover {
