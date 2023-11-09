@@ -101,6 +101,11 @@ if ($conexionInsertaOrden->conn->query($queryInsertaOrden) == true) {
   //insertando los productos y quitando las existencias 
    $productos = json_decode($productos,true);
 
+    //INSERTANDO LAS ENTRADAS 
+    $conexionEntradas = new conexion;
+    $queryEntradas = "INSERT INTO entradassalidas(idtipo,idmovimiento,idrelacion,fecha,estado) VALUES (2,2,".$ordeId.",now(),1)";
+    $conexionEntradas->conn->query($queryEntradas);
+
    foreach($productos as $producto){
     //haciendo la disminucion de existencias 
 
@@ -108,39 +113,27 @@ if ($conexionInsertaOrden->conn->query($queryInsertaOrden) == true) {
     $queryChecarProductoExistencias = "SELECT existentes FROM productos WHERE idproducto = ".$producto["id"];
     $existencias = $conexionChecarProductoExistencias->conn->query($queryChecarProductoExistencias);
 
-
     $existencia = $existencias->fetch_row(); 
+    $existenciasNuevas = $existencia[0] - $producto["salidas"];
 
+    //cambiando las existencias del producto alas nuevas
+    $conexionCambiarExistencias = new conexion;
+    $queryCambiarExistencias = "UPDATE productos SET existentes = ".$existenciasNuevas ." WHERE idproducto = ".$producto["id"];
+    $conexionCambiarExistencias->conn->query($queryCambiarExistencias);
 
-        $existenciasNuevas = $existencia[0] - $producto["salidas"]; 
-        //cambiando las existencias del producto alas nuevas
-        $conexionCambiarExistencias = new conexion;
-        $queryCambiarExistencias = "UPDATE productos SET existentes = ".$existenciasNuevas ." WHERE idproducto = ".$producto["id"];
-        $conexionCambiarExistencias->conn->query($queryCambiarExistencias);
+    //CREANDO LAS EXISTENCIAS QUE SE CREARON EN LA ENTRADA DE PRODUCTO
 
-        //creando las salidas
+    $conexionCantidad = new conexion;
+    $queryCantidad = "INSERT INTO productorelacionentradassalidas (identradasalida,idproducto,cantidad,estado) VALUES (".$conexionEntradas->conn->insert_id.",".$producto["id"].",".$producto["salidas"].",1)";
+    $conexionCantidad->conn->query($queryCantidad);
 
-        $conexionSalidas = new conexion;
-        $querySalidas = "INSERT INTO entradassalidas(ordenid,tipoid,idproducto,cantidad,fecha) VALUES (".$ordeId.",2,".$producto["id"].",".$producto["salidas"].",now())";
+  }
 
-        //echo $querySalidas;
-        $conexionSalidas->conn->query($querySalidas);
-
-
-
-      
-
-   }
-
-
-   $arrResultados[0]["status"] = 1;//SE AGREGARON LOS DATOS CORRECTAMENTE
-
-
+  $arrResultados[0]["status"] = 1;//SE AGREGARON LOS DATOS CORRECTAMENTE
 
 } else {
 
   $arrResultados[0]["status"] = 0;//OCURRIO UN ERROR AL AGREGAR LA ORDEN
 }
-
 
 echo json_encode($arrResultados);

@@ -81,7 +81,7 @@ INSERT INTO `tipo` (`idtipo`, `nombretipo`, `estado`) VALUES (NULL, 'Venta', '1'
 CREATE TABLE productorelacionentradassalidas (
     idresponsiva int,
     idproducto int,
-    cantidad int 10,
+    cantidad int 10, 
     estado int,
 );
 
