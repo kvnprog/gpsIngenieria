@@ -20,11 +20,6 @@ $resultados = $conexionTraerExistencias->conn->query($queryTraerExistencias);
 foreach($resultados->fetch_row() as $existencias){
 
     $nExistencias = intval($existencias) + $existenciasNuevas;
-    // echo $existencias."<br>";
-    // echo $existenciasNuevas."<br>";
-    // echo $nExistencias."<br>";
-
-    // echo $nExistencias;
 
     //haciendo el update con las nuevas existencias
     $conexionExistenciasNuevas = new conexion;
@@ -32,13 +27,6 @@ foreach($resultados->fetch_row() as $existencias){
 
     // echo $queryExistenciasNuevas;
     $conexionExistenciasNuevas->conn->query($queryExistenciasNuevas);
-
-    //creando las entradas 
-
-    $conexionEntrada = new conexion;
-    $queryEntrada = "INSERT INTO entradassalidas(tipoid,idproducto,cantidad,fecha) VALUES (1,".$id.",".$existenciasNuevas.",now())";
-    $conexionEntrada->conn->query($queryEntrada);
-
 
     //INSERTANDO LAS ENTRADAS 
     $conexionEntradas = new conexion;
@@ -48,9 +36,8 @@ foreach($resultados->fetch_row() as $existencias){
     //CREANDO LAS EXISTENCIAS QUE SE CREARON EN LA ENTRADA DE PRODUCTO
  
     $conexionCantidad = new conexion;
-    $queryCantidad = "INSERT INTO productorelacionentradassalidas (identradasalida,idproducto,cantidad,estado) VALUES (".$conexionEntradas->conn->insert_id.",".$conexionCrearProducto->conn->insert_id.",".$existentes.",1)";
+    $queryCantidad = "INSERT INTO productorelacionentradassalidas (identradasalida,idproducto,cantidad,estado) VALUES (".$conexionEntradas->conn->insert_id.",".$id.",".$existenciasNuevas.",1)";
     $conexionCantidad->conn->query($queryCantidad);
-
 
     $bandera = true;
 
@@ -59,9 +46,6 @@ foreach($resultados->fetch_row() as $existencias){
     $datos = $conexionDatos->conn->query($queryDatos);
 
     $arrResultados["noDatos"] = $datos->num_rows;
-
-
-
 
     foreach ($datos->fetch_all() as $i => $datos) {
 

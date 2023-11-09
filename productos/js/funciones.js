@@ -204,7 +204,7 @@ function abrirNuevasExistencias(id){
 
 
 function mandarExistencias(event,id){
-    document.getElementById('pantallaCarga').style.display='flex';
+    //document.getElementById('pantallaCarga').style.display='flex';
     if (event.keyCode == 13) {
         console.log('Se presionó la tecla Enter');
 
