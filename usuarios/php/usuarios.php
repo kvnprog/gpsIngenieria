@@ -199,8 +199,18 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
             <div class="col-1"></div>
             <div class="col-10">
-                <div style="margin: 20px;" id="divPermisos">
+                <div style="margin: 20px;">
+                    <div class="col-12 justify-content-center d-flex">
+                        
+                        <div class="col-6">
+                            <div id="divSeccionPermiso" class="seccionAreas"></div>
+                        </div>
 
+                        <div class="col-6">
+                            <div id="divSeccionTipoPermiso" class="seccionAreas"></div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <div class="col-1"></div>

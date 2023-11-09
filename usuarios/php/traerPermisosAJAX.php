@@ -11,7 +11,7 @@ $queryAreas = "SELECT*FROM areas";
 $areas = $conexionAreas->conn->query($queryAreas);
 
 $datos = [];
-$datos["areas"][0]["noDatos"] = $areas->num_rows;
+$datos["noDatosAreas"][0]["noDatos"] = $areas->num_rows;
 foreach ($areas->fetch_all() as $key => $area) {
 
     $datos["areas"][$key]["id"] = $area[0];
@@ -22,12 +22,13 @@ foreach ($areas->fetch_all() as $key => $area) {
 
 //checar permisos 
 $conexionPermisos = new conexion;
-$queryPermisos = "select s.idseccion ,s.idarea ,s.nombre,p.idusuario   from seccionesareas s  
+$queryPermisos = "select s.idseccion ,s.idarea , s.nombre, p.idusuario   from seccionesareas s  
                   left join   permisossecciones p  on  p.idseccion = s.idseccion and p.idusuario =" . $idusuario
     . " order by s.idseccion asc";
 $permisos = $conexionPermisos->conn->query($queryPermisos);
 
-$datos["secciones"][0]["noDatos"] = $permisos->num_rows;
+$datos["noDatosSeccion"][0]["noDatos"] = $permisos->num_rows;
+
 foreach ($permisos->fetch_all() as $index => $permiso) {
 
     $datos["secciones"][$index]["idseccion"] = $permiso[0];
@@ -37,7 +38,7 @@ foreach ($permisos->fetch_all() as $index => $permiso) {
     if ($permiso[3] != null) {
         $datos["secciones"][$index]["permiso"] = true;
     } else {
-        $datos["secciones"][$index]["permiso"] =  false;
+        $datos["secciones"][$index]["permiso"] = false;
     }
 }
 
