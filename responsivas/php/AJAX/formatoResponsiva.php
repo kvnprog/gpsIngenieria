@@ -144,7 +144,7 @@
 
                 // INSERTA LA RELACION DE LOS PRODUCTOS Y SU CANTIDAD
                 $insertRelacion = new conexion;
-                $queryRelacion = "INSERT INTO productorelacionentradassalidas (idresponsiva, idproducto, cantidad, estado) VALUES (".$idResponsiva.", ".$arrayIds[$puntero].", ".$arrayValores[$puntero].", 1)";
+                $queryRelacion = "INSERT INTO productorelacionentradassalidas (identradasalida, idproducto, cantidad, estado) VALUES (".$idResponsiva.", ".$arrayIds[$puntero].", ".$arrayValores[$puntero].", 1)";
                 $insertRelacion->conn->query($queryRelacion);
 
                 $pdf->Cell(40, $ancho, utf8_decode($numParte), "BTLR", 0, "C"); //REGISTRO
@@ -158,7 +158,7 @@
             
             // INSERTA LA SALIDA DE TIPO RESPONSIVA
             $insertEntradasSalidas = new conexion;
-            $queryEntradasSalidas = "INSERT INTO entradassalidas (idtipo, idmovimiento, idrelacion, estado) VALUES (3, 2, ".$idResponsiva.", 1)";
+            $queryEntradasSalidas = "INSERT INTO entradassalidas (idtipo, idmovimiento, idrelacion, estado, fecha) VALUES (3, 2, ".$idResponsiva.", 1, now())";
             $insertEntradasSalidas->conn->query($queryEntradasSalidas);
 
             $pdf->Ln(); // SALTO DE LINEA

@@ -126,12 +126,12 @@ function pintarFooter(){
             <div class='footer-center' id='contacto'>
               <div>
                 <i class='fa fa-map-marker'></i>
-                <p><span>Calle #</span> Irapuato,Gto.</p>
+                <p><span>Col. Primero de Mayo C.P. 36644</span> Irapuato,Gto.</p>
               </div>
 
               <div>
                 <i class='fa fa-phone'></i>
-                <p>462 000 00 00</p>
+                <p>Tel. 462 173 51 96</p>
               </div>
   
               <div>

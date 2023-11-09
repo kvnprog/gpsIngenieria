@@ -192,8 +192,8 @@ function verCatalogoResponsivas(){
                 contenidoTablaCatalogo +=   "<tbody>";
                 for(punt = 0 ; punt < data['idResponsiva'].length ; punt++){
                     var num = punt + 1;
-                    var rutapdf = '../php/responsivas/Responsiva_'+data['idResponsiva']+'/'+data['usuarioid']+'.pdf';
-                    contenidoTablaCatalogo += "<tr><td class='text-center'>"+num+"</td><td class='text-center'>"+data['nombreUsuario'][punt]+"</td><td class='text-center'>"+data['fechaCreacion'][punt]+"</td><td class='text-center'>"+data['firmado'][punt]+"</td><td class='text-center'><i title='Ver responsiva' onclick='verPdf('"+rutapdf+"');' data-bs-toggle='tooltip' data-bs-placement='right' class='fa-solid fa-eye fa-lg' style='color: #0033b5;'></i></td></tr>";
+                    var rutapdf = '../php/responsivas/Responsiva_'+data['idResponsiva'][punt]+'_'+data['usuarioid'][punt]+'.pdf';
+                    contenidoTablaCatalogo += "<tr><td class='text-center'>"+num+"</td><td class='text-center'>"+data['nombreUsuario'][punt]+"</td><td class='text-center'>"+data['fechaCreacion'][punt]+"</td><td class='text-center'>"+data['firmado'][punt]+"</td><td class='text-center'><i title='Ver responsiva' id='"+rutapdf+"' onclick='verPdf(this)' data-bs-toggle='tooltip' data-bs-placement='right' class='fa-solid fa-eye fa-lg' style='color: #0033b5;'></i></td></tr>";
                 }
 
                 contenidoTablaCatalogo +=   "</tbody>";                       
@@ -267,7 +267,18 @@ function verProductos(){
     });
 }
 
-function verPdf(rutapdf){
-    document.getElementById('iframeVerPdf').src = rutapdf
-    $("#modalVerResponsiva").modal('show');   
+function verPdf(a){
+    
+    var iframe = document.getElementById('iframeVerPdf');
+    var rutapdf = a.id;
+
+    // $("#modalVerResponsiva").modal('show');   
+    document.getElementById("modalResponsivas").style.display = "table";
+    iframe.src = rutapdf;
+}
+
+// CIERRA EL MODAL
+function closeModal() {
+	document.getElementById("modalResponsivas").style.display = "none";
+	document.getElementById("iframeVerPdf").src = "";
 }
