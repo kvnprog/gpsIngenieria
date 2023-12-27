@@ -6,9 +6,6 @@ $datosOrden = filter_input(INPUT_POST, "datosOrden");
 $firmaCliente = filter_input(INPUT_POST, "firmaCliente");
 $firmaEmpleado = filter_input(INPUT_POST, "firmaEmpleado");
 
-//echo $firmaCliente;
-
-
 //procesando los datos de la respuesta 
 
 $datosOrden = json_decode($datosOrden);

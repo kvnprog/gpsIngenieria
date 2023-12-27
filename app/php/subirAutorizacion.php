@@ -6,8 +6,11 @@ include "../../fGenerales/bd/conexion.php";
 
 // $firmaAutorizacion = filter_input(INPUT_POST,"firmaAutorizacion");
 
-$firmaAutorizacion = filter_input(INPUT_POST,"firmaAutorizacion");
-$ordenid =  filter_input(INPUT_POST,"id");
+// $firmaAutorizacion = filter_input(INPUT_POST,"firmaAutorizacion");
+// $ordenid =  filter_input(INPUT_POST,"id");
+
+$firmaAutorizacion = filter_input(INPUT_GET,"firmaAutorizacion");
+$ordenid =  filter_input(INPUT_GET,"id");
 
 //SE ACTUALIZA LA ORDE AQUE YA ESTA AUTORIZADA
 
@@ -15,11 +18,6 @@ $conexionAutorizar = new conexion;
 $queryAutorizar = "UPDATE ordentrabajo SET banderaautorizadar = 2 WHERE ordenid=".$ordenid;
 
  $arrResutados = []; 
- //$arrResutados["query"]= $queryAutorizar;
-
-//var_dump($firmaAutorizacion);
-
-//var_dump("iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAYAAACbU/80AAABV2lDQ1BJQ0MgUHJvZmlsZQAAKJFtkD1IA0EQhV/MhWAMwSKlxSEIKucPlzTaxYAiWBwx4k932VwS8XIulxO1trGwthaLVHYKZ2EhVvaCv52NXRoljYZ11kSTqAPDfPt4zD4G6FFMzm0FQNnx3MzcjLqyuqaGX9CLOCIIYdBkFZ4yjAWy4Ht2V/0WATlvxuSu4EnMeNam/ep+9i2qncb/+rsqkrcqjOYH9SjjrgcEhomNbY9L3iGOuxSK+EBysclHknNNPvvyZDNp4mviflYy88T3xFquQy92cNneYq0MMn3UcpYWacaoB5CGjiRmkcAUJuk2/3uTLe8mOHbhYh1FlOBBRYoUDhsW8TwcMIxDI9Zpm46EvPHv27U165xW79FXD21towZcHFO8WlsbmqD3E3BV4KZr/lw0UFcqhYTe5D4fCB0K8boMhEeAxp0Q774QjSoQfAQu65/htGIsqt+7CQAAAFZlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA5KGAAcAAAASAAAARKACAAQAAAABAAAAIKADAAQAAAABAAAAGAAAAABBU0NJSQAAAFNjcmVlbnNob3Tnvt8aAAAB1GlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDxleGlmOlBpeGVsWURpbWVuc2lvbj4yNDwvZXhpZjpQaXhlbFlEaW1lbnNpb24+CiAgICAgICAgIDxleGlmOlBpeGVsWERpbWVuc2lvbj4zMjwvZXhpZjpQaXhlbFhEaW1lbnNpb24+CiAgICAgICAgIDxleGlmOlVzZXJDb21tZW50PlNjcmVlbnNob3Q8L2V4aWY6VXNlckNvbW1lbnQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgqRHEcAAAAAMUlEQVRIDWNkTDf5zzCAgGkA7QZbPeqA0RAYDYHREBgNgdEQGA2B0RAYDYHREBgNAQCUpQHLyW3rnAAAAABJRU5ErkJggg==");
 
 if($conexionAutorizar->conn->query($queryAutorizar)){
 
@@ -28,8 +26,6 @@ $firmaAutorizacion = base64_decode($firmaAutorizacion);
 
 // Crear un nombre de archivo para la firmaAutorizacionn
 $filename = "firmaAutorizacion".$ordenid.".jpg";
-
-//echo var_dump($firmaAutorizacion);
 
 // Guardar la firmaAutorizacionn en una carpeta
 $path = "../../ordenesTrabajos/src/firmasAutorizacion";
@@ -42,10 +38,8 @@ if(file_put_contents($path . "/" . $filename, $firmaAutorizacion)){
     $arrResutados["error"] = 1;//algun error en la conexion
 }
 
-
 echo json_encode($arrResutados);
 
-// "iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAYAAACbU/80AAABV2lDQ1BJQ0MgUHJvZmlsZQAAKJFtkD1IA0EQhV/MhWAMwSKlxSEIKucPlzTaxYAiWBwx4k932VwS8XIulxO1trGwthaLVHYKZ2EhVvaCv52NXRoljYZ11kSTqAPDfPt4zD4G6FFMzm0FQNnx3MzcjLqyuqaGX9CLOCIIYdBkFZ4yjAWy4Ht2V/0WATlvxuSu4EnMeNam/ep+9i2qncb/+rsqkrcqjOYH9SjjrgcEhomNbY9L3iGOuxSK+EBysclHknNNPvvyZDNp4mviflYy88T3xFquQy92cNneYq0MMn3UcpYWacaoB5CGjiRmkcAUJuk2/3uTLe8mOHbhYh1FlOBBRYoUDhsW8TwcMIxDI9Zpm46EvPHv27U165xW79FXD21towZcHFO8WlsbmqD3E3BV4KZr/lw0UFcqhYTe5D4fCB0K8boMhEeAxp0Q774QjSoQfAQu65/htGIsqt+7CQAAAFZlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA5KGAAcAAAASAAAARKACAAQAAAABAAAAIKADAAQAAAABAAAAGAAAAABBU0NJSQAAAFNjcmVlbnNob3Tnvt8aAAAB1GlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDxleGlmOlBpeGVsWURpbWVuc2lvbj4yNDwvZXhpZjpQaXhlbFlEaW1lbnNpb24+CiAgICAgICAgIDxleGlmOlBpeGVsWERpbWVuc2lvbj4zMjwvZXhpZjpQaXhlbFhEaW1lbnNpb24+CiAgICAgICAgIDxleGlmOlVzZXJDb21tZW50PlNjcmVlbnNob3Q8L2V4aWY6VXNlckNvbW1lbnQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgqRHEcAAAAAMUlEQVRIDWNkTDf5zzCAgGkA7QZbPeqA0RAYDYHREBgNgdEQGA2B0RAYDYHREBgNAQCUpQHLyW3rnAAAAABJRU5ErkJggg==";
 
 
 
