@@ -1,2 +1,2 @@
 <?php
-header('Location: http://localhost/gpsingenieria/login/php/login.php');
+header('Location: https://inggpsmexico.com/gpsIngenieria/login/php/login.php');

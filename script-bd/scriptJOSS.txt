@@ -20,7 +20,8 @@ CREATE TABLE empleados (
 
 
 
-============================= # 27/09/2023
+
+#============================= # 27/09/2023
 
 INSERT INTO `areas` (`nombre`) VALUES ('responsivas'); 
 
@@ -28,7 +29,7 @@ INSERT INTO `seccionesareas` (`idarea`, `nombre`) VALUES ('11', 'generar respons
 
 
 
-============================= # 10/10/2023
+#============================= # 10/10/2023
 
 CREATE TABLE responsivas (
     idresponsiva int autoIncremental,
@@ -40,16 +41,13 @@ CREATE TABLE responsivas (
 
 
 
-============================= # 11/10/2023
+#============================= # 11/10/2023
 
 INSERT INTO `seccionesareas` (`idseccion`, `idarea`, `nombre`) VALUES (NULL, '11', 'Catalogo responsivas');
 
 
 
-============================= # 28/10/2023
-
-//borramos la tabla anterior para crearla de nuevo ya corregida
-drop table entradassalidas;
+#============================= # 28/10/2023
 
 CREATE TABLE entradassalidas (
     identradasalida int autoIncremental,
@@ -58,9 +56,6 @@ CREATE TABLE entradassalidas (
     idrelacion int,
     estado int,
 );
-
-//borramos la tabla anterior para crearla de nuevo ya corregida
-drop table movimientos;
 
 CREATE TABLE movimiento (
     idmovimiento int autoIncremental,
@@ -79,10 +74,10 @@ CREATE TABLE tipo (
 INSERT INTO `tipo` (`idtipo`, `nombretipo`, `estado`) VALUES (NULL, 'Venta', '1'), (NULL, 'Orden', '1'), (NULL, 'Responsiva', '1');
 
 CREATE TABLE productorelacionentradassalidas (
-    idresponsiva int,
+    identradasalida int,
     idproducto int,
-    cantidad int 10, 
-    estado int,
+    cantidad int ,
+    estado int 
 );
 
 CREATE TABLE estados (
@@ -93,20 +88,7 @@ CREATE TABLE estados (
 INSERT INTO `estados` (`idestado`, `nombreestado`) VALUES (NULL, 'Activo'), (NULL, 'Inactivo');
 
 
-============================= # 28/10/2023
-
-
-cambiar esta tabla por la otra
-
-
-CREATE TABLE productorelacionentradassalidas (
-    identradasalida int,
-    idproducto int,
-    cantidad int ,
-    estado int 
-)
-
-solo cambia el idresponsiva por el identradasalida ya que esta tabla se usara no solo en responsivas si no con todos los tipos
+#============================= # 28/10/2023
 
 CREATE TABLE entradassalidas (
     identradasalida int auto_increment,
@@ -117,5 +99,3 @@ CREATE TABLE entradassalidas (
     estado int,
     primary key(identradasalida)
 )
-
-se agrego la fecha a entradas y salidas
