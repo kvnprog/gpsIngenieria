@@ -8,9 +8,8 @@ $firmaEmpleado = filter_input(INPUT_POST, "firmaEmpleado");
 
 //procesando los datos de la respuesta 
 
-$datosOrden = json_decode($datosOrden);
+ $datosOrden = json_decode($datosOrden);
 
-//var_dump($datosOrden);
 
 $clienteid = $datosOrden->clienteId;
 $usuarioid = $datosOrden->usuarioid;
@@ -39,13 +38,23 @@ if ($resultados->num_rows > 0) {
 }
 
 addFirm($firmaCliente, $idImagen, 1);
-addFirm($$firmaEmpleado, $idImagen, 2);
+addFirm($firmaEmpleado, $idImagen, 2);
 
 
 $saldoPendiente = floatval($total) - floatval($flete);
 
 $conexionInsertaOrden = new conexion;
-$queryInsertaOrden = "INSERT INTO ventas (clienteid,tipocliente,) VALUES () ;";
+$queryInsertaOrden = "INSERT INTO ventas (clienteid,tipocliente,fecha,nombrecompra,total,deuda,usuarioid) VALUES (".$clienteid.",1,NOW(),'".$ordenNombre."','".$total."','".$saldoPendiente."',".$usuarioid.") ;";
+$conexionInsertaOrden->conn->query($queryInsertaOrden);
+
+$arrResult = [];
+
+$arrData["status"] = (int)1;
+
+$arrResult[] = $arrData;
+
+echo json_encode($arrResult);
+
 
 function addFirm($firma, $idImage, $type) {
 
