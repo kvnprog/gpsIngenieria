@@ -1,7 +1,5 @@
 <?php
 
-
-
 include "../../fGenerales/php/funciones.php";
 include "../../fGenerales/bd/conexion.php";
 
@@ -16,6 +14,8 @@ $cliente = filter_input(INPUT_GET, "cliente");
 $trabajador = filter_input(INPUT_GET, "trabajador");
 
 $nFolio = filter_input(INPUT_GET, "nFolio");
+
+echo "funciono";
 
 //CHECANDO QUE ARGUMENTOS SE VAN A MANDAR
 
