@@ -60,7 +60,7 @@ JOIN usuarios u ON o.idusuario = u.idusuario " . $cadenaTrabajador .
     " JOIN clientes c ON c.idcliente = o.idcliente " . $cadenaCliente .
     " WHERE o.banderaautorizadar = 1 " .$cadenaOrden;
 
-     
+echo $queryOrden;
     
 $resultado = $conexionOrden->conn->query($queryOrden);
 
