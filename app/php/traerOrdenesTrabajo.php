@@ -15,7 +15,6 @@ $trabajador = filter_input(INPUT_GET, "trabajador");
 
 $nFolio = filter_input(INPUT_GET, "nFolio");
 
-echo "funciono";
 
 //CHECANDO QUE ARGUMENTOS SE VAN A MANDAR
 
@@ -52,6 +51,8 @@ if($nFolio!=""){
 //HACIENDO LA QUERY PARA TRAER LOS RESULTADOS
 
 $conexionOrden = new conexion;
+
+echo "funciono despues de la conexion";
 
 $queryOrden = "SELECT o.ordenid,o.numfolio,u.nombreusuario,c.nombre,o.totalpago  
 FROM ordentrabajo o  
