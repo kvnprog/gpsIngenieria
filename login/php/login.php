@@ -6,8 +6,7 @@
 <html lang="en">
 
 <head>
-    <?php pintarHead('Login') ;
-    echo "lo que sea";
+    <?php pintarHead('Login');
     ?>
 </head>
 
