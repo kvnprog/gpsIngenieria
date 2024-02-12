@@ -22,8 +22,8 @@ if ($result->num_rows > 0) {
 
     foreach($result->fetch_all() as $index => $data){
       $arrResult["reponsiva"][$index]["idresponsiva"] = $data[0];
-      $arrResult["reponsiva"]["usuario"] = $data[5];
-      $arrResult["reponsiva"]["fecha"] = $data[2];
+      $arrResult["reponsiva"][$index]["usuario"] = $data[5];
+      $arrResult["reponsiva"][$index]["fecha"] = $data[2];
     }
 
     $arrResult["error"] = 0;//TODO SALIO BIEN
