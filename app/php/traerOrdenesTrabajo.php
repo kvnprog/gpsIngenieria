@@ -56,7 +56,7 @@ $queryOrden = "SELECT o.ordenid,o.numfolio,u.nombreusuario,c.nombre,o.totalpago
 FROM ordentrabajo o  
 JOIN usuarios u ON o.idusuario = u.idusuario " . $cadenaTrabajador .
     " JOIN clientes c ON c.idcliente = o.idcliente " . $cadenaCliente .
-    " WHERE o.banderaautorizadar = 1 " .$cadenaOrden;
+    " WHERE o.banderaautorizar = 1 " .$cadenaOrden;
 
     
 $resultado = $conexionOrden->conn->query($queryOrden);
