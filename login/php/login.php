@@ -6,7 +6,8 @@
 <html lang="en">
 
 <head>
-    <?php pintarHead('Login') ?>
+    <?php pintarHead('Login');
+    ?>
 </head>
 
 <body class="m-0 vh-100 row justify-content-center align-items-center">

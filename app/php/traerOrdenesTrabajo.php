@@ -1,7 +1,5 @@
 <?php
 
-
-
 include "../../fGenerales/php/funciones.php";
 include "../../fGenerales/bd/conexion.php";
 
@@ -16,6 +14,7 @@ $cliente = filter_input(INPUT_GET, "cliente");
 $trabajador = filter_input(INPUT_GET, "trabajador");
 
 $nFolio = filter_input(INPUT_GET, "nFolio");
+
 
 //CHECANDO QUE ARGUMENTOS SE VAN A MANDAR
 
@@ -57,9 +56,8 @@ $queryOrden = "SELECT o.ordenid,o.numfolio,u.nombreusuario,c.nombre,o.totalpago
 FROM ordentrabajo o  
 JOIN usuarios u ON o.idusuario = u.idusuario " . $cadenaTrabajador .
     " JOIN clientes c ON c.idcliente = o.idcliente " . $cadenaCliente .
-    " WHERE o.banderaautorizadar = 1 " .$cadenaOrden;
+    " WHERE o.banderaautorizar = 1 " .$cadenaOrden;
 
-     
     
 $resultado = $conexionOrden->conn->query($queryOrden);
 
