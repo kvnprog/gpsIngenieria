@@ -3,7 +3,7 @@
 // include "../../fGenerales/bd/conexion.php";
 
 if (!function_exists('checarLogin')) {
-  function checarLogin() {
+  function checarLogin($usuario, $password) {
     $conexion = new conexion;
     $query = "SELECT idusuario,nombre FROM usuarios WHERE nombreusuario = ? and passwordusuario = md5(?) ";
 
