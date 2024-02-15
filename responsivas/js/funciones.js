@@ -174,7 +174,8 @@ function verCatalogoResponsivas(){
             contenidoTablaCatalogo =    "<thead>" +
                                             "<tr class='sticky-top'>" +
                                                 "<th class='text-center'>#</th>" +
-                                                "<th class='text-center'>Usuario creador</th>" +
+                                                "<th class='text-center'>Empleado</th>" +
+                                                "<th class='text-center'>Creador</th>" +
                                                 "<th class='text-center'>Fecha de creación</th>" +
                                                 "<th class='text-center'>Firmado</th>" +
                                                 "<th class='text-center'>Acción</th>" +
@@ -193,7 +194,7 @@ function verCatalogoResponsivas(){
                 for(punt = 0 ; punt < data['idResponsiva'].length ; punt++){
                     var num = punt + 1;
                     var rutapdf = '../php/responsivas/Responsiva_'+data['idResponsiva'][punt]+'_'+data['usuarioid'][punt]+'.pdf';
-                    contenidoTablaCatalogo += "<tr><td class='text-center'>"+num+"</td><td class='text-center'>"+data['nombreUsuario'][punt]+"</td><td class='text-center'>"+data['fechaCreacion'][punt]+"</td><td class='text-center'>"+data['firmado'][punt]+"</td><td class='text-center'><i title='Ver responsiva' id='"+rutapdf+"' onclick='verPdf(this)' data-bs-toggle='tooltip' data-bs-placement='right' class='fa-solid fa-eye fa-lg' style='color: #0033b5;'></i></td></tr>";
+                    contenidoTablaCatalogo += "<tr><td class='text-center'>"+num+"</td><td class='text-center'>"+data['nombreUsuario'][punt]+"</td><td class='text-center'>"+data['usuarioid'][punt]+"</td><td class='text-center'>"+data['fechaCreacion'][punt]+"</td><td class='text-center'>"+data['firmado'][punt]+"</td><td class='text-center'><i title='Ver responsiva' id='"+rutapdf+"' onclick='verPdf(this)' data-bs-toggle='tooltip' data-bs-placement='right' class='fa-solid fa-eye fa-lg' style='color: #0033b5;'></i></td></tr>";
                 }
 
                 contenidoTablaCatalogo +=   "</tbody>";                       

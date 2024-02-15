@@ -26,60 +26,70 @@
     ?>
 
     <body class="justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
+        
+        <!-- NAVBAR -->
+        <?php pintarNavBar(); ?>
+
         <div class="contenedorCont">
+
             <div class="col-12">
 
-                <?php pintarEncabezado('Productos','productosiconogps.png')?>
+                <?php pintarEncabezado('Productos','<i class="fa-solid fa-boxes-stacked fa-2xl"></i>','')?>
 
-                <div class="row">
-                    <div class="col-1"></div>
-                    <div class="col-10">
-                        <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
-                        
-                        <!-- MUESTRA LOS BOTONES A LOS QUE EL USUARIO TIENE PERMISO -->
-                            <?php 
-                                foreach($datos->fetch_all() as $dato){
+                <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
 
-                                    if($dato[1]==6){
-                                    echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
-                                    }
-                                    if($dato[1]==7){
-                                        echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(2)\">Registro</button>";
-                                    }
+                    <div class="col-12">
+                        <?php 
+                            foreach($datos->fetch_all() as $dato){
+
+                                if($dato[1]==6){                                        
+                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
+                                            <span class="button_lg">
+                                                <span class="button_sl"></span>
+                                                <span class="button_text">Catálogo</span>
+                                            </span>
+                                        </button>';
                                 }
-                            ?>
-
-                        </div>
+                                if($dato[1]==7){
+                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(2)">
+                                            <span class="button_lg">
+                                                <span class="button_sl"></span>
+                                                <span class="button_text">Registro</span>
+                                            </span>
+                                        </button>';
+                                }
+                            }
+                        ?>
                     </div>
-                    <div class="col-1"></div>
                 </div>
 
                 <div class="row" id="catalogo" style="display: none;">
 
                     <!-- FILTROS PARA BUSCAR PRODUCTOS -->
-                    <div class="row text-center">
+                    <div class="row">
 
-                        <div class="col-1"></div>
-
-                        <div class="col-10">
+                        <div class="col-12">
                             <div class="row">
 
                                 <!-- FILTRO POR NUMERO DE PARTE -->
-                                <div class="form-floating col-4 ">
-                                    <input type="text" class="form-control" id="filtroNParte" name="filtroNParte" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                                    <label>Numero de Parte</label>
+                                <div class="inputContainer">
+                                    <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="filtrarProductos()">
+                                    <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
+                                    <i class="userIcon fa-solid fa-hashtag"></i>
                                 </div>
 
                                 <!-- FILTRO POR DESCRIPCIÓN -->
-                                <div class="form-floating col-4 ">
-                                    <input type="text" class="form-control" id="filtroDescripcion" name="filtroDescripcion" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                                    <label>Descripcion</label>
+                                <div class="inputContainer">
+                                    <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Escriba descripción" onkeyup="filtrarProductos()">
+                                    <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
+                                    <i class="userIcon fa-solid fa-align-left"></i>
                                 </div>
 
+
                                 <!-- FILTRO POR CATEGORÍA -->
-                                <div class="form-floating mb-3 col-4">
-                                    <select class="form-select" id="filtroCategoria" name="filtroCategoria" aria-label="Floating label select example" onchange="filtrarProductos()">
-                                        <option value=0 selected>Categorias....</option>
+                                <div class="inputContainer">
+                                    <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Categoría" onchange="filtrarProductos()">
+                                        <option value=0 selected>Categorías...</option>
                                         <?php
                                             $conexionCategorias = new conexion;
                                             $queryCategorias = "SELECT*FROM categoriasproductos";
@@ -91,23 +101,21 @@
                                             }
                                         ?>
                                     </select>
-                                    <label for="floatingSelect">Categoria</label>
+                                    <label class='usernameLabel' for='filtroCategoria'>Categorías</label>
+                                    <i class="userIcon fa-regular fa-object-ungroup"></i>
                                 </div>
+
                             </div>
                         </div>
-
-                        <div class="col-1"></div>
-                    
+        
                     </div>
 
                     <!-- TITULO DEL CONTENIDO -->
                     <div class="col-12 text-center">
-                        <h3>Catalogo de Productos</h3>
+                        <label class="text-subtitle">Catálogo de productos</label>
                     </div>
 
-                    <div class="col-1"></div>
-                    
-                    <div class="col-10">
+                    <div class="col-sm-12">
                         <!-- TABLA DONDE APARECEN LOS PRODUCTOS -->
                         <div class="table-responsive">
                             <table id="catalogoProductos" class="table table-hover">
@@ -157,86 +165,90 @@
                             </table>
                         </div>
                     </div>
-
-                    <div class="col-1"></div>
-
                 </div>
             </div>
 
             <!-- SECCIÓN DE REGISTRO DE PRODUCTOS -->
             <div class="row" id="registros" style="display: none;">
-
-            <!-- TITULO DEL CONTENIDO -->
                 <div class="col-12 text-center">
-                    <h3>Registro de Productos</h3>
+                    <label class="text-subtitle">Registro de productos</label>
                 </div>
 
-                <div class="col-1"></div>
-                
-                <div class="col-10">
+                <div class="col-sm-12">
                     <!-- FORMULARIO DE REGISTRO DE PRODUCTOS-->
                     <form class="frmRegistroNParte" id="frmRegistroNParte" method="POST" enctype="multipart/form-data">
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="nParte" name="nParte" placeholder="Escriba el Numero de Parte">
-                            <label>Numero de Parte</label>
+                        <div class="inputContainer">
+                            <input id="nParte" name="nParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte">
+                            <label class='usernameLabel' for='nParte'>Número de parte</label>
+                            <i class="userIcon fa-solid fa-hashtag"></i>
                         </div>
                         
-                        <div class="form-floating mb-3">
-                            <textarea type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Escriba una Descripcion"></textarea>
-                            <label>Descripcion</label>
+                        <div class="inputContainer">
+                            <textarea type="text" id="descripcion" name="descripcion" class="inputField" required="" placeholder="Escriba descripción"></textarea>
+                            <label class='usernameLabel' for='descripcion'>Descripción</label>
+                            <i class="userIcon fa-solid fa-align-left"></i>
                         </div>
-                        
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="categoria" name="categoria" aria-label="Floating label select example">
-                                <option value=0 selected>Categorias....</option>
+
+                        <div class="inputContainer">
+                            <select type="text" id="categoría" name="categoria" class="inputField" required="" placeholder="Escriba categoría">
+                                <option value=0 selected>Categorías...</option>
                                 <?php
+                                    $conexionCategorias = new conexion;
+                                    $queryCategorias = "SELECT*FROM categoriasproductos";
+                                    $categorias = $conexionCategorias->conn->query($queryCategorias);
 
-                                $conexionCategorias = new conexion;
-                                $queryCategorias = "SELECT*FROM categoriasproductos";
-                                $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                                foreach ($categorias->fetch_all() as $index => $categoria) {
-
-                                    print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                }
-
+                                    foreach ($categorias->fetch_all() as $index => $categoria) {
+                                        print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                    }
                                 ?>
                             </select>
-                            <label for="floatingSelect">Categoria</label>
+                            <label class='usernameLabel' for='categoria'>Categorías</label>
+                            <i class="userIcon fa-solid fa-align-left"></i>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="maximos" name="maximos" placeholder="Coloque el Maximo">
-                            <label>Maximos</label>
+                        <div class="inputContainer">
+                            <input type="number" id="maximos" name="maximos" class="inputField" required="" placeholder="Escriba el máximo">
+                            <label class='usernameLabel' for='maximos'>Máximo</label>
+                            <i class="userIcon fa-solid fa-plus"></i>
+                        </div>
+  
+                        <div class="inputContainer">
+                            <input type="number" id="minimos" name="minimos" class="inputField" required="" placeholder="Escriba el mínimo">
+                            <label class='usernameLabel' for='minimos'>Mínimos</label>
+                            <i class="userIcon fa-solid fa-minus"></i>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="minimos" name="minimos" placeholder="Coloque el Minimo">
-                            <label>Minimos</label>
+                        <div class="inputContainer">
+                            <input type="number" id="existentes" name="existentes" class="inputField" required="" placeholder="Escriba los existentes">
+                            <label class='usernameLabel' for='existentes'>Existentes</label>
+                            <i class="userIcon fa-solid fa-check"></i>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="existentes" name="existentes" placeholder="Coloque los Existentes">
-                            <label>Existentes</label>
+                        <div class="inputContainer">
+                            <textarea type="text" id="comentarios" name="comentarios" class="inputField" required="" placeholder="Escriba los comentarios"></textarea>
+                            <label class='usernameLabel' for='comentarios'>Comentarios</label>
+                            <i class="userIcon fa-regular fa-comments"></i>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <textarea type="text" class="form-control" id="comentarios" name="comentarios" placeholder="Coloque los Comentarios"></textarea>
-                            <label>Comentarios</label>
+                        <div class="inputContainer">
+                            <input type="number" id="precio" name="precio" class="inputField" required="" placeholder="Escriba el precio por unidad">
+                            <label class='usernameLabel' for='existentes'>Precio por unidad</label>
+                            <i class="userIcon fa-solid fa-dollar-sign"></i>
                         </div>
 
-
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="precio" name="precio" placeholder="Coloque los Comentarios">
-                            <label>Precio por Unidad</label>
+                        <div class="inputContainer">
+                            <input type="file" accept="image/*" id="fotoProducto" name="fotoProducto" class="inputField" required="" placeholder="Seleccione la imagen">
+                            <label class='usernameLabel' for='existentes'>Imagen de producto</label>
+                            <i class="userIcon fa-solid fa-dollar-sign"></i>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="file" class="form-control" style="line-height: 3.5; padding-top: 0;" accept="image/*" id="fotoProducto" name="fotoProducto" placeholder="Coloque la foto">
+                        <div class="contenedor-boton-gen">
+                            <div class="main_div">
+                                <button onclick="crearProducto()">GUARDAR</button>
+                            </div>
                         </div>
 
-                        <button type="button" class="btn btn-success" onclick="crearProducto()">Guardar</button>
                     </form>
                 </div>
             

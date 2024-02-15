@@ -11,11 +11,15 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
 
 <body class=" justify-content-center align-items-center">
+
+    <!-- NAVBAR -->
+    <?php pintarNavBar(); ?>
+    
     <div class="contenedorCont">
         <!-- //div principal -->
         <div class="col-12">
 
-            <?php pintarEncabezado('Ventas','salestitle.svg');?>
+            <?php pintarEncabezado('Ventas','<i class="fa-solid fa-cash-register fa-2xl"></i>','');?>
 
             <?php include "botones.php";?>
             <!-- Catalogo de ventas -->

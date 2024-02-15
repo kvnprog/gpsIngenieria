@@ -29,130 +29,120 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
 
 <body class=" justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
+    
+    <!-- NAVBAR -->
+    <?php pintarNavBar(); ?>
+
     <div class="contenedorCont">
-        <!-- //div principal -->
+        
         <div class="col-12">
 
-            <!-- //div de logo y regreso -->
-            <?php pintarEncabezado('Servicios','productosiconogps.png')?>
+            <?php pintarEncabezado('Servicios','<i class="fa-solid fa-toolbox fa-2xl"></i>', '')?>
             
-            <div class="row">
+            <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
 
-                <div class="col-1"></div>
-                <div class="col-10">
-                    <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
+                <div class="col-12">
 
                     <?php 
-                    
-                    foreach($datos->fetch_all() as $dato){
-
+                        foreach($datos->fetch_all() as $dato){
                             if($dato[1]==12){
-                            echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
+                                echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
+                                        <span class="button_lg">
+                                            <span class="button_sl"></span>
+                                            <span class="button_text">Catálogo</span>
+                                        </span>
+                                    </button>';
                             }
                             if($dato[1]==13){
-                                echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(2)\">Registro</button>";
+                                echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(2)">
+                                        <span class="button_lg">
+                                            <span class="button_sl"></span>
+                                            <span class="button_text">Registro</span>
+                                        </span>
+                                    </button>';
                             }
-                            
-                    
-                    }
-                    
-                    
+                        }
                     ?>
 
-                    
-
-                    </div>
                 </div>
-                <div class="col-1"></div>
 
             </div>
 
-            <!-- //botones del menu de usuarios fin-->
-
-            <!-- Tabla de datos Usuarios -->
             <div class="row" id="catalogo" style="display: none;">
 
-            
                 <div class="col-12 text-center">
-                    <h3>Catalogo de Servicios</h3>
+                    <label class="text-subtitle">Catálogo de servicios</label>
                 </div>
-                <div class="col-1"></div>
-                <!-- Empiezo de tabla -->
-                <div class="col-10">
+                
+                <div class="col-12">
                     <div class="table-responsive">
                         <table id="catalogoServicios" class="table table-hover">
                             <thead>
                                 <tr>
-
                                     <th class="text-center" scope="col">Nombre</th>
-                                    <th class="text-center" scope="col">Descripcion</th>
+                                    <th class="text-center" scope="col">Descripción</th>
                                     <th class="text-center" scope="col">Precio</th>
                                     <th class="text-center" colspan="2" scope="col"></th>
-                                </tr>
-
-
-                                <th class="text-center" colspan="6" scope="col"></th>
+                                    <th class="text-center" colspan="6" scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
                                 <!--LLENADO LOS DATOS DE LAS TABLAS   -->
                                 <?php
-
-                                foreach ($resultados->fetch_all() as $columna) {
-
-
-                                    echo " <tr>
-                                        <td class=\"text-center\">" . $columna[1] . "</td>
-                                        <td class=\"text-center\">" . $columna[2] . "</td>
-                                        <td class=\"text-center\">" . $columna[3] . "</td>
-                                        <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "','" . $columna[3] . "')\"></td>
-                                        
-                                        </tr>";
-                                }
-
+                                    foreach ($resultados->fetch_all() as $columna) {
+                                        echo " <tr>
+                                            <td class=\"text-center\">" . $columna[1] . "</td>
+                                            <td class=\"text-center\">" . $columna[2] . "</td>
+                                            <td class=\"text-center\">" . $columna[3] . "</td>
+                                            <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "','" . $columna[3] . "')\"></td>
+                                            
+                                            </tr>";
+                                    }
                                 ?>
-
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <!-- Empiezo tabla final -->
-                <div class="col-1"></div>
+
             </div>
 
-            <!-- Tabla de datos Usuarios final-->
         </div>
-        <!-- //div principal fin -->
 
 
         <!-- div de registros -->
         <div class="row" id="registros" style="display: none;">
             <div class="col-12 text-center">
-                <h3>Registro de Productos</h3>
+                <label class="text-subtitle">Registro de productos</label>
             </div>
-            <div class="col-1"></div>
-            <div class="col-10">
+
+            <div class="col-12">
                 <form class="frmRegistroServicio" id="frmRegistroServicio">
 
-
-        
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escriba el Numero de Parte" >
-                        <label>Nombre</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <textarea type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Escriba el Numero de Parte" ></textarea>
-                        <label>Descripcion</label>
+                    <div class="inputContainer">
+                        <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba el nombre">
+                        <label class='usernameLabel' for='nombre'>Nombre</label>
+                        <i class="userIcon fa-solid fa-text-width"></i>
                     </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="precio" name="precio" placeholder="Escriba el Numero de Parte">
-                        <label>precio</label>
+                    <div class="inputContainer">
+                        <textarea id="descripcion" name="descripcion" class="inputField" required="" type="text" placeholder="Escriba la descripción"></textarea>
+                        <label class='usernameLabel' for='descripcion'>Descripción</label>
+                        <i class="userIcon fa-solid fa-text-width"></i>
                     </div>
 
+                    <div class="inputContainer">
+                        <input id="precio" name="precio" class="inputField" required="" type="number" placeholder="Escriba el precio">
+                        <label class='usernameLabel' for='precio'>Precio</label>
+                        <i class="userIcon fa-solid fa-dollar-sign"></i>
+                    </div>
 
-                    <button type="button" class="btn btn-success" onclick="crearNuevoElemento()">Guardar</button>
+                    <div class="contenedor-boton-gen">
+                        <div class="main_div">
+                            <button onclick="crearNuevoElemento()">GUARDAR</button>
+                        </div>
+                    </div>
+
                 </form>
             </div>
             <div class="col-1"></div>

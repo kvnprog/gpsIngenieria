@@ -13,53 +13,114 @@
 
 
 <body class=" justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
+
+    <!-- NAVBAR -->
+    <?php pintarNavBar(); ?>
+
     <div class="contenedorCont">
         <!-- //div principal -->
         <div class="col-12">
 
-            <?php pintarEncabezado('',''); ?>
+            <?php pintarEncabezado('Inventarios', '<i class="fa-solid fa-warehouse fa-2xl"></i>', '') ?>
             
-            <div class="row">
-                <div class="col-1 "></div>
-                <div class="col-10  justify-content-center align-items-center ">
-                    <div class="row">
-                        <!-- CATEGORIA PRODUCTOS -->
-                        <div class="col text-center">
-                            <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirCategoriaProductos()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/category.svg" width="100px">
-                                <div class="card-button">Categorias </div>
-                            </div>
+
+            <main class="site-wrapper">
+                <div class="pt-table desktop-768">
+                    <div class="pt-tablecell">
+                        <div class="container">
+                            <div class="row d-flex justify-content-center">
                             
-                        </div>
-                        <!-- PRODUCTOS -->
-                        <div class="col text-center">
-                            <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirProductos()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/products.svg" width="100px">
-                                <div class="card-button">productos</div>
-                            </div>
-                        </div>
-                        <!-- REPORTES -->
-                        <div class="col text-center">
-                            <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirReportes()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/reports.svg" width="100px">
-                                <div class="card-button">Reportes</div>
-                            </div>
-                        </div>
-                        <!-- RESPONSIVAS -->
-                        <div class="col text-center">
-                            <div class=" btnMenu btn-menu justify-content-center align-items-center" onclick="abrirResponsivas()">
-                                <img class="imgConfiguracion" src="../../src/imagenes/responsive.svg" width="110px">
-                                <div class="card-button">Responsivas</div>
+                                <div class="col-lg-3">
+                                    <div class="hexagon-item">
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        
+                                        <a  class="hex-content" onclick="abrirCategoriaProductos()">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i id='iconoMPanal'><i class="fa-regular fa-object-ungroup fa-2xl"></i></i>
+                                                </span>
+                                                <span class="title">Categorías</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            
+                                <div class="col-lg-3">
+                                    <div class="hexagon-item">
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        
+                                        <a  class="hex-content" onclick="abrirProductos()">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i id='iconoMPanal'><i class="fa-solid fa-boxes-stacked fa-2xl"></i></i>
+                                                </span>
+                                                <span class="title">Productos</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
+                                        </a>    
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="hexagon-item">
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        
+                                        <a  class="hex-content" onclick="abrirReportes()">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i id='iconoMPanal'><i class="fa-solid fa-file-invoice fa-2xl"></i></i>
+                                                </span>
+                                                <span class="title">Reportes</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
+                                        </a>    
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-3">
+                                    <div class="hexagon-item">
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        
+                                        <a  class="hex-content" onclick="abrirResponsivas()">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i id='iconoMPanal'><i class="fa-solid fa-file-signature fa-2xl"></i></i>
+                                                </span>
+                                                <span class="title">Responsivas</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
+                                        </a>    
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-
-            </div>
-            <!-- //div de logo y regreso fin -->
+            </main>
 
         </div>
-        <!-- //div principal fin -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
