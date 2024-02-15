@@ -78,3 +78,38 @@
 </body>
 
 </html>
+
+
+<!-- 
+<div class="container d-flex justify-content-center align-items-center">
+           <div class="divLogo justify-content-center align-items-center ">
+                <img class="imgLogo" src="../../src/imagenes/logo.png" />
+            </div>
+        <div class="screen">
+            <div class="screen__content">
+                <form class="login">
+                    <div class="login__field">
+                        <i class="login__icon fas fa-user"></i>
+                        <input type="text" class="login__input" placeholder="Usuario">
+                    </div>
+                    <div class="login__field">
+                        <i class="login__icon fas fa-lock"></i>
+                        <input type="password" class="login__input" placeholder="Contraseña">
+                    </div>
+	
+                    <div class="contenedor-boton-gen">
+                        <div class="main_div">
+                            <button onclick="crearEmpleado()" style="font-size: 13px;">Iniciar sesión</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="screen__background">
+                <span class="screen__background__shape screen__background__shape4"></span>
+                <span class="screen__background__shape screen__background__shape3"></span>		
+                <span class="screen__background__shape screen__background__shape2"></span>
+                <span class="screen__background__shape screen__background__shape1"></span>
+            </div>		
+        </div>
+    </div> -->
