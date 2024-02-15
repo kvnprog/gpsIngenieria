@@ -17,7 +17,7 @@
     $arrayValores = explode(",",$arrayValores);
     $empleado = filter_input(INPUT_GET,"empleado");
     $idEmpleado = filter_input(INPUT_GET,'idempleado');
-
+    $idUsuarioCreador = $_SESSION['usuarioid'];
 
     // IMPORTA LA CLASE Fpdf DE LA BIBLIOTECA
     use Fpdf\Fpdf as Fpdf;
@@ -27,7 +27,7 @@
 
     // BANDERAFIRMADO 0 = NO FIRMADO
     $conInsertarResponsiva = new conexion;
-    $queryInsertarResponsiva = "INSERT INTO responsivas (usuarioid, fechacreacion, banderafirmado, estadoid) VALUES ('".$idEmpleado."', now(), '0', '1')";
+    $queryInsertarResponsiva = "INSERT INTO responsivas (idempleado, fechacreacion, banderafirmado, estadoid, idusuario) VALUES ('".$idEmpleado."', now(), '0', '1', '".$idUsuarioCreador."')";
     
     if($conInsertarResponsiva->conn->query($queryInsertarResponsiva)){
         

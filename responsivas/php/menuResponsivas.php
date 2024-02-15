@@ -1,6 +1,7 @@
 <?php
-    include "../../fGenerales/bd/conexion.php";
+
     include "../../fGenerales/php/funciones.php";
+    include "../../fGenerales/bd/conexion.php";
 
     pantallaCarga('on');
 ?>
@@ -13,16 +14,50 @@
         <?php pintarHead('Responsivas') ?>
     </head>
 
+    <?php                
+        session_name('gpsingenieria');
+        session_start();
+
+        $datos = checarPermisosSeccion($_SESSION['usuarioid']);
+    ?>
+
     <body class=" justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
+    
+    <!-- NAVBAR -->
+    <?php pintarNavBar(); ?>
 
         <div class="contenedorCont">
             <div class="col-12">
 
                 <!-- PINTA ENCABEZADO -->
-                <?php pintarEncabezado('Responsivas', 'responsivas.png'); ?>
+                <?php pintarEncabezado('Responsivas', '<i class="fa-solid fa-file-signature fa-2xl"></i>' ,''); ?>
                 
-                <!-- PINTA LOS BOTONES DE LAS SECCIONES -->
-                <?php include_once './botonesSecciones.php' ?>
+                <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                    
+                    <div class="col-12">
+                        <?php
+                        foreach ($datos->fetch_all() as $dato) {
+                            if ($dato[1] == 17) {
+                                echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
+                                        <span class="button_lg">
+                                            <span class="button_sl"></span>
+                                            <span class="button_text">Crear responsiva</span>
+                                        </span>
+                                    </button>';
+                            }
+                            if ($dato[1] == 18) {
+                                echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(2)">
+                                        <span class="button_lg">
+                                            <span class="button_sl"></span>
+                                            <span class="button_text">Catalogo responsivas</span>
+                                        </span>
+                                    </button>';
+                            }
+                        }
+                        ?>
+                    </div>
+
+                </div>
                 
                 <!-- PINTA PRA CREAR RESPONSIVA -->
                 <?php include_once './crearResponsivas.php'?>

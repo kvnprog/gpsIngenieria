@@ -12,29 +12,29 @@
 </head>
 
 <body class=" justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
+   
+    <!-- NAVBAR -->
+    <?php pintarNavBar(); ?>
+
     <div class="contenedorCont">
         <!-- //div principal -->
         <div class="col-12">
             
-            <?php pintarEncabezado('',''); ?>
+            <?php pintarEncabezado('Recursos humanos','<i class="fa-solid fa-users-gear fa-2xl"></i>', ''); ?>
             
-            <div class="row">
-                <div class="justify-content-center align-items-center ">
-                    <div class="row">
-                        <div class="col text-center">
-                            <div class="btnMenu btn-menu justify-content-center align-items-center" onclick="abrirEmpleados()">
-                                    <img class="imgConfiguracion" src="../../src/imagenes/empleados.svg" width="110px">
-                                    <div class="card-button">Empleados</div>
-                            </div> 
-                        </div>                    
-                    </div>
+            <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+
+                <div class="col-12">
+                    <button class="btn-apartado-secciones" onclick="abrirEmpleados(1)">
+                        <span class="button_lg">
+                            <span class="button_sl"></span>
+                            <span class="button_text">Empleados</span>
+                        </span>
+                    </button>
                 </div>
 
             </div>
-            <!-- //div de logo y regreso fin -->
-
         </div>
-        <!-- //div principal fin -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

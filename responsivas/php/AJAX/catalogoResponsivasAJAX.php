@@ -1,10 +1,10 @@
 <?php
     include_once "../../../fGenerales/bd/conexion.php";
-
+    
     // TRAE LOS PRODUCTOS
     $conObtenerResponsivas = new conexion;
-    $queryObtenerResponsivas = "SELECT r.idresponsiva, u.nombreusuario, r.fechacreacion, r.banderafirmado, r.estadoid, r.usuarioid
-    FROM responsivas r, usuarios u WHERE u.idusuario = r.usuarioid AND r.estadoid = 1";
+    $queryObtenerResponsivas = "SELECT r.idresponsiva, CONCAT(e.nombre,' ',e.apellidos), r.fechacreacion, r.banderafirmado, r.estadoid, u.nombreusuario
+    FROM responsivas r, empleados e, usuarios u WHERE e.idEmpleado = r.idempleado AND r.idusuario = u.idusuario AND r.estadoid = 1";
     $resultados = $conObtenerResponsivas->conn->query($queryObtenerResponsivas);
 
     $bandera = 0;

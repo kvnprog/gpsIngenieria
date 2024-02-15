@@ -30,133 +30,128 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
 
 <body class=" justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
-    <div class="contenedorCont">
-        <!-- //div principal -->
-        <div class="col-12">
-
-            <?php pintarEncabezado('Reportes','productosiconogps.png')?>
-
-            <div class="row">
-
-                <div class="col-1"></div>
-                <div class="col-10">
-                    <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
-
-                    <?php 
-                    
-                            echo "<button type=\"button\" class=\"btn btn-success btnReporteES\" onclick=\"abrirSeccion(1)\">Reporte ES</button>";
     
-                    ?>
-                        
-                        
+    <!-- NAVBAR -->
+    <?php pintarNavBar(); ?>
 
-                    </div>
-                </div>
-                <div class="col-1"></div>
+    <div class="contenedorCont">
 
+        <?php pintarEncabezado('Reportes','<i class="fa-solid fa-file-invoice fa-2xl"></i>','')?>
+
+        <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+
+            <div class="col-12">
+                <?php 
+                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
+                            <span class="button_lg">
+                                <span class="button_sl"></span>
+                                <span class="button_text">Reportes</span>
+                            </span>
+                        </button>';
+                ?>
             </div>
 
-            <!-- //botones del menu de usuarios fin-->
+        </div>
 
-            <!-- Tabla de datos Usuarios -->
-            <div class="row" id="reporteES" style="display: none;">
+        <div id="reporteES" style="display: none;">
+            
+            <div class="col-12">
+                <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
 
-                <!-- FILTROS -->
-                <div class="row text-center">
-
-                    <div class="col-1"></div>
-                    <!-- Empiezo de filtros -->
-                    <div class="col-10">
-
-                        <div class="row">
-
-                        <div class="form-floating mb-3 col-2">
-                                <select class="form-select" id="filtroTipo" name="filtroTipo" aria-label="Floating label select example" ">
-                                
-                                    <?php
-
-                                        print_r("<option value=0 >TIPO..</option>");
-                                        print_r("<option value=1 >Ventas..</option>");
-                                        print_r("<option value=2 >Ordenes..</option>");
-                                        print_r("<option value=3 >Otros..</option>");
-                                    
-                                    ?>
-
-                                </select>
-                                <label for="floatingSelect">Categoria</label>
-                            </div>
-
-                            <div class="form-floating mb-3 col-2">
-                                <select class="form-select" id="filtroMovimiento" name="filtroMovimiento" aria-label="Floating label select example" onchange="filtrarProductos()">
-                                
-                                    <?php
-
-                                        print_r("<option value=0 >Movimiento...</option>");
-                                        print_r("<option value=1 >Entrada</option>");
-                                        print_r("<option value=2 >Salida</option>");
-                                    
-                                    ?>
-
-                                </select>
-                                <label for="floatingSelect">Movimiento</label>
-                            </div>
-
-                            <div class="form-floating col-2 ">
-                                <input type="text" class="form-control" id="filtroProducto" name="filtroProducto" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                                <label>Producto</label>
-                            </div>
-
-                            <div class="form-floating col-2 ">
-                                <input type="date" class="form-control" id="filtroFechaInicial" name="filtroFechaInicial" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                                <label>Fecha Inicial</label>
-                            </div>
-
-                            <div class="form-floating col-2 ">
-                                <input type="date" class="form-control" id="filtroFechaFinal" name="filtroFechaFinal" placeholder="Escriba el Numero de Parte" onkeyup="filtrarProductos()">
-                                <label>Fecha Final</label>
-                            </div>
-
-                            <div class="form-floating col-2 ">
-                            <button type="button" class="btn btn-success btnReporteES" onclick="buscarES()">Buscar</button>
-                            </div>
-
+                    <div class="col-sm-12 col-md-4">
+                        <div class="inputContainer">
+                            <select type="text" id="filtroTipo" name="filtroTipo" class="inputField" required="" placeholder="Seleccione categoría">
+                                <?php
+                                    print_r("<option value=0 >Categoría.../option>");
+                                    print_r("<option value=1 >Ventas</option>");
+                                    print_r("<option value=2 >Ordenes</option>");
+                                    print_r("<option value=3 >Otros</option>");
+                                ?>
+                            </select>
+                            <label class='usernameLabel' for='filtroTipo'>Categorías</label>
+                            <i class="userIcon fa-regular fa-object-ungroup"></i>
                         </div>
                     </div>
-                    <div class="col-1"></div>
+
+                    <div class="col-sm-12 col-md-4">
+                        <div class="inputContainer">
+                            <select type="text" id="filtroMovimiento" name="filtroMovimiento" class="inputField" required="" placeholder="Seleccione categoría" onchange="filtrarProductos()">
+                                <?php
+                                    print_r("<option value=0 >Movimiento...</option>");
+                                    print_r("<option value=1 >Entrada</option>");
+                                    print_r("<option value=2 >Salida</option>");
+                                ?>
+                            </select>
+                            <label class='usernameLabel' for='filtroMovimiento'>Movimiento</label>
+                            <i class="userIcon fa-solid fa-timeline"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-4">
+                        <div class="inputContainer">
+                            <input id="filtroProducto" name="filtroProducto" class="inputField" required="" type="text" placeholder="Escriba el producto" onkeyup="filtrarProductos()">
+                            <label class='usernameLabel' for='filtroProducto'>Producto</label>
+                            <i class="userIcon fa-solid fa-boxes-stacked"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="inputContainer">
+                            <input id="filtroFechaInicial" name="filtroFechaInicial" class="inputField" required="" type="date" placeholder="Ingrese la fecha inicial" onchange="filtrarProductos()">
+                            <label class='usernameLabel' for='filtroFechaInicial'>Fecha inicial</label>
+                            <i class="userIcon fa-solid fa-calendar-days"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="inputContainer">
+                            <input id="filtroFechaFinal" name="filtroFechaFinal" class="inputField" required="" type="date" placeholder="Ingrese la fecha final" onchange="filtrarProductos()">
+                            <label class='usernameLabel' for='filtroFechaFinal'>Fecha final</label>
+                            <i class="userIcon fa-solid fa-calendar-days"></i>
+                        </div>
+                    </div>
+                
+                    <div class="contenedor-boton-gen">
+                        <div class="main_div">
+                            <button onclick="buscarES()">BUSCAR</button>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="col-12 text-center">
-                    <h3>Catalogo de Productos</h3>
-                </div>
-                <div class="col-1"></div>
-                <!-- Empiezo de tabla -->
-                <div class="col-10">
-                    <div class="table-responsive">
-                        <table id="catalogoProductos" class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">N.parte</th>
-                                    <th class="text-center" scope="col">Descripcion</th>
-                                    <th class="text-center" scope="col">Tipo</th>
-                                    <th class="text-center" scope="col">Cantidad</th>   
-                                    <th class="text-center" scope="col">Fecha</th>
-                                    <th class="text-center" scope="col">Hora</th>     
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
-                                <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                            </tbody>
-                        </table>
+                <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 text-center">
+                            <label class="text-subtitle">Catalogo de productos</label>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+
+                                <table id="catalogoProductos" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" scope="col">N.parte</th>
+                                            <th class="text-center" scope="col">Descripcion</th>
+                                            <th class="text-center" scope="col">Tipo</th>
+                                            <th class="text-center" scope="col">Cantidad</th>   
+                                            <th class="text-center" scope="col">Fecha</th>
+                                            <th class="text-center" scope="col">Hora</th>     
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
+                                        <!--LLENADO LOS DATOS DE LAS TABLAS   -->
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <!-- Empiezo tabla final -->
-                <div class="col-1"></div>
             </div>
-
-            <!-- Tabla de datos Usuarios final-->
         </div>
-        <!-- //div principal fin -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
