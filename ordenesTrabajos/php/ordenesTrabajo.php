@@ -34,150 +34,140 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
 
 <body class=" justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
+    <!-- NAVBAR -->
+    <?php pintarNavBar(); ?>
+
     <div class="contenedorCont">
         <!-- //div principal -->
         <div class="col-12">
 
-            <?php pintarEncabezado('Ordenes de Trabajo','productosiconogps.png'); ?>
+            <?php pintarEncabezado('Ordenes de Trabajo','<i class="fa-solid fa-person-digging fa-2xl"></i>', ''); ?>
 
-            <div class="row">
+            <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
 
-                <div class="col-1"></div>
-                <div class="col-10">
-                    <div class="btn-group " style="width:100%" role="group" aria-label="Basic example">
-                        <?php
-
+                <div class="col-12">
+                    <?php
                         foreach ($datos->fetch_all() as $dato) {
-
                             if ($dato[1] == 14) {
-                                echo "<button type=\"button\" class=\"btn btn-secondary btnUsuarios\" onclick=\"abrirSeccion(1)\">Catalogo</button>";
+                                echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
+                                        <span class="button_lg">
+                                            <span class="button_sl"></span>
+                                            <span class="button_text">Catálogo</span>
+                                        </span>
+                                    </button>';
                             }
                         }
+                    ?>
 
-
-                        ?>
-
-
-                    </div>
                 </div>
-                <div class="col-1"></div>
 
             </div>
 
-            <!-- //botones del menu de usuarios fin-->
-
-            <!-- Tabla de datos Usuarios -->
-            <div class="row" id="catalogo" style="display: none;">
+            <div id="catalogo" style="display: none;">
 
                 <!-- FILTROS -->
-                <div class="row text-center">
-
-                    <div class="col-1"></div>
-                    <!-- Empiezo de filtros -->
-                    <div class="col-10">
-
-                        <div class="row">
-
-                            <div class="form-floating col-2 ">
-                                <input type="text" class="form-control" id="filtroNFolio" name="filtroNFolio" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
-                                <label>N.Folio</label>
+                <div class="col-12">
+                    <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                        
+                        <div class="col-sm-12 col-md-4">
+                            <div class="inputContainer">
+                                <input id="filtroNFolio" name="filtroNFolio" class="inputField" required="" type="text" placeholder="Escriba el número de folio" onkeyup="filtrarOrdenes()">
+                                <label class='usernameLabel' for='filtroNFolio'>N. folio</label>
+                                <i class="userIcon fa-solid fa-text-width"></i>
                             </div>
+                        </div>
 
-                            <div class="form-floating col-2 ">
-                                <input type="text" class="form-control" id="filtroTrabajador" name="filtroTrabajador" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
-                                <label>Trabajador</label>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="inputContainer">
+                                <input id="filtroTrabajador" name="filtroTrabajador" class="inputField" required="" type="text" placeholder="Escriba el trabajador" onkeyup="filtrarOrdenes()">
+                                <label class='usernameLabel' for='filtroTrabajador'>Trabajador</label>
+                                <i class="userIcon fa-solid fa-person-circle-check"></i>
                             </div>
+                        </div>
 
-                            <div class="form-floating col-2 ">
-                                <input type="text" class="form-control" id="filtroCliente" name="filtroCliente" placeholder="Escriba el Numero de Parte" onkeyup="filtrarOrdenes()">
-                                <label>Cliente</label>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="inputContainer">
+                                <input id="filtroCliente" name="filtroCliente" class="inputField" required="" type="text" placeholder="Escriba el cliente" onkeyup="filtrarOrdenes()">
+                                <label class='usernameLabel' for='filtroCliente'>Cliente</label>
+                                <i class="userIcon fa-solid fa-people-arrows"></i>
                             </div>
-
-                            <div class="form-floating col-3 ">
-                                <input type="date" class="form-control" id="filtroFechaI" name="filtroFechaI" placeholder="Escriba el Numero de Parte" onchange="filtrarOrdenes()">
-                                <label>Fecha Inicial</label>
+                        </div>
+      
+                        <div class="col-sm-12 col-md-6">
+                            <div class="inputContainer">
+                                <input id="filtroFechaI" name="filtroFechaI" class="inputField" required="" type="date" placeholder="Ingrese la fecha inicio" onchange="filtrarOrdenes()">
+                                <label class='usernameLabel' for='filtroFechaI'>Fecha inicio</label>
+                                <i class="userIcon fa-solid fa-calendar-days"></i>
                             </div>
+                        </div>
 
-                            <div class="form-floating col-3 ">
-                                <input type="date" class="form-control" id="filtroFechaF" name="filtroFechaF" placeholder="Escriba el Numero de Parte" onchange="filtrarOrdenes()">
-                                <label>Fecha Final</label>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="inputContainer">
+                                <input id="filtroFechaF" name="filtroFechaF" class="inputField" required="" type="date" placeholder="Ingrese la fecha fin" onchange="filtrarOrdenes()">
+                                <label class='usernameLabel' for='filtroFechaI'>Fecha fin</label>
+                                <i class="userIcon fa-solid fa-calendar-days"></i>
                             </div>
+                        </div>
 
+                    </div>
+                </div>
+                
+                <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                    <div class="col-sm-12">
+                        <div class="col-12 text-center">
+                            <label class="text-subtitle">Catálogo de productos</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                
+                                <table id="catalogoProductos" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" scope="col">N.Folio</th>
+                                            <th class="text-center" scope="col">Trabajador</th>
+                                            <th class="text-center" scope="col">Cliente</th>
+                                            <th class="text-center" scope="col">Factura</th>
+                                            <th class="text-center" scope="col">Pago Total</th>
+                                            <th class="text-center" scope="col">Flete</th>
+                                            <th class="text-center" scope="col">Deuda</th>
+                                            <th class="text-center" scope="col">Pagos</th>
+                                            <th class="text-center" scope="col">Fecha</th>
+                                            <th class="text-center" scope="col">Orden de Trabajo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
+                                        <!--LLENADO LOS DATOS DE LAS TABLAS   -->
+                                    <?php
+                                        foreach ($resultados->fetch_all() as $columna) {
+                                            echo " <tr>
+                                                <td class=\"text-center\">" . $columna[0] . "</td>
+                                                <td class=\"text-center\">" . $columna[1] . "</td>
+                                                <td class=\"text-center\">" . $columna[2] . " " . $columna[3] . "</td>";
+                                                
+                                            if ($columna[8] != "") {
+                                                echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[8] . "</div><img src=\"../../src/imagenes/bills.svg\" width=\"40px\" onclick=\"abrirEvidenciaFactura(".$columna[6].")\"></td>";
+                                            } else {
+                                                echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[6] . ")\" width=\"40px\"></td>";
+                                            }
 
+                                            echo  "<td class=\"text-center\">" . $columna[4] . "</td>
+                                                <td class=\"text-center\">" . $columna[9] . "</td>
+                                                <td class=\"text-center\">$columna[7]</td>
+                                                <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[6] . ")\"></td>
+                                                <td class=\"text-center\">" . $columna[5] . "</td>
+                                                <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden(" . $columna[6] . ")\"></td>
+                                                </tr>";
+                                        }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-1"></div>
                 </div>
-
-                <div class="col-12 text-center">
-                    <h3>Catalogo de Productos</h3>
-                </div>
-                <div class="col-1"></div>
-                <!-- Empiezo de tabla -->
-                <div class="col-10">
-                    <div class="table-responsive">
-                        <table id="catalogoProductos" class="table table-hover">
-                            <thead>
-                                <tr>
-
-                                    <th class="text-center" scope="col">N.Folio</th>
-                                    <th class="text-center" scope="col">Trabajador</th>
-                                    <th class="text-center" scope="col">Cliente</th>
-                                    <th class="text-center" scope="col">Factura</th>
-                                    <th class="text-center" scope="col">Pago Total</th>
-                                    <th class="text-center" scope="col">Flete</th>
-                                    <th class="text-center" scope="col">Deuda</th>
-                                    <th class="text-center" scope="col">Pagos</th>
-                                    <th class="text-center" scope="col">Fecha</th>
-                                    <th class="text-center" scope="col">Orden de Trabajo</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
-                                <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                                <?php
-
-                                foreach ($resultados->fetch_all() as $columna) {
-
-
-                                    echo " <tr>
-                                        <td class=\"text-center\">" . $columna[0] . "</td>
-                                        <td class=\"text-center\">" . $columna[1] . "</td>
-                                        <td class=\"text-center\">" . $columna[2] . " " . $columna[3] . "</td>";
-
-
-                                    if ($columna[8] != "") {
-                                        echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[8] . "</div><img src=\"../../src/imagenes/bills.svg\" width=\"40px\" onclick=\"abrirEvidenciaFactura(".$columna[6].")\"></td>";
-                                    } else {
-                                        echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[6] . ")\" width=\"40px\"></td>";
-                                    }
-
-                                    echo  "<td class=\"text-center\">" . $columna[4] . "</td>
-                                        <td class=\"text-center\">" . $columna[9] . "</td>
-                                        <td class=\"text-center\">$columna[7]</td>
-                                        <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[6] . ")\"></td>
-                                        <td class=\"text-center\">" . $columna[5] . "</td>
-                                        <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden(" . $columna[6] . ")\"></td>
-                                        </tr>";
-                                }
-
-                                ?>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- Empiezo tabla final -->
-                <div class="col-1"></div>
             </div>
-
-            <!-- Tabla de datos Usuarios final-->
         </div>
-        <!-- //div principal fin -->
-
-
-
 
 
         <!-- Modal -->

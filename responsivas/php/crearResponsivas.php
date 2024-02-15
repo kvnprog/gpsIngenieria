@@ -11,7 +11,13 @@
             <img class='marcaAguaTabla' src='../../src/imagenes/logo.png'>
             <table id="tablaProductosResponsivas" class="table table-hover"></table>
         </div>
-        <button type="button" class="btn btn-success" onclick="modalResponsiva()">Generar responsiva</button>
+
+        <div class="contenedor-boton-gen">
+            <div class="main_div">
+                <button onclick="modalResponsiva()">GENERAR RESPONSIVA</button>
+            </div>
+        </div>
+
     </div>
 
 </div>

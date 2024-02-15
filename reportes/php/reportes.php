@@ -53,7 +53,6 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
         </div>
 
-        <!-- Tabla de datos Usuarios -->
         <div id="reporteES" style="display: none;">
             
             <div class="col-12">
@@ -113,9 +112,9 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                     </div>
                 
                     <div class="contenedor-boton-gen">
-                            <div class="main_div">
-                                <button onclick="buscarES()">BUSCAR</button>
-                            </div>
+                        <div class="main_div">
+                            <button onclick="buscarES()">BUSCAR</button>
+                        </div>
                     </div>
 
                 </div>

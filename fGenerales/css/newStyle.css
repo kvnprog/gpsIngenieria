@@ -10,8 +10,8 @@
 }
 
 body, html{
-    background: rgb(186,242,176);
-    background: linear-gradient(0deg, rgba(242,255,239,1) 0%, #ffffff 100%); 
+    background: #f3f7ff;
+    /* background: linear-gradient(0deg, #dae5ff 0%, #ffffff 100%);  */
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -19,6 +19,7 @@ body, html{
     height: 100%;
     margin: 0;
     padding: 0;
+    margin-bottom: 200px;
 }
 
   
@@ -30,13 +31,16 @@ body, html{
 
 /* TITULOS
 =========== */
+
 .text-title {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-transform: uppercase;
     font-size: 25px;
     font-weight: bold;
     color: #899bbd;
-    padding: 40px;
+    padding: 20px;
+    width: 100%;
+    text-decoration: underline #438c36;
 }
 
 .text-subtitle{
@@ -46,6 +50,11 @@ body, html{
     /* font-weight: bold; */
     color: #899bbd;
     padding: 40px;
+}
+.cont-img-title {
+    width: 100%;
+    height: 30px;
+    position: absolute;
 }
 
 
@@ -148,20 +157,20 @@ body, html{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 40px;
+    margin: 35px;
 }
 .inputField {
     border: 2px solid #438c36;
     background-color: transparent;
     border-radius: 10px;
-    padding: 12px 15px;
+    padding: 5px 5px;
     color: black;
     font-weight: 500;
     outline: none;
     caret-color: #438c36;
     transition-duration: .3s;
     font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 20px;
+    font-size: 15px;
 }
 .userIcon {
     position: absolute;
@@ -179,7 +188,7 @@ body, html{
     top: -30px;
     left: 20px;
     color: #438c36;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 400;
     font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     overflow: hidden;
@@ -187,12 +196,14 @@ body, html{
     opacity: 0;
 }
 .inputField:focus~.usernameLabel,
-.inputField:valid~.usernameLabel {
+.inputField:valid~.usernameLabel,
+.inputField:hover~.usernameLabel {
     transform: translateX(20px);
     opacity: 1;
 }
 .inputField:focus~.userIcon,
-.inputField:valid~.userIcon {
+.inputField:valid~.userIcon, 
+.inputField:hover~.userIcon {
     transform: translateX(20px);
     opacity: 1;
 }
@@ -213,14 +224,15 @@ body, html{
 .button-regreso {
     display: block;
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 55px;
+    height: 55px;
     margin: 10px;
     overflow: hidden;
     outline: none;
     background-color: transparent;
     cursor: pointer;
     border: 0;
+    z-index: 900;
 }
 .button-regreso:before,
 .button-regreso:after {
@@ -265,7 +277,7 @@ body, html{
     display: block;
     width: 20px;
     height: 20px;
-    margin: 25px 10px 0 25px;
+    margin: 15px 18px 0 18px;
     transform: rotate(180deg);
     fill: #438c36;
 }
@@ -294,6 +306,9 @@ body, html{
     font-size: 14px;
     transition: all .15s ease;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    margin-top: 120px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
   .btn-apartado-secciones::before,
   .btn-apartado-secciones::after {
@@ -334,7 +349,7 @@ body, html{
     display: block;
     padding: 10px 20px;
     color: #fff;
-    background-color: #0f1923;
+    background-color: #363636;
     overflow: hidden;
     box-shadow: inset 0px 0px 0px 1px transparent;
   }
@@ -390,7 +405,7 @@ body, html{
 .contenedor-boton-gen{
     display: flex;
     justify-content: center;
-    margin: 60px;
+    margin: 50px;
 }
 .main_div {
     --color: #000000;
@@ -432,8 +447,8 @@ body, html{
     height: 100%;
 }
 .main_div button {
-    padding: 0.7em 2em;
-    font-size: 16px;
+    padding: 0.3em 5em;
+    font-size: 14px;
     background: #438c36;
     color: #fff;
     border: none;
@@ -510,6 +525,9 @@ table tr:nth-child(even) {
 .style-nav-gen {
     background-color: #ffffff !important;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .style-nav-fecha{
@@ -519,8 +537,18 @@ table tr:nth-child(even) {
 .style-nav-fecha label{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 18px;
+    font-size: 17px;
     color: #00000061;
+}
+.cont-img-nav{
+    /* background-color: #3c8030; */
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
+}
+.nav-link{
+    font-size: 14px;
+}
+.navbar{
+    padding: 0 !important;
 }
 
 /* CLASE PARA EL CONTENIDO DE NAVBAR
@@ -531,7 +559,7 @@ table tr:nth-child(even) {
     align-items: center;
 }
 
-/* MEDIA PARA MENOR TAMAÑO DE NAVBAR A
+/* MEDIA PARA MENOR TAMAÑO DE NAVBAR
 =======================================*/
 @media (max-width: 991px) {
     .style-nav-fecha{
@@ -555,7 +583,7 @@ table tr:nth-child(even) {
     text-align: left;
     padding: 10px 50px;
     padding-top: 0;
-    bottom: -240px;
+    bottom: -230px;
     transition: transform 0.3s;
     position: fixed;
     z-index: 400;
@@ -576,7 +604,8 @@ table tr:nth-child(even) {
     content: url('../../src/imagenes/flechaAbajo.svg');
     padding-top: 0;
     margin-top: 0px;
-    width: 60px;
+    width: 50px;
+    margin-top: -10px;
 }
 
 /* FLECHA DE ARRIBA 
@@ -584,15 +613,15 @@ table tr:nth-child(even) {
 .footer-distributed .flecha {
     content: url('../../src/imagenes/flechaArriba.svg');
     padding-top: 0;
-    /* margin-top: -80px; */
-    margin-bottom: 10px;
-    width: 60px;
+    margin-bottom: 0px;
+    width: 50px;
+    margin-top: -10px;
 }
 
 /* APARECE EL FOOTER AL HACER HOVER 
 =====================================*/
 .footer-distributed:hover {
-    transform: translateY(-240px);
+    transform: translateY(-228px);
 }
 
 /* ALINEACIÓN CONTENIDO 
@@ -931,7 +960,11 @@ table tr:nth-child(even) {
 =================================================================*/
 
 .site-wrapper {
-    border-top: 4px solid #438c36; 
+    /* border-top: 4px solid #438c36;  */
+    display: flex;
+    justify-content: center;
+    /* margin-top: -60px; */
+    padding: 100px;
 }
 .hexagon-item {
     cursor: pointer;
@@ -1119,7 +1152,7 @@ table tr:nth-child(even) {
 }
 .pt-table.desktop-768 .pt-tablecell {
     /* padding-bottom: 10px; */
-    padding-top: 100px;
+    padding-top: 50px;
 }
 .hexagon-item:hover .icon i{
     color:#68cd04;

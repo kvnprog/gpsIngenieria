@@ -130,7 +130,7 @@ if (!function_exists('pintarEncabezado')) {
 
               <!-- TITULO DEL MODULO -->
               <div class='col-12  text-center  txtTitulo'>
-                <span><label class='text-title'>" . $titulo . "</label><i id='iconoMPanal'>" . $img . "</i></span>
+                <span><div class='cont-img-title'><label class='text-title'>" . $titulo . "</label><i id='iconoMPanal'>" . $img . "</i></div></span>
               </div>       
             </div>";
     }
@@ -142,7 +142,7 @@ if (!function_exists('pintarNavBar')) {
   {
     echo '<nav class="navbar navbar-expand-lg style-nav-gen">
             <div class="container-fluid style-nav-cont">
-              <a class="navbar-brand style-nav-img" href="#"><img src="../../src/imagenes/logo.svg" width="65px"></a>
+              <a class="navbar-brand style-nav-img cont-img-nav" href="/gpsIngenieria/menuPrincipal/php/menuPrincipal.php"><img src="../../src/imagenes/logo.svg" width="50px"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
