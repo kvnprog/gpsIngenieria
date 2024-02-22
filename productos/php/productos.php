@@ -313,7 +313,7 @@
                                 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="descripcion" name="descripcion" class="inputField" required="" type="text" placeholder="Escriba la descripción">
+                                        <textarea id="descripcion" name="descripcion" class="inputField" required="" type="text" placeholder="Escriba la descripción"></textarea>
                                         <label class='usernameLabel' for='descripcion'>Descripción</label>
                                         <i class="fa-solid fa-align-left userIcon"></i>
                                     </div>
@@ -334,54 +334,10 @@
                                         <i class="fa-solid fa-dollar-sign userIcon"></i>
                                     </div>
                                 </div>
-                                
-                                <div class="col-sm-12">
-                                    <?php
-                                       $conexionCategorias = new conexion;
-                                       $queryCategorias = "SELECT * FROM categoria";
-                                       $categorias = $conexionCategorias->conn->query($queryCategorias);
-                                       
-                                       $cadenaSelect = '<div class="inputContainer">
-                                                           <select id="categoria" name="categoria" class="inputField" required="" type="text" onchange="cargaPermisos(this.value)" placeholder="Usuario">';
-                                       
-                                       foreach ($categorias->fetch_all() as $index => $categoria) {
-                                           $cadenaSelect .= "<option value=\"" . $categoria[0] . "\">" . $categoria[1] . "</option>";
-                                       }
-                                       
-                                       $cadenaSelect .= '</select>
-                                                       <label class="usernameLabel" for="categoria">Categoría</label>
-                                                       <i class="fa-solid fa-object-ungroup userIcon"></i>
-                                                   </div>';
-                                       
-                                       echo $cadenaSelect;
-                                    ?>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <?php
-                                       $cadenaSelect2 = '<div class="inputContainer">' .
-                                       '<select id="subcategoria" name="subcategoria" class="inputField" required="" type="text" onchange="cargaPermisos(this.value)" placeholder="Usuario">';
-                                    
-                                        $conexionCategorias = new conexion;
-                                        $queryCategorias = "SELECT * FROM subcategoria";
-                                        $categorias = $conexionCategorias->conn->query($queryCategorias);
-                                    
-                                        foreach ($categorias->fetch_all() as $index => $categoria) {
-                                            $cadenaSelect2 .= "<option value=\"" . $categoria[0] . "\">" . $categoria[1] . "</option>";
-                                        }
-                                    
-                                        $cadenaSelect2 .= '</select>' .
-                                                            '<label class="usernameLabel" for="subcategoria">subcategoría</label>' .
-                                                            '<i class="fa-regular fa-object-ungroup userIcon"></i>' .
-                                                        '</div>';
-                                    
-                                        echo $cadenaSelect2;
-                                    ?>
-                                </div>
 
                                 <div class="contenedor-boton-gen">
                                     <div class="main_div">
-                                        <a onclick="modificarUsuario()">GUARDAR</a>
+                                        <a onclick="modificarProducto()">GUARDAR</a>
                                     </div>
                                 </div>
                              
