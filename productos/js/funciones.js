@@ -115,7 +115,7 @@ function actualizaCatalogoProductos() {
                     contenidoTabla += '<td class="text-center">$'+precio_venta+'</td>';
                     contenidoTabla += '<td class="text-center">'+nombre_categoria+'</td>';
                     contenidoTabla += '<td class="text-center">'+nombre_subcategoria+'</td>';
-                    contenidoTabla += "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick='abrirModalEditarProducto()'><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>";
+                    contenidoTabla += "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick='abrirModalEditarProducto("+id_producto+", \""+encodeURIComponent(no_parte)+"\", \""+encodeURIComponent(descripcion)+"\", "+precio_public+", "+precio_venta+")'><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>";
                     contenidoTabla += "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick='abrirModalRegistrarEntrada("+id_producto+", \""+encodeURIComponent(no_parte)+"\", \""+encodeURIComponent(descripcion)+"\")'><i class='fa-solid fa-plus fa-lg'></i></div></div></td>";
                 contenidoTabla += '<tr>';
             }
@@ -131,18 +131,20 @@ function actualizaCatalogoProductos() {
     });
 }
 
-function abrirModalEditarProducto() {
+// ABRE EL MODAL PARA EDITAR EL PRODUCTO
+function abrirModalEditarProducto(id_producto, no_parte, descripcion, precio_public, precio_venta) {
+    
+    // Decodificar los valores de no_parte y descripcion
+    no_parte = decodeURIComponent(no_parte);
+    descripcion = decodeURIComponent(descripcion);
+    
     $("#miModalEditarProducto").modal('show');
     var formulario = document.getElementById("frmModificarProducto");
-    // formulario.id.value = productoid;
-    // formulario.nParte.value = nParte;
-    // formulario.descripcion.value = descripcion;
-    // formulario.categoria.value = idcategoria;
-    // formulario.maximos.value = maximos;
-    // formulario.minimos.value = minimos;
-    // formulario.existentes.value = existentes;
-    // formulario.comentarios.value = comentarios;
-    // formulario.precio.value = precio;
+    formulario.id.value = id_producto;
+    formulario.nParte.value = no_parte;
+    formulario.descripcion.value = descripcion;
+    formulario.precioPublico.value = precio_public;
+    formulario.precioVenta.value = precio_venta;
 }
 
 // ABRE EL MODAL PARA REGISTRAR ENTRADAS
@@ -173,4 +175,67 @@ function abrirModalRegistrarEntrada(idProducto, no_parte, descripcion) {
                     '</tbody>';
 
     tabla.innerHTML = contenidoTabla;
+}
+
+// INSERTA UNA ENTRADA DE PRODUCTO
+function insertarEntradaProd(){
+    pantallaCarga('on');
+
+    const formulario  = document.getElementById('frmRegistrarEntrada');
+    const formData = new FormData(formulario);
+
+    const options = {
+        method: "POST",
+        body: formData,
+    };
+
+    fetch("../../productos/php/insertarEntradaAJAX.php", options)
+    .then(response => response.json())
+    .then(data => {
+
+        if (data["resultado"]) {
+            $("#modalAgregarProducto").modal('hide');
+            alertImage('EXITO', 'Se registró la entada con éxito.', 'success')
+            formulario.reset();
+            pantallaCarga('off');
+
+        } else {
+            alertImage('ERROR', 'Surgió un error en el registro', 'error')
+            pantallaCarga('off');
+        }
+    });
+}
+
+// MODIFICA EL PRODUCTO
+function modificarProducto(){
+    pantallaCarga('on');
+
+    const formulario  = document.getElementById('frmModificarProducto');
+    const formData = new FormData(formulario);
+
+    const options = {
+        method: "POST",
+        body: formData,
+    };
+
+    fetch("../../productos/php/modificarProductoAJAX.php", options)
+    .then(response => response.json())
+    .then(data => {
+
+        if (data["resultado"]) {
+            $("#miModalEditarProducto").modal('hide');
+            alertImage('EXITO', 'Se modificó el producto con éxito.', 'success')
+            formulario.reset();
+            actualizaCatalogoProductos();
+            pantallaCarga('off');
+
+        } else {
+            alertImage('ERROR', 'Surgió un error en la modificación', 'error')
+            pantallaCarga('off');
+        }
+    });
+}
+
+function actualizaCatalogoProductosEntradas(){
+    
 }
