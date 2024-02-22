@@ -2,17 +2,17 @@
 
     include "../../fGenerales/bd/conexion.php";
 
-    $nombre = filter_input(INPUT_GET, "categoria");
+    $subcategoria = filter_input(INPUT_GET, "subcategoria");
 
     $conexionCrearCategoria = new conexion;
-    $queryCrearCategoria = "INSERT INTO categoria (nombre, id_estado) VALUES ('".$nombre."', 1)";
+    $queryCrearCategoria = "INSERT INTO subcategoria (nombre, id_estado) VALUES ('".$subcategoria."', 1)";
 
     $resultado = [];
 
     if ($conexionCrearCategoria->conn->query($queryCrearCategoria)) {
 
         $conexionTraerCategorias = new conexion;
-        $queryTraerCategorias = "SELECT * FROM categoria";
+        $queryTraerCategorias = "SELECT * FROM subcategoria";
     
         $datos = $conexionTraerCategorias->conn->query($queryTraerCategorias);
 

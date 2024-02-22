@@ -1,64 +1,67 @@
 <?php
 
-// include "../../fGenerales/bd/conexion.php";
-
+// CHECA EL USUARIO EXISTENTE EN LA BD
 if (!function_exists('checarLogin')) {
-  function checarLogin($usuario, $password) {
-    $conexion = new conexion;
-    $query = "SELECT idusuario,nombre FROM usuarios WHERE nombreusuario = ? and passwordusuario = md5(?) ";
+    function checarLogin($usuario, $password)
+    {
+        $conexion = new conexion;
+        $query = "SELECT id_usuario ,nombre FROM usuarios WHERE usuario = ? and PASSWORD = SHA2(?,256)";
 
-    $queryPreparada = $conexion->conn->prepare($query);
-    $queryPreparada->bind_param('ss', $usuario, $password);
-    $queryPreparada->execute();
+        $queryPreparada = $conexion->conn->prepare($query);
+        $queryPreparada->bind_param('ss', $usuario, $password);
+        $queryPreparada->execute();
 
-    $resultados = $queryPreparada->get_result();
+        $resultados = $queryPreparada->get_result();
 
-    $datos = [];
+        $datos = [];
 
-    if ($resultados->num_rows > 0) {
+        if ($resultados->num_rows > 0) {
 
-      session_name('gpsingenieria');
-      session_start();
+            session_name('gpsingenieria');
+            session_start();
 
-      foreach ($resultados->fetch_all() as $usuario) {
-        $datos[0] = true;
-        $datos[1] = $usuario[0];
-        $datos[2] = $usuario[1];
-      }
+            foreach ($resultados->fetch_all() as $usuario) {
+                $datos[0] = true;
+                $datos[1] = $usuario[0];
+                $datos[2] = $usuario[1];
+            }
 
-      $_SESSION['usuarioid'] = $datos[1];
-      $_SESSION['nombre'] = $datos[2];
+            $_SESSION['usuarioid'] = $datos[1];
+            $_SESSION['nombre'] = $datos[2];
 
-      return $datos;
-    } else {
+            return $datos;
+        } else {
 
-      $datos[0] = false;
-      return $datos;
+            $datos[0] = false;
+            return $datos;
+        }
     }
-  }
 }
+
 if (!function_exists('iniciarSession')) {
-  function iniciarSession(){
-    session_name('gpsingenieria');
-    session_start();
-  }
+    function iniciarSession()
+    {
+        session_name('gpsingenieria');
+        session_start();
+    }
 }
 
+// CHECA SI EL USUARIO TIENE PERMISO EN LAS SECCIONES
 if (!function_exists('checarPermisosSeccion')) {
-  function checarPermisosSeccion($usuarioid){
-    $conexionSeccionesPermisos = new conexion;
-    $query = "SELECT*FROM permisossecciones where idusuario = " . $usuarioid;
+    function checarPermisosSeccion($usuarioid)
+    {
+        $conexionSeccionesPermisos = new conexion;
+        $query = "SELECT * FROM permisos_secciones where id_usuario = " . $usuarioid;
+        $datos = $conexionSeccionesPermisos->conn->query($query);
 
-    $datos = $conexionSeccionesPermisos->conn->query($query);
-
-    return $datos;
-  }
+        return $datos;
+    }
 }
 
 if (!function_exists('pintarHead')) {
-  function pintarHead($titulo)
-  {
-    echo "<meta charset='UTF-8'>
+    function pintarHead($titulo)
+    {
+        echo "<meta charset='UTF-8'>
           <meta http-equiv='X-UA-Compatible' content='IE=edge'>
           <meta name='viewport' content='width=device-width, initial-scale=1.0'>
           
@@ -77,16 +80,16 @@ if (!function_exists('pintarHead')) {
           <script src='../../fGenerales/js/alerts.js'></script>
           <script src='../../fGenerales/js/jquery.js'></script>";
 
-    echo "<title>GpsIngeniería-" . $titulo . "</title>";
-  }
+        echo "<title>GpsIngeniería-" . $titulo . "</title>";
+    }
 }
 
 if (!function_exists('pintarEncabezado')) {
-  function pintarEncabezado($titulo, $img, $variante)
-  {
-    if ($titulo == '' && $img == '') {
-      if($variante != 'inicio'){
-        echo "<div class='row'>
+    function pintarEncabezado($titulo, $img, $variante)
+    {
+        if ($titulo == '' && $img == '') {
+            if ($variante != 'inicio') {
+                echo "<div class='row'>
                 <div class='col-3 justify-content-center align-items-center'>
                   <button class='button-regreso' onclick='regreso()'>
                     <div class='button-box'>
@@ -108,9 +111,9 @@ if (!function_exists('pintarEncabezado')) {
                 
                 <div class='col-3'></div>
               </div>";
-      }
-    } else {
-      echo "<div class='row'>
+            }
+        } else {
+            echo "<div class='row'>
               <!-- BOTON DE IR ATRAS -->
               <button class='button-regreso' onclick='regreso()'>
                 <div class='button-box'>
@@ -130,17 +133,17 @@ if (!function_exists('pintarEncabezado')) {
 
               <!-- TITULO DEL MODULO -->
               <div class='col-12  text-center  txtTitulo'>
-                <span><div class='cont-img-title'><label class='text-title'>" . $titulo . "</label><i id='iconoMPanal'>" . $img . "</i></div></span>
+                <span><div class='cont-img-title'><label class='text-title'>" . $titulo . "</label><i id='iconoMPanal' style='background:#438c36; padding:16px 10px; border-radius:50%; color:#ffffff;'>" . $img . "</i></div></span>
               </div>       
             </div>";
+        }
     }
-  }
 }
 
 if (!function_exists('pintarNavBar')) {
-  function pintarNavBar()
-  {
-    echo '<nav class="navbar navbar-expand-lg style-nav-gen">
+    function pintarNavBar()
+    {
+        echo '<nav class="navbar navbar-expand-lg style-nav-gen">
             <div class="container-fluid style-nav-cont">
               <a class="navbar-brand style-nav-img cont-img-nav" href="/gpsIngenieria/menuPrincipal/php/menuPrincipal.php"><img src="../../src/imagenes/logo.svg" width="50px"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -188,13 +191,13 @@ if (!function_exists('pintarNavBar')) {
               </div>
             </div>
           </nav>';
-  }
+    }
 }
 
 if (!function_exists('pintarFooter')) {
-  function pintarFooter()
-  {
-    echo "
+    function pintarFooter()
+    {
+        echo "
             <footer class='footer-distributed fixed-bottom'>
               <div class='contenedorFlecha'><div class='flecha'></div></div>
               <div class='footer-left'>
@@ -239,18 +242,18 @@ if (!function_exists('pintarFooter')) {
                 </div>
               </div>
             </footer>";
-  }
+    }
 }
 
 if (!function_exists('pantallaCarga')) {
-  function pantallaCarga($vis)
-  {
-    if ($vis == 'on') {
-      $visibilidad = 'display:flex;';
-    } else {
-      $visibilidad = 'display:none;';
-    }
-    echo "<div id='pantallaCarga' class='dots' style='--size: 200px; --dot-size: 15px; --dot-count: 6; --color: #ffffff; --speed: 1s; --spread: 60deg; " . $visibilidad . " '>
+    function pantallaCarga($vis)
+    {
+        if ($vis == 'on') {
+            $visibilidad = 'display:flex;';
+        } else {
+            $visibilidad = 'display:none;';
+        }
+        echo "<div id='pantallaCarga' class='dots' style='--size: 200px; --dot-size: 15px; --dot-count: 6; --color: #ffffff; --speed: 1s; --spread: 60deg; " . $visibilidad . " '>
             <div class='fondoDot'></div>
             <div style='--i: 0;' class='dot'></div>
             <div style='--i: 1;' class='dot'></div>
@@ -259,5 +262,5 @@ if (!function_exists('pantallaCarga')) {
             <div style='--i: 4;' class='dot'></div>
             <div style='--i: 5;' class='dot'></div>
           </div>";
-  }
+    }
 }

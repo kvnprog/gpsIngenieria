@@ -13,16 +13,10 @@
     </head>
 
     <?php
-    // TRAE LOS PRODUCTOS
-        $conexionProductos = new conexion;
-        $queryProductos = "SELECT p.*,c.nombre  FROM productos p , categoriasproductos c  WHERE c.idcategoriaproducto = p.categoria ";
-        $resultados = $conexionProductos->conn->query($queryProductos);
-
     // CHECA LOS PERMISOS DEL USUARIO
         session_name('gpsingenieria');
         session_start();
         $datos = checarPermisosSeccion($_SESSION['usuarioid']);
-
     ?>
 
     <body class="justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
@@ -42,19 +36,27 @@
                         <?php 
                             foreach($datos->fetch_all() as $dato){
 
-                                if($dato[1]==6){                                        
+                                if($dato[1]==7){                                        
                                     echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
                                             <span class="button_lg">
                                                 <span class="button_sl"></span>
-                                                <span class="button_text">Catálogo</span>
+                                                <span class="button_text">Catálogo productos</span>
                                             </span>
                                         </button>';
                                 }
-                                if($dato[1]==7){
+                                if($dato[1]==8){
                                     echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(2)">
                                             <span class="button_lg">
                                                 <span class="button_sl"></span>
-                                                <span class="button_text">Registro</span>
+                                                <span class="button_text">Registrar productos</span>
+                                            </span>
+                                        </button>';
+                                }
+                                if($dato[1]==10){
+                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(3)">
+                                            <span class="button_lg">
+                                                <span class="button_sl"></span>
+                                                <span class="button_text">Catálogo entradas</span>
                                             </span>
                                         </button>';
                                 }
@@ -65,34 +67,35 @@
 
                 <div class="row" id="catalogo" style="display: none;">
 
-                    <!-- FILTROS PARA BUSCAR PRODUCTOS -->
-                    <div class="row">
+                    <div class="card_content">
 
-                        <div class="col-12">
-                            <div class="row">
-
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
                                 <!-- FILTRO POR NUMERO DE PARTE -->
                                 <div class="inputContainer">
                                     <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="filtrarProductos()">
                                     <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
                                     <i class="userIcon fa-solid fa-hashtag"></i>
                                 </div>
+                            </div>
 
+                            <div class="col-sm-12 col-md-4">
                                 <!-- FILTRO POR DESCRIPCIÓN -->
                                 <div class="inputContainer">
                                     <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Escriba descripción" onkeyup="filtrarProductos()">
                                     <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
                                     <i class="userIcon fa-solid fa-align-left"></i>
                                 </div>
+                            </div>
 
-
+                            <div class="col-sm-12 col-md-4">
                                 <!-- FILTRO POR CATEGORÍA -->
                                 <div class="inputContainer">
                                     <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Categoría" onchange="filtrarProductos()">
                                         <option value=0 selected>Categorías...</option>
                                         <?php
                                             $conexionCategorias = new conexion;
-                                            $queryCategorias = "SELECT*FROM categoriasproductos";
+                                            $queryCategorias = "SELECT * FROM categoria";
                                             $categorias = $conexionCategorias->conn->query($queryCategorias);
 
                                             foreach ($categorias->fetch_all() as $index => $categoria) {
@@ -104,236 +107,332 @@
                                     <label class='usernameLabel' for='filtroCategoria'>Categorías</label>
                                     <i class="userIcon fa-regular fa-object-ungroup"></i>
                                 </div>
-
                             </div>
                         </div>
-        
                     </div>
 
                     <!-- TITULO DEL CONTENIDO -->
-                    <div class="col-12 text-center">
-                        <label class="text-subtitle">Catálogo de productos</label>
-                    </div>
+                    <div class="card_content">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <label class="text-subtitle">Catálogo de productos</label>
+                            </div>
 
-                    <div class="col-sm-12">
-                        <!-- TABLA DONDE APARECEN LOS PRODUCTOS -->
-                        <div class="table-responsive">
-                            <table id="catalogoProductos" class="table table-hover">
-                                <!-- TITULOS DE LAS COLUMNAS -->
-                                <thead>
-                                    <tr class="sticky-top">
-                                        <th class="text-center" scope="col">Numero de Parte</th>
-                                        <th class="text-center" scope="col">Descripcion</th>
-                                        <th class="text-center" scope="col">Categoria</th>
-                                        <th class="text-center" scope="col">Maximos</th>
-                                        <th class="text-center" scope="col">Minimos</th>
-                                        <th class="text-center" scope="col">Existentes</th>
-                                        <th class="text-center" scope="col">Agregar</th>
-                                        <th class="text-center" scope="col">Comentarios</th>
-                                        <th class="text-center" scope="col">Precio Por Unidad</th>
-                                        <th class="text-center" scope="col">Foto</th>
-                                        <th class="text-center" colspan="2" scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <!-- CONTENIDO DE LA TABLA -->
-                                <tbody>
-                                    <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
-                                    <?php
-                                        foreach ($resultados->fetch_all() as $columna) {
-                                            echo " <tr>
-                                                        <td class=\"text-center\">" . $columna[1] . "</td>
-                                                        <td class=\"text-center\">" . $columna[2] . "</td>
-                                                        <td class=\"text-center\">" . $columna[8] . "</td>
-                                                        <td class=\"text-center\">" . $columna[4] . "</td>
-                                                        <td class=\"text-center\">" . $columna[5] . "</td>
-                                                        <td class=\"text-center\">" . $columna[6] . "</td>
-                                                        <td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" width=\"30px\" id=\"btnNuevasExitencias-".$columna[0]."\" onclick=\"abrirNuevasExistencias(".$columna[0].")\"><input type=\"number\" id=\"existenciasNuevas-".$columna[0]."\" style=\" display: none;\"  onkeypress=\"mandarExistencias(event,".$columna[0].")\"></td>
-                                                        <td class=\"text-center\">" . $columna[7] . "</td>
-                                                        <td class=\"text-center\">" . $columna[8] . "</td>";
-                                            
-                                                        $imagenPath = "/gpsIngenieria/productos/imgsProductos/producto_" . $columna[0] . ".jpg";
-                                                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagenPath)) {
-                                                            echo "<td class=\"text-center\"><img src=\"$imagenPath\" style=\"width:120px; height:80px;\"/></td>";
-                                                        } else {
-                                                            echo "<td class=\"text-center\"><img src=\"/gpsIngenieria/productos/imgsProductos/sinImagen.png\" style=\"width:120px; height:80px;\"/></td>";
-                                                        }
-                                            echo "      <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "'," . $columna[3] . ",'" . $columna[8] . "'," . $columna[4] . "," . $columna[5] . "," . $columna[6] . ",'" . $columna[7] . "','" . $columna[8] . "')\"></td>
-                                                </tr>";
-                                        }
-                                    ?>
-                                </tbody>
-                            </table>
+                            <div class="col-sm-12">
+                                <!-- TABLA DONDE APARECEN LOS PRODUCTOS -->
+                                <div class="table-responsive">
+                                    <table id="tablaCatalogoProductos" class="table table-hover"></table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            <!-- SECCIÓN DE REGISTRO DE PRODUCTOS -->
-            <div class="row" id="registros" style="display: none;">
-                <div class="col-12 text-center">
-                    <label class="text-subtitle">Registro de productos</label>
-                </div>
+            <div class="col-12">
+                <!-- FORMULARIO DE REGISTRO DE PRODUCTOS-->
+                <form class="justify-content-center" id="frmRegistroProductos" method="POST" enctype="multipart/form-data" style="display: none;">
+                    
+                    <div class="card_content">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <label class="text-subtitle">Registro de productos</label>
+                            </div>
 
-                <div class="col-sm-12">
-                    <!-- FORMULARIO DE REGISTRO DE PRODUCTOS-->
-                    <form class="frmRegistroNParte" id="frmRegistroNParte" method="POST" enctype="multipart/form-data">
+                            <div class="col-sm-12 col-md-4">
+                                <div class="inputContainer">
+                                    <input id="nParte" name="nParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte">
+                                    <label class='usernameLabel' for='nParte'>Número de parte</label>
+                                    <i class="userIcon fa-solid fa-hashtag"></i>
+                                </div>
+                            </div>
 
-                        <div class="inputContainer">
-                            <input id="nParte" name="nParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte">
-                            <label class='usernameLabel' for='nParte'>Número de parte</label>
-                            <i class="userIcon fa-solid fa-hashtag"></i>
+                            <div class="col-sm-12 col-md-8">
+                                <div class="inputContainer">
+                                    <textarea type="text" id="descripcion" name="descripcion" class="inputField" required="" placeholder="Escriba descripción"></textarea>
+                                    <label class='usernameLabel' for='descripcion'>Descripción</label>
+                                    <i class="userIcon fa-solid fa-align-left"></i>
+                                </div>
+                            </div>
+                
+                            <div class="col-sm-12 col-md-3">
+                                <div class="inputContainer">
+                                    <input type="number" id="precioPublico" name="precioPublico" class="inputField" required="" placeholder="Escriba el precio por unidad">
+                                    <label class='usernameLabel' for='precioPublico'>Precio con IVA público</label>
+                                    <i class="userIcon fa-solid fa-dollar-sign"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-3">
+                                <div class="inputContainer">
+                                    <input type="number" id="precioVenta" name="precioVenta" class="inputField" required="" placeholder="Escriba el precio por unidad">
+                                    <label class='usernameLabel' for='precioVenta'>Precio venta</label>
+                                    <i class="userIcon fa-solid fa-dollar-sign"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-3">
+                                <div class="inputContainer">
+                                    <select type="text" id="categoria" name="categoria" class="inputField" required="" placeholder="Escriba categoría">
+                                        <option value=0 selected>...</option>
+                                        <?php
+                                            $conexionCategorias = new conexion;
+                                            $queryCategorias = "SELECT * FROM categoria";
+                                            $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                            foreach ($categorias->fetch_all() as $index => $categoria) {
+                                                print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                            }
+                                        ?>
+                                    </select>
+                                    <label class='usernameLabel' for='categoria'>Categoría</label>
+                                    <i class="userIcon fa-solid fa-align-left"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-3">
+                                <div class="inputContainer">
+                                    <select type="text" id="subcategoria" name="subcategoria" class="inputField" required="" placeholder="Escriba categoría">
+                                        <option value=0 selected>...</option>
+                                        <?php
+                                            $conexionCategorias = new conexion;
+                                            $queryCategorias = "SELECT * FROM subcategoria";
+                                            $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                            foreach ($categorias->fetch_all() as $index => $categoria) {
+                                                print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                            }
+                                        ?>
+                                    </select>
+                                    <label class='usernameLabel' for='subcategoria'>Subcategoría</label>
+                                    <i class="userIcon fa-solid fa-align-left"></i>
+                                </div>
+                            </div>
+
+                            <div class="contenedor-boton-gen">
+                                <div class="main_div">
+                                    <a onclick="crearProducto()">GUARDAR</a>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="inputContainer">
-                            <textarea type="text" id="descripcion" name="descripcion" class="inputField" required="" placeholder="Escriba descripción"></textarea>
-                            <label class='usernameLabel' for='descripcion'>Descripción</label>
-                            <i class="userIcon fa-solid fa-align-left"></i>
-                        </div>
+                    </div>
+                </form>
+            </div>
 
-                        <div class="inputContainer">
-                            <select type="text" id="categoría" name="categoria" class="inputField" required="" placeholder="Escriba categoría">
-                                <option value=0 selected>Categorías...</option>
-                                <?php
-                                    $conexionCategorias = new conexion;
-                                    $queryCategorias = "SELECT*FROM categoriasproductos";
-                                    $categorias = $conexionCategorias->conn->query($queryCategorias);
+            <div class="row" id="catalogoEntradas" style="display: none;">
+                <div class="card_content">
 
-                                    foreach ($categorias->fetch_all() as $index => $categoria) {
-                                        print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                    }
-                                ?>
-                            </select>
-                            <label class='usernameLabel' for='categoria'>Categorías</label>
-                            <i class="userIcon fa-solid fa-align-left"></i>
-                        </div>
-
-                        <div class="inputContainer">
-                            <input type="number" id="maximos" name="maximos" class="inputField" required="" placeholder="Escriba el máximo">
-                            <label class='usernameLabel' for='maximos'>Máximo</label>
-                            <i class="userIcon fa-solid fa-plus"></i>
-                        </div>
-  
-                        <div class="inputContainer">
-                            <input type="number" id="minimos" name="minimos" class="inputField" required="" placeholder="Escriba el mínimo">
-                            <label class='usernameLabel' for='minimos'>Mínimos</label>
-                            <i class="userIcon fa-solid fa-minus"></i>
-                        </div>
-
-                        <div class="inputContainer">
-                            <input type="number" id="existentes" name="existentes" class="inputField" required="" placeholder="Escriba los existentes">
-                            <label class='usernameLabel' for='existentes'>Existentes</label>
-                            <i class="userIcon fa-solid fa-check"></i>
-                        </div>
-
-                        <div class="inputContainer">
-                            <textarea type="text" id="comentarios" name="comentarios" class="inputField" required="" placeholder="Escriba los comentarios"></textarea>
-                            <label class='usernameLabel' for='comentarios'>Comentarios</label>
-                            <i class="userIcon fa-regular fa-comments"></i>
-                        </div>
-
-                        <div class="inputContainer">
-                            <input type="number" id="precio" name="precio" class="inputField" required="" placeholder="Escriba el precio por unidad">
-                            <label class='usernameLabel' for='existentes'>Precio por unidad</label>
-                            <i class="userIcon fa-solid fa-dollar-sign"></i>
-                        </div>
-
-                        <div class="inputContainer">
-                            <input type="file" accept="image/*" id="fotoProducto" name="fotoProducto" class="inputField" required="" placeholder="Seleccione la imagen">
-                            <label class='usernameLabel' for='existentes'>Imagen de producto</label>
-                            <i class="userIcon fa-solid fa-dollar-sign"></i>
-                        </div>
-
-                        <div class="contenedor-boton-gen">
-                            <div class="main_div">
-                                <button onclick="crearProducto()">GUARDAR</button>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                            <!-- FILTRO POR NUMERO DE PARTE -->
+                            <div class="inputContainer">
+                                <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="filtrarProductos()">
+                                <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
+                                <i class="userIcon fa-solid fa-hashtag"></i>
                             </div>
                         </div>
 
-                    </form>
-                </div>
-            
-                <div class="col-1"></div>
-            </div>
-
-            <!-- MODAL -->
-            <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        
-                    <!-- TITULO DEL MODAL -->
-                        <div class="modal-header">
-                            <label class="modal-title text-center" id="exampleModalLabel" style="font-size: 30px;">Modificar Producto</label>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="col-sm-12 col-md-4">
+                            <!-- FILTRO POR DESCRIPCIÓN -->
+                            <div class="inputContainer">
+                                <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Escriba descripción" onkeyup="filtrarProductos()">
+                                <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
+                                <i class="userIcon fa-solid fa-align-left"></i>
+                            </div>
                         </div>
 
-                        <!-- CONTENIDO DEL MODAL -->
-                        <div class="modal-body">
-                            <form id="frmModificar" >
-
-                                <input type="text" id="id" name="id" hidden>
-                                
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="nParte" name="nParte" placeholder="Escriba el Numero de Parte">
-                                    <label>Número de Parte</label>
-                                </div>
-                                
-                                <div class="form-floating mb-3">
-                                    <textarea type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Escriba una Descripcion"></textarea>
-                                    <label>Descripcion</label>
-                                </div>
-                                
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="categoria" name="categoria" aria-label="Floating label select example">
-                                        <option value=0 selected>Categorias....</option>
-                                        <?php
-
+                        <div class="col-sm-12 col-md-4">
+                            <!-- FILTRO POR CATEGORÍA -->
+                            <div class="inputContainer">
+                                <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Categoría" onchange="filtrarProductos()">
+                                    <option value=0 selected>Categorías...</option>
+                                    <?php
                                         $conexionCategorias = new conexion;
-                                        $queryCategorias = "SELECT*FROM categoriasproductos";
+                                        $queryCategorias = "SELECT * FROM categoria";
                                         $categorias = $conexionCategorias->conn->query($queryCategorias);
 
                                         foreach ($categorias->fetch_all() as $index => $categoria) {
 
                                             print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
                                         }
+                                    ?>
+                                </select>
+                                <label class='usernameLabel' for='filtroCategoria'>Categorías</label>
+                                <i class="userIcon fa-regular fa-object-ungroup"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                        ?>
+                <!-- TITULO DEL CONTENIDO -->
+                <div class="card_content">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <label class="text-subtitle">Catálogo de entradas</label>
+                        </div>
 
-                                    </select>
-                                    <label for="floatingSelect">Categoria</label>
+                        <div class="col-sm-12">
+                            <!-- TABLA DONDE APARECEN LOS PRODUCTOS -->
+                            <div class="table-responsive">
+                                <table id="tablaCatalogoProductos" class="table table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MODAL MODIFICAR -->
+            <div class="modal fade" id="miModalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            
+                            <!-- TITULO DEL MODAL -->
+                            <div class="col-12 text-center">
+                                <label class="text-subtitle">Modificar producto</label>
+                            </div>
+
+                            <form id="frmModificarProducto" class="row justify-content-center">
+                                <input type="text" id="id" name="id" hidden>
+                                
+                                <div class="col-sm-12">
+                                    <div class="inputContainer">
+                                        <input id="nParte" name="nParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte">
+                                        <label class='usernameLabel' for='nParte'>Número de parte</label>
+                                        <i class="fa-solid fa-hashtag userIcon"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-12">
+                                    <div class="inputContainer">
+                                        <input id="descripcion" name="descripcion" class="inputField" required="" type="text" placeholder="Escriba la descripción">
+                                        <label class='usernameLabel' for='descripcion'>Descripción</label>
+                                        <i class="fa-solid fa-align-left userIcon"></i>
+                                    </div>
                                 </div>
 
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="maximos" name="maximos" placeholder="Coloque el Maximo">
-                                    <label>Maximos</label>
+                                <div class="col-sm-12">
+                                    <div class="inputContainer">
+                                        <input id="precioPublico" name="precioPublico" class="inputField" required="" type="number" placeholder="Escriba el precio publico">
+                                        <label class='usernameLabel' for='precioPublico'>Precio publico</label>
+                                        <i class="fa-solid fa-dollar-sign userIcon"></i>
+                                    </div>
                                 </div>
 
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="minimos" name="minimos" placeholder="Coloque el Minimo">
-                                    <label>Minimos</label>
+                                <div class="col-sm-12">
+                                    <div class="inputContainer">
+                                        <input id="precioVenta" name="precioVenta" class="inputField" required="" type="number" placeholder="Escriba el precio venta">
+                                        <label class='usernameLabel' for='precioVenta'>Precio venta</label>
+                                        <i class="fa-solid fa-dollar-sign userIcon"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-12">
+                                    <?php
+                                       $conexionCategorias = new conexion;
+                                       $queryCategorias = "SELECT * FROM categoria";
+                                       $categorias = $conexionCategorias->conn->query($queryCategorias);
+                                       
+                                       $cadenaSelect = '<div class="inputContainer">
+                                                           <select id="categoria" name="categoria" class="inputField" required="" type="text" onchange="cargaPermisos(this.value)" placeholder="Usuario">';
+                                       
+                                       foreach ($categorias->fetch_all() as $index => $categoria) {
+                                           $cadenaSelect .= "<option value=\"" . $categoria[0] . "\">" . $categoria[1] . "</option>";
+                                       }
+                                       
+                                       $cadenaSelect .= '</select>
+                                                       <label class="usernameLabel" for="categoria">Categoría</label>
+                                                       <i class="fa-solid fa-object-ungroup userIcon"></i>
+                                                   </div>';
+                                       
+                                       echo $cadenaSelect;
+                                    ?>
                                 </div>
 
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="existentes" name="existentes" placeholder="Coloque los Existentes" readonly>
-                                    <label>Existentes</label>
+                                <div class="col-sm-12">
+                                    <?php
+                                       $cadenaSelect2 = '<div class="inputContainer">' .
+                                       '<select id="subcategoria" name="subcategoria" class="inputField" required="" type="text" onchange="cargaPermisos(this.value)" placeholder="Usuario">';
+                                    
+                                        $conexionCategorias = new conexion;
+                                        $queryCategorias = "SELECT * FROM subcategoria";
+                                        $categorias = $conexionCategorias->conn->query($queryCategorias);
+                                    
+                                        foreach ($categorias->fetch_all() as $index => $categoria) {
+                                            $cadenaSelect2 .= "<option value=\"" . $categoria[0] . "\">" . $categoria[1] . "</option>";
+                                        }
+                                    
+                                        $cadenaSelect2 .= '</select>' .
+                                                            '<label class="usernameLabel" for="subcategoria">subcategoría</label>' .
+                                                            '<i class="fa-regular fa-object-ungroup userIcon"></i>' .
+                                                        '</div>';
+                                    
+                                        echo $cadenaSelect2;
+                                    ?>
                                 </div>
 
-                                <div class="form-floating mb-3">
-                                    <textarea type="text" class="form-control" id="comentarios" name="comentarios" placeholder="Coloque los Comentarios"></textarea>
-                                    <label>Comentarios</label>
+                                <div class="contenedor-boton-gen">
+                                    <div class="main_div">
+                                        <a onclick="modificarUsuario()">GUARDAR</a>
+                                    </div>
                                 </div>
-
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Coloque los Comentarios">
-                                    <label>Precio por Unidad</label>
-                                </div>
+                             
                             </form>
                         </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+             <!-- MODAL AGREGAR ENTRADA-->
+             <div class="modal fade" id="modalAgregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
                         
-                        <!-- BOTONES DEL MODAL -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="modificarUsuario()">Guardar</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            
+                            <!-- TITULO DEL MODAL -->
+                            <div class="col-12 text-center">
+                                <label class="text-subtitle">Registrar entradas</label>
+                            </div>
+
+                            <form id="frmRegistrarEntrada" class="row justify-content-center">
+                                <input type="text" id="id" name="id" hidden>
+                                
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table id="tablaEntadas" class="table table-hover"></table>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="inputContainer">
+                                        <input id="numSerie" name="numSerie" class="inputField" required="" type="text" placeholder="Escriba el número de serie">
+                                        <label class='usernameLabel' for='numSerie'> Número de serie</label>
+                                        <i class="fa-solid fa-barcode userIcon"></i>
+                                    </div>
+                                </div>
+
+                                <div class="contenedor-boton-gen">
+                                    <div class="main_div">
+                                        <a onclick="insertarEntradaProd()">GUARDAR</a>
+                                    </div>
+                                </div>
+                            
+                            </form>
                         </div>
                     
                     </div>
