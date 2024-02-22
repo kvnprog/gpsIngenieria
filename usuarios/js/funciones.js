@@ -1,3 +1,4 @@
+// ABRE LA SECCION SELECCINADA POR EL USUARIO
 function abrirSeccion(opcion) {
     
     pantallaCarga('on');
@@ -6,7 +7,7 @@ function abrirSeccion(opcion) {
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'flex';
-        document.getElementById("registros").style.display = 'none';
+        document.getElementById("frmRegistroUsuario").style.display = 'none';
         document.getElementById("permisos").style.display = 'none';
         
         pantallaCarga('off');
@@ -16,7 +17,7 @@ function abrirSeccion(opcion) {
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'none';
-        document.getElementById("registros").style.display = 'flex';
+        document.getElementById("frmRegistroUsuario").style.display = 'flex';
         document.getElementById("permisos").style.display = 'none';
 
         pantallaCarga('off');
@@ -26,7 +27,7 @@ function abrirSeccion(opcion) {
 
         //MOVIENDO LA VISIBILIDAD
         document.getElementById("catalogo").style.display = 'none';
-        document.getElementById("registros").style.display = 'none';
+        document.getElementById("frmRegistroUsuario").style.display = 'none';
         document.getElementById("permisos").style.display = 'flex';
 
         pantallaCarga('off');
@@ -34,9 +35,115 @@ function abrirSeccion(opcion) {
 
 }
 
-function eliminarUsuario(id) {
-    
+// ABRE EL MODAL
+function abrirModal(usuarioid, nombre, login, correo) {
+    var formulario = document.getElementById("frmModificar");
+    formulario.id.value = usuarioid;
+    formulario.nombre.value = nombre;
+    formulario.login.value = login;
+    formulario.correo.value = correo;
+
+    $("#miModal").modal('show');
+}
+
+// MODIFICA DATOS DEL USUARIO
+function modificarUsuario() {
+
     pantallaCarga('on');
+
+    const data = new FormData(document.getElementById('frmModificar'));
+    const options = {
+        method: "POST",
+        body: data
+    };
+
+    // Petición HTTP
+    fetch("../../usuarios/php/modificarAJAX.php", options)
+    .then(response => response.json())
+    .then(data => {
+        $('#miModal').modal('hide');
+        if (data[0]["resultado"] == 0)
+            alertImage('ERROR', 'Error en el registro', 'error')
+            pantallaCarga('off');
+
+        if (data[0]["resultado"] == 1)
+            alertImage('ERROR', 'Necesita llenar todos los campos', 'error')
+            pantallaCarga('off');
+
+        if (data[0]["resultado"] == 2)
+            alertImage('EXITO', 'Se modificó el usuario con éxito', 'success')
+            pantallaCarga('off');
+
+            actualizar(data);
+    });
+}
+
+// ACTUALIZA LA TABLA DEL CATALOGO
+function actualizar(data){
+    var noDatos = data[0]["noDatos"];
+    var catalogoUsuarios = document.getElementById("catalogoUsuarios");
+
+    catalogoUsuarios.innerHTML = "";
+    catalogoUsuarios.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre</th><th class=\"text-center\" scope=\"col\">Login</th><th class=\"text-center\" scope=\"col\">Correo</th><th class=\"text-center\" colspan=\"2\" scope=\"col\"></th></tr></thead>";
+
+    var cadenaUsuarios = "<tbody>";
+
+    for (var i = 0; i < noDatos; i++) {
+        var idusuario = data[i]["idusuario"];
+        var nombreusuario = data[i]["nombreusuario"];
+        var passwordusuario = data[i]["passwordusuario"];
+        var correo = data[i]["correo"];
+        var nombre = data[i]["nombre"];
+
+        cadenaUsuarios = cadenaUsuarios + " <tr><td class=\"text-center\">" + nombre + "</td><td class=\"text-center\">" + nombreusuario + "</td><td class=\"text-center\">" + correo + "</td>" +
+        "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModal(" + idusuario + ",'" + nombre + "','" + nombreusuario + "','" + correo + "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>"+
+        "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"eliminarUsuario(" + idusuario + ")\"><i class='fa-solid fa-xmark fa-lg'></i></div></div></td></tr>";
+    }
+    cadenaUsuarios = cadenaUsuarios + "</tbody>"
+
+    catalogoUsuarios.innerHTML = catalogoUsuarios.innerHTML + cadenaUsuarios;
+}
+
+// CREA UN USUARIO NUEVO
+function crearUsuario() {
+
+    pantallaCarga('on');
+        
+    var frm = document.getElementById('frmRegistroUsuario');
+    var nombre = frm.nombre.value;
+    var correo = frm.correo.value;
+    var login = frm.login.value;
+    var password = frm.password.value;
+
+    const options = { method: "GET" };
+
+    fetch("../../usuarios/php/crearAJAX.php?nombre="+nombre+"&login="+login+"&correo="+correo+"&password="+password, options)
+    .then(response => response.json())
+    .then(data => {
+
+        //CHECANDO SI HUBO UN ERROR
+        if(data[0]["resultado"] == 2){
+
+            alertImage('EXITO', 'Se registró el usuario con éxito', 'success')
+            pantallaCarga('off');
+            
+            actualizar(data);
+            abrirSeccion(1);
+            document.getElementById("frmRegistroUsuario").reset();
+        }else{
+
+            if(data[0]["resultado"] == 0)alertImage('ERROR', 'Surgió un error al hacer el registro', 'error')
+
+            if(data[0]["resultado"] == 1)alertImage('ERROR', 'El nombre o usuario ya se encuentran registrados', 'error')
+            
+            actualizar(data);
+            pantallaCarga('off');
+        }
+    })
+}
+
+// ELIMINA UN USUARIO
+function eliminarUsuario(id) {
 
     var color = '#FFFFFF';
     var icono = 'warning';
@@ -47,8 +154,8 @@ function eliminarUsuario(id) {
             break;
     }
     swal.fire({
-        title: "ATENCION",
-        text: "Esta seguro que desea eliminar a este usuario?",
+        title: "ATENCIÓN",
+        text: "¿Está seguro que desea eliminar este usuario?",
         icon: icono,
         showCancelButton: true,
         confirmButtonText: 'SI',
@@ -59,10 +166,12 @@ function eliminarUsuario(id) {
 
     }).then((result) => {
         if (result.isConfirmed) {
+            
+            pantallaCarga('on');
+            
             const options = {
                 method: "GET"
             };
-
 
             fetch("../../usuarios/php/eliminarAJAX.php?id=" + id, options)
             .then(response => response.json())
@@ -70,143 +179,21 @@ function eliminarUsuario(id) {
 
                 if (data[0]["resultado"] == 1) {
 
-                    alertImage('EXITO', 'Se elimino el usuario con existo', 'success');
-
-                    actualizar(data);
-
+                    alertImage('EXITO', 'Se eliminó el usuario con éxito', 'success');
                     pantallaCarga('off');
-
+                    actualizar(data);
                 } else {
 
                     alertImage('ERROR', 'Error al tratar eliminar registro', 'error')
-
                     pantallaCarga('off');
+                    actualizar(data);
                 }
-
             });
         }
-
     })
-
 }
 
-function abrirModal(usuarioid, nombre, login, correo) {
-
-    var formulario = document.getElementById("frmModificar");
-    formulario.id.value = usuarioid;
-    formulario.nombre.value = nombre;
-    formulario.login.value = login;
-    formulario.correo.value = correo;
-
-    $("#miModal").modal('show');
-
-
-
-}
-
-function modificarUsuario() {
-
-    pantallaCarga('on');
-
-    const data = new FormData(document.getElementById('frmModificar'));
-
-    const options = {
-        method: "POST",
-        body: data
-
-    };
-
-    // Petición HTTP
-    fetch("../../usuarios/php/modificarAJAX.php", options)
-        .then(response => response.json())
-        .then(data => {
-            if (data[0]["resultado"] == 0)
-                alertImage('ERROR', 'Error en el registro', 'error')
-                pantallaCarga('off');
-
-            if (data[0]["resultado"] == 1)
-                alertImage('ERROR', 'Nesesita llenar todos los campos', 'error')
-                pantallaCarga('off');
-
-            if (data[0]["resultado"] == 2)
-                alertImage('EXITO', 'Se modifico el usuario con existo', 'success')
-                pantallaCarga('off');
-
-                actualizar(data);
-
-
-        });
-
-}
-
-function actualizar(data){
-    var noDatos = data[0]["noDatos"];
-    
-    var catalogoUsuarios = document.getElementById("catalogoUsuarios");
-
-    catalogoUsuarios.innerHTML = "";
-
-    catalogoUsuarios.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre</th><th class=\"text-center\" scope=\"col\">Login</th><th class=\"text-center\" scope=\"col\">Correo</th><th class=\"text-center\" colspan=\"2\" scope=\"col\"></th></tr></thead>";
-
-    var cadenaUsuarios = "<tbody>";
-    for (var i = 0; i < noDatos; i++) {
-
-        var idusuario = data[i]["idusuario"];
-        var nombreusuario = data[i]["nombreusuario"];
-        var passwordusuario = data[i]["passwordusuario"];
-        var correo = data[i]["correo"];
-        var nombre = data[i]["nombre"];
-
-        cadenaUsuarios = cadenaUsuarios + " <tr><td class=\"text-center\">" + nombre + "</td><td class=\"text-center\">" + nombreusuario + "</td><td class=\"text-center\">" + correo + "</td><td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" + idusuario + ",'" + nombre + "','" + nombreusuario + "','" + correo + "')\"></td><td class=\"text-center\"><img src=\"../../src/imagenes/eliminargps.png\" width=\"40px\" onclick=\"eliminarUsuario(" + idusuario + ")\"></td></tr>";
-
-
-
-    }
-
-    cadenaUsuarios = cadenaUsuarios + "</tbody>"
-
-    catalogoUsuarios.innerHTML = catalogoUsuarios.innerHTML + cadenaUsuarios;
-}
-
-function crearUsuario() {
-    
-    pantallaCarga('on');
-    
-    const data = new FormData(document.getElementById('frmRegistroUsuario')); 
-
-    console.log(data);
-    const options = {
-        method: "POST",
-        body: data
-
-    };
-
-
-    fetch("../../usuarios/php/crearAJAX.php", options)
-        .then(response => response.json())
-        .then(data => {
-
-            //CHECANDO SI HUBO UN ERROR
-            if(data[0]["resultado"] == 2){
-
-                alertImage('EXITO', 'Se registro el cliente con existo', 'success')
-                
-                actualizar(data);
-
-                pantallaCarga('off');
-            }else{
-
-               if(data[0]["resultado"] == 0)alertImage('ERROR', 'Surgio un error al hacer el registro', 'error')
-
-               if(data[0]["resultado"] == 1)alertImage('ERROR', 'El nombre o usuario ya fueron registrados', 'error')
-               
-               pantallaCarga('off');
-            }
-           
-        })
-
-}
-
+// CARGA LOS PERMISOS EN LA PANTALLA
 function cargaPermisos(idusuario){
     
     document.getElementById('divSeccionTipoPermiso').innerHTML = "";
@@ -228,11 +215,10 @@ function cargaPermisos(idusuario){
 
             //NUMERO DE AREAS 
             nAreas = data["noDatosAreas"][0]["noDatos"];
-    
+
             cadenaAreas = "<div class='contenedorInputs'>";
-
+            
             for(var i = 0;i<nAreas;i++){
-
                 cadenaAreas +=   "<div class='contenedorInputs'>"+
                                         "<button class='botonMenuLista' id='"+data["areas"][i]["id"]+"' onclick='verSeccionesDeArea("+idusuario+","+data["areas"][i]["id"]+","+JSON.stringify(data["noDatosSeccion"])+", "+JSON.stringify(data["noDatosAreas"])+", "+JSON.stringify(data["secciones"])+", "+JSON.stringify(data["areas"])+")'>"+                                        
                                             data["areas"][i]["nombre"]+
@@ -240,14 +226,14 @@ function cargaPermisos(idusuario){
                                     "</div>";
             }
             cadenaAreas += "</div>";
-
             divSeccionPermiso.innerHTML = cadenaAreas;
 
             pantallaCarga('off');
         })
     }
-
 }
+
+// MUESTRA LAS SECCIONES DEL USUARIO
 function verSeccionesDeArea(idusuario, idArea, noDatosSeccion, noDatosAreas,secciones, areas){
     
     var numDePermisos = noDatosSeccion[0]["noDatos"];
@@ -276,11 +262,11 @@ function verSeccionesDeArea(idusuario, idArea, noDatosSeccion, noDatosAreas,secc
                                     "</label>";
             }                        
         } 
-
         divSeccionTipoPermiso.innerHTML = cadenaPermiso;
     }
 }
 
+// PONER Y QUITAR EL PERMISO AL USUARIO
 function ponerPermiso(idseccion,idusuario){
     
     pantallaCarga('on');
@@ -295,13 +281,11 @@ function ponerPermiso(idseccion,idusuario){
     .then(data => {
 
         if(data["resultado"]){
-            alertImage('EXITO', 'Se hiso el cambio en el permiso', 'success')
+            alertImage('ÉXITO', 'Se quitó el permiso al usuario', 'success')
             pantallaCarga('off');
         }else{
-            alertImage('EXITO', 'Se hiso el cambio en el permiso', 'success')
+            alertImage('ÉXITO', 'Se colocó el permiso al usuario', 'success')
             pantallaCarga('off');
         }
-
     });
-
 }

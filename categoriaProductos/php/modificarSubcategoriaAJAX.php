@@ -9,11 +9,11 @@
    $resultado = [];
 
    //CHECAR SI LA CATEGORIA YA EXISTE
-   $conexionChecarCategoria = new conexion;
-   $queryChecarCategoria  = "SELECT*FROM categoria WHERE nombre = '".$nombre."' AND id_categoria <> ".$id;
-   $checarCategoria = $conexionChecarCategoria->conn->query($queryChecarCategoria);
+   $conexionChecarSubcategoria = new conexion;
+   $queryChecarSubcategoria  = "SELECT * FROM subcategoria WHERE nombre = '".$nombre."' AND id_subcategoria <> ".$id;
+   $checarSubcategoria = $conexionChecarSubcategoria->conn->query($queryChecarSubcategoria);
 
-   if($checarCategoria->num_rows > 0){
+   if($checarSubcategoria->num_rows > 0){
    
       $resultado["resultado"] = 0; //el usuario esta repetido 
 
@@ -22,14 +22,14 @@
       //MODIFICA LA CATEGORIA
 
       $conexionModificar =  new conexion;
-      $queryModificar = "UPDATE categoria SET nombre = '".$nombre."' WHERE id_categoria = ".$id;
+      $queryModificar = "UPDATE subcategoria SET nombre = '".$nombre."' WHERE id_subcategoria = ".$id;
 
       if($conexionModificar->conn->query($queryModificar)){
          $resultado["resultado"] = 1; //se hiso la modificacion 
 
          //TRAER CATEGORIAS
          $conexionTraerCategorias = new conexion;
-         $queryTraerCategorias = "SELECT * FROM categoria";
+         $queryTraerCategorias = "SELECT * FROM subcategoria";
 
          $datos = $conexionTraerCategorias->conn->query($queryTraerCategorias);
 

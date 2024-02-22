@@ -7,18 +7,16 @@ $idseccion = filter_input(INPUT_GET,"idseccion");
 $idusuario = filter_input(INPUT_GET,"idusuario");
 
 $conexionChecarPermiso = new conexion;
-$queryChecarPermiso = "SELECT*FROM permisossecciones WHERE  idusuario=".$idusuario." and idseccion=".$idseccion;
+$queryChecarPermiso = "SELECT * FROM permisos_secciones WHERE id_usuario = ".$idusuario." and id_seccion = ".$idseccion;
 
 $checar = $conexionChecarPermiso->conn->query($queryChecarPermiso);
-
 $resultado = [];
 
 if($checar->num_rows>0){
 
     //ELIMINANDO PERMISO
-
     $conexionEliminarPermiso = new conexion;
-    $queryEliminarPermiso = "DELETE FROM permisossecciones WHERE  idusuario=".$idusuario." and idseccion=".$idseccion;
+    $queryEliminarPermiso = "DELETE FROM permisos_secciones WHERE id_usuario = ".$idusuario." and id_seccion = ".$idseccion;
     $conexionEliminarPermiso->conn->query($queryEliminarPermiso);
 
     $resultado["resultado"] = true;
@@ -26,7 +24,7 @@ if($checar->num_rows>0){
 }else{
 
     $conexionAgregarPermisos = new conexion;
-    $queryAgregarPermisos = "INSERT INTO permisossecciones VALUES (".$idusuario.",".$idseccion.") ";
+    $queryAgregarPermisos = "INSERT INTO permisos_secciones (id_usuario, id_seccion) VALUES (".$idusuario.",".$idseccion.") ";
     $conexionAgregarPermisos->conn->query($queryAgregarPermisos);
 
     $resultado["resultado"] = false;

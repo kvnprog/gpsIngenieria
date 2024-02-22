@@ -1,32 +1,23 @@
 <?php
+    class conexion{
 
+        public $conn;
 
-class conexion{
+        function __construct(){
+            //local
+            $this->conn = new mysqli("127.0.0.1","root","","gpsingenieria_bd",3306);
 
-    public $conn;
-    
+            //pruebas
+            // $this->conn = new mysqli("localhost","u798288314_admin","xbb2-A2+C27A2","u798288314_gpsingenieria",3306);
+        }
 
-    function __construct(){
-        //local
-        // $this->conn = new mysqli("localhost","root","","gpsingenieria",3306);
-
-        //pruebas
-        $this->conn = new mysqli("localhost","u798288314_admin","xbb2-A2+C27A2","u798288314_gpsingenieria",3306);
-     
+        public function checar(){   
+            if ($this->conn->connect_errno) {
+                echo "Fallo al conectar a MySQL: (" . $this->conn->connect_errno . ") " . $this->conn->connect_error;
+                
+            }else{
+                echo $this->conn->host_info . "\nsoy yo";
+            }
+        }
     }
-
-
-public function checar(){
-    
- 
-    if ($this->conn->connect_errno) {
-        echo "Fallo al conectar a MySQL: (" . $this->conn->connect_errno . ") " . $this->conn->connect_error;
-        
-    }else{
-        echo $this->conn->host_info . "\nsoy yo";
-    }
-    
-}
-
-
-}
+?>
