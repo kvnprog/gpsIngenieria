@@ -9,6 +9,7 @@ function abrirSeccion(opcion) {
         document.getElementById("catalogo").style.display = 'flex';
         document.getElementById("frmRegistroProductos").style.display = 'none';
         document.getElementById("catalogoEntradas").style.display = 'none';
+        document.getElementById("uploadDataProducts").style.display = 'none';
         
         pantallaCarga('off');
         actualizaCatalogoProductos();
@@ -19,6 +20,7 @@ function abrirSeccion(opcion) {
         document.getElementById("catalogo").style.display = 'none';
         document.getElementById("frmRegistroProductos").style.display = 'flex';
         document.getElementById("catalogoEntradas").style.display = 'none';
+        document.getElementById("uploadDataProducts").style.display = 'none';
 
         pantallaCarga('off');
     }
@@ -28,6 +30,18 @@ function abrirSeccion(opcion) {
         document.getElementById("catalogo").style.display = 'none';
         document.getElementById("frmRegistroProductos").style.display = 'none';
         document.getElementById("catalogoEntradas").style.display = 'flex';
+        document.getElementById("uploadDataProducts").style.display = 'none';
+        
+        pantallaCarga('off');
+        actualizaCatalogoProductosEntradas();
+    }
+    if (opcion == 4) {
+
+        //MOVIENDO LA VISIBILIDAD
+        document.getElementById("catalogo").style.display = 'none';
+        document.getElementById("frmRegistroProductos").style.display = 'none';
+        document.getElementById("catalogoEntradas").style.display = 'none';
+        document.getElementById("uploadDataProducts").style.display = 'flex';
         
         pantallaCarga('off');
         actualizaCatalogoProductosEntradas();
@@ -177,6 +191,34 @@ function abrirModalRegistrarEntrada(idProducto, no_parte, descripcion) {
     tabla.innerHTML = contenidoTabla;
 }
 
+
+function uploadDataProducts() {
+
+   // Obtener el formulario
+   const form = document.getElementById("frmExcelUpload");
+   // Crear un objeto FormData para recopilar los datos del formulario
+   const formData = new FormData(form);
+   // Realizar la solicitud Fetch
+   fetch("../../productos/php/uploadDataProductsAJAX.php", {
+       method: "POST",
+       body: formData
+   })
+   .then(response => {
+       if (!response.ok) {
+           throw new Error("Error en la solicitud");
+       }
+       return response.json();
+   })
+   .then(data => {
+       console.log("Respuesta del servidor:", data);
+       // Aquí puedes hacer algo con la respuesta del servidor, como mostrar un mensaje de éxito
+   })
+   .catch(error => {
+       console.error("Error al procesar la solicitud:", error);
+       // Aquí puedes manejar el error, como mostrar un mensaje de error al usuario
+   });
+
+
 // INSERTA UNA ENTRADA DE PRODUCTO
 function insertarEntradaProd(){
     pantallaCarga('on');
@@ -238,4 +280,5 @@ function modificarProducto(){
 
 function actualizaCatalogoProductosEntradas(){
     
+
 }
