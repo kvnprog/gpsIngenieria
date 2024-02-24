@@ -277,8 +277,9 @@ function modificarProducto(){
         }
     });
 }
+}
 
-function actualizaCatalogoProductosEntradas(){
+// function actualizaCatalogoProductosEntradas(){
     
 
-}
+// }
