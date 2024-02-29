@@ -73,6 +73,43 @@ pantallaCarga('on');
                 
                 <div class="card_content">
 
+                    <form id="frmFiltosCatalogoUsuarios">
+                        <div class="row">
+
+                            <div class="col-12 text-center">
+                                <label class="text-subtitle">Filtros</label>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+                                <!-- FILTRO POR NUMERO DE PARTE -->
+                                <div class="inputContainer">
+                                    <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="actualizarUsuarios()">
+                                    <label class='usernameLabel' for='filtroNombre'>Nombre</label>
+                                    <i class="userIcon fa-solid fa-text-width"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+                                <!-- FILTRO POR NUMERO DE PARTE -->
+                                <div class="inputContainer">
+                                    <input id="filtroLogin" name="filtroLogin" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="actualizarUsuarios()">
+                                    <label class='usernameLabel' for='filtroLogin'>Login</label>
+                                    <i class="userIcon fa-solid fa-user"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12 col-md-4">
+                                <!-- FILTRO POR NUMERO DE PARTE -->
+                                <div class="inputContainer">
+                                    <input id="filtroCorreo" name="filtroCorreo" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="actualizarUsuarios()">
+                                    <label class='usernameLabel' for='filtroCorreo'>Correo</label>
+                                    <i class="userIcon fa-solid fa-envelope"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
                     <div class="row">
                         
                         <div class="col-12 text-center">
@@ -125,7 +162,7 @@ pantallaCarga('on');
 
                         <div class="col-sm-12 col-md-7">
                             <div class="inputContainer">
-                                <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba el nombre">
+                                <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba el nombre" maxlength="50" onkeyup="aceptaLetras(this)">
                                 <label class='usernameLabel' for='nombre'>Nombre</label>
                                 <i class="userIcon fa-solid fa-text-width"></i>
                             </div>
@@ -133,7 +170,7 @@ pantallaCarga('on');
                             
                         <div class="col-sm-12 col-md-5">
                             <div class="inputContainer">
-                                <input id="correo" name="correo" class="inputField" required="" type="text" placeholder="Escriba el correo">
+                                <input id="correo" name="correo" class="inputField" required="" type="text" placeholder="Escriba el correo" maxlength="50">
                                 <label class='usernameLabel' for='correo'>Correo</label>
                                 <i class="userIcon fa-solid fa-envelope"></i>
                             </div>
@@ -141,7 +178,7 @@ pantallaCarga('on');
                             
                         <div class="col-sm-12 col-md-4">
                             <div class="inputContainer">
-                                <input id="login" name="login" class="inputField" required="" type="text" placeholder="Escriba nombre de login">
+                                <input id="login" name="login" class="inputField" required="" type="text" placeholder="Escriba nombre de login" maxlength="15" onkeyup="aceptaLetras(this)">
                                 <label class='usernameLabel' for='login'>Login</label>
                                 <i class="userIcon fa-solid fa-user"></i>
                             </div>
@@ -149,7 +186,7 @@ pantallaCarga('on');
 
                         <div class="col-sm-12 col-md-8">
                             <div class="inputContainer">
-                                <input type="password" id="password" name="password" class="inputField" required="" placeholder="Escriba la contraseña">
+                                <input type="password" id="password" name="password" class="inputField" required="" placeholder="Escriba la contraseña" maxlength="20">
                                 <label class='usernameLabel' for='password'>Contraseña</label>
                                 <i class="userIcon fa-solid fa-lock"></i>
                             </div>
@@ -232,13 +269,17 @@ pantallaCarga('on');
                             <div class="col-12 text-center">
                                 <label class="text-subtitle">Modificar Usuario</label>
                             </div>
+
+                            <div class="col-12 text-center">
+                                <label class="text-nota">*Ingresa solo el campo que se desea editar.</label>
+                            </div>
                             
                             <form id="frmModificar" class="row justify-content-center">
                                 <input type="text" id="id" name="id" hidden>
 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba el nombre">
+                                        <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba el nombre" maxlength="50" onkeyup="aceptaLetras(this)">
                                         <label class='usernameLabel' for='nombre'>Nombre</label>
                                         <i class="userIcon fa-solid fa-text-width"></i>
                                     </div>
@@ -246,7 +287,7 @@ pantallaCarga('on');
 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="login" name="login" class="inputField" required="" type="text" placeholder="Escriba nombre del login">
+                                        <input id="login" name="login" class="inputField" required="" type="text" placeholder="Escriba nombre del login" maxlength="15" onkeyup="aceptaLetras(this)">
                                         <label class='usernameLabel' for='login'>Login</label>
                                         <i class="userIcon fa-solid fa-user"></i>
                                     </div>
@@ -254,7 +295,7 @@ pantallaCarga('on');
 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="correo" name="correo" class="inputField" required="" type="text" placeholder="Escriba el correo">
+                                        <input id="correo" name="correo" class="inputField" required="" type="text" placeholder="Escriba el correo" maxlength="50">
                                         <label class='usernameLabel' for='correo'>Correo</label>
                                         <i class="userIcon fa-solid fa-envelope"></i>
                                     </div>
@@ -262,7 +303,7 @@ pantallaCarga('on');
 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input type="password" id="password" name="password" class="inputField" required="" type="text" placeholder="Escriba la contraseña">
+                                        <input type="password" id="password" name="password" class="inputField" required="" type="text" placeholder="Escriba la contraseña" maxlength="20">
                                         <label class='usernameLabel' for='password'>Contraseña</label>
                                         <i class="userIcon fa-solid fa-lock"></i>
                                     </div>

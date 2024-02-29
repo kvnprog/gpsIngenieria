@@ -13,7 +13,7 @@ $resultado = [];
 
 //PONIENDO LOS CAMBIOS 
 $conexionModificar = new conexion;
-$queryModificar = "UPDATE productos SET no_parte = '".$nParte."', descripcion = '".$descripcion."', precio_public='".$precioPublico."', precio_venta='".$precioVenta."' WHERE id_producto=".$id;
+$queryModificar = "UPDATE productos SET descripcion = '".$descripcion."', precio_public='".$precioPublico."', precio_venta='".$precioVenta."' WHERE id_producto=".$id;
                   
 if($conexionModificar->conn->query($queryModificar)){
     $resultado["resultado"]=true; 

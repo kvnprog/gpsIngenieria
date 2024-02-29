@@ -1,21 +1,34 @@
 <?php
-
     include "../../fGenerales/bd/conexion.php";
+    
+    if( isset($_GET["arrayEntradas"]) ) {
 
-    $id = filter_input(INPUT_POST, "id");
-    $numSerie = filter_input(INPUT_POST, "numSerie");
+        $arrayEntradas = $_GET['arrayEntradas'];
 
-    $conexionInsertarEntrada = new conexion;
-    $queryInsertarEntrada = "INSERT INTO entradas(id_producto, no_serial, id_estado)". 
-                            "VALUES (".$id.", '".$numSerie."', 1)";
+        $arrayEntradasPHP = array();
+        foreach ($arrayEntradas as $entradaJSON) {
+            $entrada = json_decode($entradaJSON, true); // TRUE PARA OBTENER ARRAY ASOCIATIVO
+            if ($entrada) {
+                $arrayEntradasPHP[] = $entrada;
+            }
+        }
 
-    $resultados = [];
+        $conexionInsertarEntrada = new conexion;
+        $resultados = [];
 
-    if ($conexionInsertarEntrada->conn->query($queryInsertarEntrada)) {
-        $resultados["resultado"] = true;
+        foreach ($arrayEntradasPHP as $entrada) {
+            $id = $entrada['idProd'];
+            $numSerie = $entrada['noSerie'];
+            $queryInsertarEntrada = "INSERT INTO entradas(id_producto, no_serial, id_estado, fecha_registro) VALUES ($id, '$numSerie', 1, NOW())";
+            
+            if ($conexionInsertarEntrada->conn->query($queryInsertarEntrada)) {
+                $resultados["resultado"] = true;
+            } else {
+                $resultados["resultado"] = false;
+            }
+        }
     } else {
         $resultados["resultado"] = false;
     }
-
     echo json_encode($resultados);
 ?>

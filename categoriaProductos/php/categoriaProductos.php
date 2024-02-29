@@ -86,33 +86,37 @@
                 
                     <div class="card_content">
 
-                        <div class="col-12 text-center">
-                            <label class="text-subtitle">Catálogo de categorías productos</label>
-                        </div>
+                        <form id="frmFiltrosCatalogoCategorias">
+                            <div class="row justify-content-center">
 
-                        <div class="col-sm-12">
-                            <div class="table-responsive">
-                                <table id="tablaCatalogoCategorias" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" scope="col">Nombre categoría</th>
-                                            <th class="text-center" colspan="1" scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
-                                        <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                                        <?php
-                                            foreach ($resultados->fetch_all() as $columna) {
-                                                echo " <tr>
-                                                    <td class=\"text-center\">" . $columna[1] . "</td>
-                                                    <td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModalCategoria(" . $columna[0] . ",'" . $columna[1] . "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>
-                                                    </tr>";
-                                            }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                <div class="col-12 text-center">
+                                    <label class="text-subtitle">Filtros</label>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <!-- FILTRO POR NUMERO DE PARTE -->
+                                    <div class="inputContainer">
+                                        <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Escriba el nombre de la categoría" onkeyup="actualizarCategoria()">
+                                        <label class='usernameLabel' for='filtroNombre'>Nombre categoría</label>
+                                        <i class="userIcon fa-solid fa-text-width"></i>
+                                    </div>
+                                </div>
+
                             </div>
+                        </form>
+
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <label class="text-subtitle">Catálogo de categorías productos</label>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table id="tablaCatalogoCategorias" class="table">
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -121,31 +125,34 @@
                 <div class="row" id="catalogoSubcategoria" style="display: none;">
                     
                     <div class="card_content">
+                        
+                        <form id="frmFiltrosCatalogoSubcategorias">
+                            <div class="row justify-content-center">
+
+                                <div class="col-12 text-center">
+                                    <label class="text-subtitle">Filtros</label>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <!-- FILTRO POR NUMERO DE PARTE -->
+                                    <div class="inputContainer">
+                                        <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Escriba el nombre de la subcategoría" onkeyup="actualizarSubcategoria()">
+                                        <label class='usernameLabel' for='filtroNombre'>Nombre subcategoría</label>
+                                        <i class="userIcon fa-solid fa-text-width"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+
                         <div class="col-12 text-center">
                             <label class="text-subtitle">Catálogo de subcategorías productos</label>
                         </div>
 
                         <div class="col-sm-12">
                             <div class="table-responsive">
-                                <table id="tablaCatalogoSubcategorias" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" scope="col">Nombre subcategoría</th>
-                                            <th class="text-center" colspan="1" scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
-                                        <!--LLENADO LOS DATOS DE LAS TABLAS   -->
-                                        <?php
-                                            foreach ($resultadosSubcategorias->fetch_all() as $columna) {
-                                                echo " <tr>
-                                                    <td class=\"text-center\">" . $columna[1] . "</td>
-                                                    <td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModalSubcategoria(" . $columna[0] . ",'" . $columna[1] . "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>
-                                                    </tr>";
-                                            }
-                                        ?>
-                                    </tbody>
+                                <table id="tablaCatalogoSubcategorias" class="table">
                                 </table>
                             </div>
                         </div>
@@ -167,7 +174,7 @@
                                         
                             <div class="col-sm-12 col-md-6">
                                 <div class="inputContainer">
-                                    <input id="categoria" name="categoria" class="inputField" required="" type="text" placeholder="Escriba el nombre de la categoría">
+                                    <input id="categoria" name="categoria" class="inputField" required="" type="text" placeholder="Escriba el nombre de la categoría" maxlength="50">
                                     <label class='usernameLabel' for='categoria'>Nombre de categoría</label>
                                     <i class="userIcon fa-solid fa-text-width"></i>
                                 </div>
@@ -198,7 +205,7 @@
                                         
                             <div class="col-sm-12 col-md-6">
                                 <div class="inputContainer">
-                                    <input id="subcategoria" name="subcategoria" class="inputField" required="" type="text" placeholder="Escriba el nombre de la subcategoría">
+                                    <input id="subcategoria" name="subcategoria" class="inputField" required="" type="text" placeholder="Escriba el nombre de la subcategoría" maxlength="50">
                                     <label class='usernameLabel' for='subcategoria'>Nombre de subcategoría</label>
                                     <i class="userIcon fa-solid fa-text-width"></i>
                                 </div>
@@ -237,7 +244,7 @@
 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba nombre de la categoría">
+                                        <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba nombre de la categoría" maxlength="50">
                                         <label class='usernameLabel' for='nombre'>Nombre de categoría</label>
                                         <i class="userIcon fa-solid fa-text-width"></i>
                                     </div>
@@ -276,7 +283,7 @@
 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba nombre de la subcategoría">
+                                        <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba nombre de la subcategoría" maxlength="50">
                                         <label class='usernameLabel' for='nombre'>Nombre de subcategoría</label>
                                         <i class="userIcon fa-solid fa-text-width"></i>
                                     </div>

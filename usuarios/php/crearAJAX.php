@@ -13,7 +13,7 @@
     if ($nombre != "" && $login != "" && $correo != "" && $password != "") {
 
         $conexionChecaUsuario = new conexion;
-        $queryChecarUsuario = "SELECT id_usuario FROM usuarios WHERE usuario = '".$login."' or nombre = '".$nombre."' and id_estado = 1";
+        $queryChecarUsuario = "SELECT id_usuario FROM usuarios WHERE (usuario = '".$login."' or nombre = '".$nombre."') and id_estado = 1";
         $usuarios = $conexionChecaUsuario->conn->query($queryChecarUsuario);
        
         if ($usuarios->num_rows > 0) {

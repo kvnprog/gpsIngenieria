@@ -49,97 +49,132 @@ function abrirModal(usuarioid, nombre, login, correo) {
 // MODIFICA DATOS DEL USUARIO
 function modificarUsuario() {
 
-    pantallaCarga('on');
-
     const data = new FormData(document.getElementById('frmModificar'));
-    const options = {
-        method: "POST",
-        body: data
-    };
 
-    // Petición HTTP
-    fetch("../../usuarios/php/modificarAJAX.php", options)
-    .then(response => response.json())
-    .then(data => {
-        $('#miModal').modal('hide');
-        if (data[0]["resultado"] == 0)
-            alertImage('ERROR', 'Error en el registro', 'error')
-            pantallaCarga('off');
+    var campoId = data.get('id');
+    var campoNombre = data.get('nombre');
+    var campoLogin = data.get('login');
+    var campoCorreo = data.get('correo');
+    var campoPassword = data.get('password');
 
-        if (data[0]["resultado"] == 1)
-            alertImage('ERROR', 'Necesita llenar todos los campos', 'error')
-            pantallaCarga('off');
+    if(campoId != '' && campoNombre != '' && campoLogin != '' && campoCorreo != ''){
+    
+        pantallaCarga('on');
 
-        if (data[0]["resultado"] == 2)
-            alertImage('EXITO', 'Se modificó el usuario con éxito', 'success')
-            pantallaCarga('off');
+        const options = {
+            method: "POST",
+            body: data
+        };
 
-            actualizar(data);
-    });
+        // Petición HTTP
+        fetch("../../usuarios/php/modificarAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
+            $('#miModal').modal('hide');
+            if (data[0]["resultado"] == 0)
+                alertImage('ERROR', 'Error en el registro', 'error');
+                pantallaCarga('off');
+
+            if (data[0]["resultado"] == 1)
+                alertImage('ERROR', 'Necesita llenar todos los campos', 'error');
+                pantallaCarga('off');
+
+            if (data[0]["resultado"] == 2)
+                alertImage('ÉXITO', 'Se modificó el usuario con éxito', 'success');
+                pantallaCarga('off');
+
+                actualizarUsuarios();
+        });
+    } else {
+        alertImage('ERROR', 'Solo puede quedar vació el campo contraseña', 'error');
+    }
 }
 
 // ACTUALIZA LA TABLA DEL CATALOGO
-function actualizar(data){
-    var noDatos = data[0]["noDatos"];
-    var catalogoUsuarios = document.getElementById("catalogoUsuarios");
+function actualizarUsuarios(){
 
-    catalogoUsuarios.innerHTML = "";
-    catalogoUsuarios.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre</th><th class=\"text-center\" scope=\"col\">Login</th><th class=\"text-center\" scope=\"col\">Correo</th><th class=\"text-center\" colspan=\"2\" scope=\"col\"></th></tr></thead>";
+    pantallaCarga('on');
+    
+    var frmFiltros = document.getElementById('frmFiltosCatalogoUsuarios');
+    var nombre = frmFiltros.filtroNombre.value;
+    var login = frmFiltros.filtroLogin.value;
+    var correo = frmFiltros.filtroCorreo.value;
 
-    var cadenaUsuarios = "<tbody>";
+    const options = { method: "GET" };
+    var ruta = "../../usuarios/php/traeUsuariosAJAX.php?nombre="+nombre+"&login="+login+"&correo="+correo;
+    
+    fetch(ruta, options)
+    .then(response => response.json())
+    .then(data => {
+        pantallaCarga('off');
+        
+        if (data["resultado"] == 1) {
+            var noDatos = data[0]["noDatos"];
+            var catalogoUsuarios = document.getElementById("catalogoUsuarios");
 
-    for (var i = 0; i < noDatos; i++) {
-        var idusuario = data[i]["idusuario"];
-        var nombreusuario = data[i]["nombreusuario"];
-        var passwordusuario = data[i]["passwordusuario"];
-        var correo = data[i]["correo"];
-        var nombre = data[i]["nombre"];
+            catalogoUsuarios.innerHTML = "";
+            catalogoUsuarios.innerHTML = "<thead class='sticky-top'><tr><th class=\"text-center\" scope=\"col\">Nombre</th><th class=\"text-center\" scope=\"col\">Login</th><th class=\"text-center\" scope=\"col\">Correo</th><th class=\"text-center\" colspan=\"2\" scope=\"col\"></th></tr></thead>";
 
-        cadenaUsuarios = cadenaUsuarios + " <tr><td class=\"text-center\">" + nombre + "</td><td class=\"text-center\">" + nombreusuario + "</td><td class=\"text-center\">" + correo + "</td>" +
-        "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModal(" + idusuario + ",'" + nombre + "','" + nombreusuario + "','" + correo + "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>"+
-        "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"eliminarUsuario(" + idusuario + ")\"><i class='fa-solid fa-xmark fa-lg'></i></div></div></td></tr>";
-    }
-    cadenaUsuarios = cadenaUsuarios + "</tbody>"
+            var cadenaUsuarios = "<tbody>";
 
-    catalogoUsuarios.innerHTML = catalogoUsuarios.innerHTML + cadenaUsuarios;
+            for (var i = 0; i < noDatos; i++) {
+                var idusuario = data[i]["idusuario"];
+                var nombreusuario = data[i]["nombreusuario"];
+                var passwordusuario = data[i]["passwordusuario"];
+                var correo = data[i]["correo"];
+                var nombre = data[i]["nombre"];
+
+                cadenaUsuarios = cadenaUsuarios + " <tr><td class=\"text-center\">" + nombre + "</td><td class=\"text-center\">" + nombreusuario + "</td><td class=\"text-center\">" + correo + "</td>" +
+                "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModal(" + idusuario + ",'" + nombre + "','" + nombreusuario + "','" + correo + "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>"+
+                "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"eliminarUsuario(" + idusuario + ")\"><i class='fa-solid fa-xmark fa-lg'></i></div></div></td></tr>";
+            }
+            cadenaUsuarios = cadenaUsuarios + "</tbody>"
+
+            catalogoUsuarios.innerHTML = catalogoUsuarios.innerHTML + cadenaUsuarios;
+        }
+    });
 }
 
 // CREA UN USUARIO NUEVO
 function crearUsuario() {
 
-    pantallaCarga('on');
-        
     var frm = document.getElementById('frmRegistroUsuario');
     var nombre = frm.nombre.value;
     var correo = frm.correo.value;
     var login = frm.login.value;
     var password = frm.password.value;
+    
+    if(nombre != '' && correo != '' && login != '' && password != ''){
+        pantallaCarga('on');
 
-    const options = { method: "GET" };
+        const options = { method: "GET" };
 
-    fetch("../../usuarios/php/crearAJAX.php?nombre="+nombre+"&login="+login+"&correo="+correo+"&password="+password, options)
-    .then(response => response.json())
-    .then(data => {
+        fetch("../../usuarios/php/crearAJAX.php?nombre="+nombre+"&login="+login+"&correo="+correo+"&password="+password, options)
+        .then(response => response.json())
+        .then(data => {
 
-        //CHECANDO SI HUBO UN ERROR
-        if(data[0]["resultado"] == 2){
+            //CHECANDO SI HUBO UN ERROR
+            if(data[0]["resultado"] == 2){
 
-            alertImage('EXITO', 'Se registró el usuario con éxito', 'success')
-            pantallaCarga('off');
-            
-            actualizar(data);
-            abrirSeccion(1);
-            document.getElementById("frmRegistroUsuario").reset();
-        }else{
+                alertImage('EXITO', 'Se registró el usuario con éxito', 'success')
+                pantallaCarga('off');
+                
+                actualizarUsuarios();
+                abrirSeccion(1);
+                document.getElementById("frmRegistroUsuario").reset();
+            }else{
 
-            if(data[0]["resultado"] == 0)alertImage('ERROR', 'Surgió un error al hacer el registro', 'error')
+                if(data[0]["resultado"] == 0)alertImage('ERROR', 'Surgió un error al hacer el registro', 'error')
 
-            if(data[0]["resultado"] == 1)alertImage('ERROR', 'El nombre o usuario ya se encuentran registrados', 'error')
-            
-            actualizar(data);
-            pantallaCarga('off');
-        }
-    })
+                if(data[0]["resultado"] == 1)alertImage('ERROR', 'El nombre o usuario ya se encuentran registrados', 'error')
+                
+                actualizarUsuarios();
+                pantallaCarga('off');
+            }
+        })
+    } else {
+        alertImage('ERROR', 'Todos los campos deben estar llenos correctamente', 'error');
+    }
 }
 
 // ELIMINA UN USUARIO
@@ -181,12 +216,12 @@ function eliminarUsuario(id) {
 
                     alertImage('EXITO', 'Se eliminó el usuario con éxito', 'success');
                     pantallaCarga('off');
-                    actualizar(data);
+                    actualizarUsuarios();
                 } else {
 
                     alertImage('ERROR', 'Error al tratar eliminar registro', 'error')
                     pantallaCarga('off');
-                    actualizar(data);
+                    actualizarUsuarios();
                 }
             });
         }

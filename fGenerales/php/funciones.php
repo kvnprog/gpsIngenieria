@@ -58,6 +58,22 @@ if (!function_exists('checarPermisosSeccion')) {
     }
 }
 
+// CHECA SI EL USUARIO TIENE PERMISO EN EL AREA
+if (!function_exists('checarPermisosArea')) {
+  function checarPermisosArea($usuarioid, $seccionid)
+  {
+      $conexionSeccionesPermisos = new conexion;
+      $query = "SELECT * FROM permisos_secciones where id_usuario=".$usuarioid." and id_seccion=".$seccionid;
+      $datos = $conexionSeccionesPermisos->conn->query($query);
+
+      if($datos->num_rows > 0){
+        return true;
+      } else {
+        return false;
+      }
+  }
+}
+
 if (!function_exists('pintarHead')) {
     function pintarHead($titulo)
     {
@@ -81,6 +97,8 @@ if (!function_exists('pintarHead')) {
           <script src='../../fGenerales/js/jquery.js'></script>";
 
         echo "<title>GpsIngeniería-" . $titulo . "</title>";
+
+        echo "<img class='marcaAguaBody' src='../../src/imagenes/logo.png'>";
     }
 }
 

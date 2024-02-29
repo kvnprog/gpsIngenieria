@@ -2,7 +2,10 @@
     include "../../fGenerales/bd/conexion.php";
     include "../../fGenerales/php/funciones.php";
 
-    pantallaCarga('on')
+    pantallaCarga('on');
+    
+    session_name('gpsingenieria');
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -30,47 +33,51 @@
                             <div class="container">
                                 <div class="row d-flex justify-content-center">
                                 
-                                    <div class="col-lg-6">
-                                        <div class="hexagon-item">
-                                            <div class="hex-item">
-                                                <div></div> <div></div> <div></div>
-                                            </div>
-                                            <div class="hex-item">
-                                                <div></div> <div></div> <div></div>
-                                            </div>
-                                            
-                                            <a  class="hex-content" onclick="abrirUsuarios()">
-                                                <span class="hex-content-inner">
-                                                    <span class="icon">
-                                                        <i id='iconoMPanal'><i class="fa-solid fa-users fa-2xl"></i></i>
+                                    <?php if(checarPermisosArea($_SESSION['usuarioid'], 1)){ ?>
+                                        <div class="col-lg-6">
+                                            <div class="hexagon-item">
+                                                <div class="hex-item">
+                                                    <div></div> <div></div> <div></div>
+                                                </div>
+                                                <div class="hex-item">
+                                                    <div></div> <div></div> <div></div>
+                                                </div>
+                                                
+                                                <a  class="hex-content" onclick="abrirUsuarios()">
+                                                    <span class="hex-content-inner">
+                                                        <span class="icon">
+                                                            <i id='iconoMPanal'><i class="fa-solid fa-users fa-2xl"></i></i>
+                                                        </span>
+                                                        <span class="title">Usuarios</span>
                                                     </span>
-                                                    <span class="title">Usuarios</span>
-                                                </span>
-                                                <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
-                                            </a>
+                                                    <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                
-                                    <div class="col-lg-6">
-                                        <div class="hexagon-item">
-                                            <div class="hex-item">
-                                                <div></div> <div></div> <div></div>
-                                            </div>
-                                            <div class="hex-item">
-                                                <div></div> <div></div> <div></div>
-                                            </div>
-                                            
-                                            <a  class="hex-content" onclick="abrirInventarios()">
-                                                <span class="hex-content-inner">
-                                                    <span class="icon">
-                                                        <i id='iconoMPanal'><i class="fa-solid fa-warehouse fa-2xl"></i></i>
+                                    <?php } ?>
+                                    
+                                    <?php if(checarPermisosArea($_SESSION['usuarioid'], 2)){ ?>
+                                        <div class="col-lg-6">
+                                            <div class="hexagon-item">
+                                                <div class="hex-item">
+                                                    <div></div> <div></div> <div></div>
+                                                </div>
+                                                <div class="hex-item">
+                                                    <div></div> <div></div> <div></div>
+                                                </div>
+                                                
+                                                <a  class="hex-content" onclick="abrirInventarios()">
+                                                    <span class="hex-content-inner">
+                                                        <span class="icon">
+                                                            <i id='iconoMPanal'><i class="fa-solid fa-warehouse fa-2xl"></i></i>
+                                                        </span>
+                                                        <span class="title">Inventarios</span>
                                                     </span>
-                                                    <span class="title">Inventarios</span>
-                                                </span>
-                                                <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
-                                            </a>    
+                                                    <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
+                                                </a>    
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php } ?>
 <!-- 
                                     <div class="col-lg-3">
                                         <div class="hexagon-item">

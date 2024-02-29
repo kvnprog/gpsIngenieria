@@ -26,23 +26,7 @@
         }
 
         if ($conexionModificar->conn->query($queryModificar)) {
-
             $resultados[0]["resultado"] = 2; // salio bien la modificacion
-
-            //TRAYENDO LOS DATOS 
-            $conexionUsuarios = new conexion;
-            $queryUsuarios = "SELECT *FROM usuarios WHERE id_estado = 1";
-            $datos = $conexionUsuarios->conn->query($queryUsuarios);
-
-            $resultados[0]["noDatos"] = $datos->num_rows;
-
-            foreach ($datos->fetch_all() as $key => $usuario) {
-                $resultados[$key]["idusuario"] = $usuario[0];
-                $resultados[$key]["nombreusuario"] = $usuario[1];
-                $resultados[$key]["passwordusuario"] = $usuario[2];
-                $resultados[$key]["correo"] = $usuario[3];
-                $resultados[$key]["nombre"] = $usuario[4];
-            }
         }
     }
 

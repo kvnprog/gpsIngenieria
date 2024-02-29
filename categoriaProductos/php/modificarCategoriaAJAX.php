@@ -26,23 +26,8 @@
 
       if($conexionModificar->conn->query($queryModificar)){
          $resultado["resultado"] = 1; //se hiso la modificacion 
-
-         //TRAER CATEGORIAS
-         $conexionTraerCategorias = new conexion;
-         $queryTraerCategorias = "SELECT * FROM categoria";
-
-         $datos = $conexionTraerCategorias->conn->query($queryTraerCategorias);
-
-         $resultado["noDatos"] = $datos->num_rows;
-
-         foreach($datos->fetch_all() as $index => $dato){
-            $resultado[$index]["id"] = $dato[0];
-            $resultado[$index]["nombre"] = $dato[1];
-         }
-
-
       }else{
-      $resultado["resultado"] = 2; 
+         $resultado["resultado"] = 2; 
       }
    }
    echo json_encode($resultado);
