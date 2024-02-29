@@ -1035,7 +1035,7 @@ table tr:nth-child(even) {
     height: 173.20508px;
     float: left;
     margin-left: -29px;
-    z-index: 0;
+    z-index: 20;
     position: relative;
     -webkit-transform: rotate(30deg);
     -moz-transform: rotate(30deg);
@@ -1047,7 +1047,7 @@ table tr:nth-child(even) {
     margin-left: 0; 
 }
 .hexagon-item:hover {
-    z-index: 1; 
+    z-index: 20;
 }
 .hexagon-item:hover .hex-item:first-child div:before,
 .hexagon-item:hover .hex-item:first-child div:after {
