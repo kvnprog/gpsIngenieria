@@ -128,7 +128,6 @@ pantallaCarga('on');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
                                         <!--LLENADO LOS DATOS DE LAS TABLAS   -->
                                         <?php
                                             foreach ($resultados->fetch_all() as $columna) {
