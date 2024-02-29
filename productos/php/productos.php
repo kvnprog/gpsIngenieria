@@ -60,7 +60,15 @@
                                             </span>
                                         </button>';
                                 }
+
+                                
                             }
+                            echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(4)">
+                            <span class="button_lg">
+                                <span class="button_sl"></span>
+                                <span class="button_text">Subida Masiva Productos</span>
+                            </span>
+                           </button>';
                         ?>
                     </div>
                 </div>
@@ -311,6 +319,8 @@
                 </div>
 
             </div>
+
+            <?php include "subidaMasiva.php"?>
 
             <!-- MODAL MODIFICAR -->
             <div class="modal fade" id="miModalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
