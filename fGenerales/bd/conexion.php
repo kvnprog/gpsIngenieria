@@ -5,10 +5,11 @@
 
         function __construct(){
             //local
-            $this->conn = new mysqli("127.0.0.1","root","","gpsingenieria_bd",3306);
 
-            //pruebas
-            // $this->conn = new mysqli("localhost","u798288314_admin","xbb2-A2+C27A2","u798288314_gpsingenieria",3306);
+            //$this->conn = new mysqli("127.0.0.1","root","","gpsingenieria_bd",3306);
+
+            //produccion
+             $this->conn = new mysqli("localhost","u798288314_admin","xbb2-A2+C27A2","u798288314_gpsingenieria",3306);
         }
 
         public function checar(){   
