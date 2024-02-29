@@ -297,7 +297,7 @@ function uploadDataProducts() {
        console.error("Error al procesar la solicitud:", error);
        // Aquí puedes manejar el error, como mostrar un mensaje de error al usuario
    });
-
+}
 
 // INSERTA UNA ENTRADA DE PRODUCTO
 function insertarEntradaProd(){
@@ -401,7 +401,7 @@ function modificarProducto(){
         alertImage('ERROR', 'Todos los campos deben estar llenos', 'error')
     }
 }
-}
+
 
 function actualizaCatalogoProductosEntradas(){
     var tabla = document.getElementById('tablaCatalogoProductosEntradas');
