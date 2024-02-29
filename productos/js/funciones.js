@@ -451,7 +451,7 @@ function actualizaCatalogoProductosEntradas(){
         } 
 
         if(data["resultado"] == 0) {
-            alertImage('ERROR', 'Surgió un error en el catalogo entradas', 'error')
+            // alertImage('ERROR', 'Surgió un error en el catalogo entradas', 'error')
         }
     });
 }
