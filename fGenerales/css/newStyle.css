@@ -10,7 +10,7 @@
 }
 
 body, html{
-    /* background: #f3f7ff; */
+    background: #f1f1f1;
     /* background: linear-gradient(90deg, #fafffb, #e9ffee);		 */
     background-repeat: no-repeat;
     background-size: cover;
@@ -23,6 +23,16 @@ body, html{
 }
 
   
+.marcaAguaBody {
+    position: fixed;
+    opacity: .05;
+    left: 50%;
+    top: 50%; /* Centrar verticalmente */
+    transform: translate(-50%, -50%); /* Centrar horizontal y verticalmente */
+    width: 300px;
+    pointer-events: none;
+    z-index: 10;
+}
 
 
 /*==================================================================================
@@ -51,6 +61,13 @@ body, html{
     color: #899bbd;
     padding: 20px;
     /* margin-top: 100px; */
+}
+.text-nota{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #899bbd;
+    padding: 20px;
 }
 .cont-img-title {
     width: 100%;
@@ -85,7 +102,7 @@ body, html{
     justify-content: center;
     position: relative;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 14px;
     user-select: none;
 }
 .checkmark:hover {
@@ -95,13 +112,14 @@ body, html{
     position: relative;
     top: 0;
     left: 0;
-    height: 1.3em;
-    width: 1.3em;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
     background-color: #eee;
+    margin-left: 10px;
 }
 .containerCheck input:checked~.checkmark {
-    background-color: royalblue;
+    background-color: #336ee2;
 }
 .checkmark:after {
     content: "";
@@ -112,10 +130,10 @@ body, html{
     display: block;
 }
 .containerCheck .checkmark:after {
-    left: 0.50em;
-    top: 0.30em;
-    width: 0.25em;
-    height: 0.5em;
+    left: 7px;
+    top: 1px;
+    width: 6px;
+    height: 14px;
     border: solid white;
     border-width: 0 0.15em 0.15em 0;
     transform: rotate(45deg);
@@ -213,8 +231,18 @@ body, html{
     background-color: #ebffe7;
     transition-duration: .3s;
 }
-  
-
+.inputField:disabled{
+    background-color: #f7f7f7;
+    color:#979797;
+} 
+.inputField[disabled]:hover~.userIcon {
+    opacity: 0.4;
+    transform: translateX(0px);
+}
+.inputField[disabled]:hover~.usernameLabel {
+    opacity: 0.4;
+    transform: translateX(0px);
+}
 
 /*==================================================================================
                                     BOTONES
@@ -489,14 +517,17 @@ body, html{
 =================*/
 .marcaAguaTabla {
     position: absolute;
-    opacity: .1;
+    opacity: .04;
     left: 50%;
-    margin-top: 50px;
+    margin-top: 0px;
     transform: translate(-50%);
+    width: 150px;
+    pointer-events: none;
 }
 
 .table-responsive{
-    padding: 20px;
+    padding: 0px 20px 20px;
+    max-height: 500px;
 }
 
 /* FONDO
@@ -1326,12 +1357,13 @@ table tr:nth-child(even) {
 =================================================================*/
 
 .card_content{
-    background-color: #efefef;
+    background-color: #ffffff;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
     padding: 20px;
+    z-index: 20;
 }
 .row{
     margin-right: 0px !important;
