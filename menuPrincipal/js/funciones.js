@@ -10,6 +10,6 @@ function abrirInventarios(){
 //   window.open("../../menuVentas/php/menuVentas.php","_self");
 // }
 
-// function abrirRH(){
-//   window.open("../../menuRH/php/menuRH.php","_self");
-// }
+function abrirRH(){
+  window.open("../../menuRH/php/menuRH.php","_self");
+}
