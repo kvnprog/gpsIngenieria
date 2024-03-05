@@ -19,7 +19,7 @@
     <body class="justify-content-center align-items-center" onload="document.getElementById('pantallaCarga').style.display='none'">
 
         <!-- NAVBAR -->
-        <?php pintarNavBar(); ?>
+        <?php pintarNavBar(); echo "lo que sea"; ?>
 
         <div class="contenedorCont">
             <!-- //div principal -->
