@@ -3,7 +3,7 @@
         'name' => 'kevinalvarez/gps-ingenieria',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'e524e29b9a9625eba3a65155cdb9cc202d12f76a',
+        'reference' => 'edfc20e302431a533bece5efdc00e37d03febc00',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'kevinalvarez/gps-ingenieria' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e524e29b9a9625eba3a65155cdb9cc202d12f76a',
+            'reference' => 'edfc20e302431a533bece5efdc00e37d03febc00',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

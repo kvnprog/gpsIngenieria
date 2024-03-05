@@ -42,7 +42,7 @@
                     <div class="col-12">
                         <?php 
                             foreach($datos->fetch_all() as $dato){
-                                if($dato[1]==15){
+                                if($dato[1]==11){
                                     echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
                                             <span class="button_lg">
                                                 <span class="button_sl"></span>
@@ -50,7 +50,7 @@
                                             </span>
                                         </button>';
                                 }
-                                if($dato[1]==16){
+                                if($dato[1]==12){
                                     echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(2)">
                                             <span class="button_lg">
                                                 <span class="button_sl"></span>
@@ -150,7 +150,7 @@
                         
                         <div class="contenedor-boton-gen">
                             <div class="main_div">
-                                <button onclick="crearEmpleado()">GUARDAR</button>
+                                <a onclick="crearEmpleado()">GUARDAR</a>
                             </div>
                         </div>
                         
