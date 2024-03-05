@@ -17,6 +17,10 @@ body, html {
     margin: 0;
     padding: 0;
 }
+.marcaAguaBody{
+    opacity: 0 !important;
+	z-index: 0 !important;
+}
 .divLogo{
 	display: flex;
 	justify-content: center;

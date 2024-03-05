@@ -74,64 +74,102 @@
                 </div>
 
                 <div class="row" id="catalogo" style="display: none;">
-
                     <div class="card_content">
+                        <form id="frmFiltosCatalogoProd">
 
-                        <div class="row">
-                            <div class="col-sm-12 col-md-4">
-                                <!-- FILTRO POR NUMERO DE PARTE -->
-                                <div class="inputContainer">
-                                    <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="filtrarProductos()">
-                                    <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
-                                    <i class="userIcon fa-solid fa-hashtag"></i>
+                            <div class="row">
+
+                                <div class="col-12 text-center">
+                                    <label class="text-subtitle">Filtros</label>
+                                </div>
+
+                                <div class="col-sm-12 col-md-3">
+                                    <!-- FILTRO POR NUMERO DE PARTE -->
+                                    <div class="inputContainer">
+                                        <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="actualizaCatalogoProductos()">
+                                        <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
+                                        <i class="userIcon fa-solid fa-hashtag"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-3">
+                                    <!-- FILTRO POR DESCRIPCIÓN -->
+                                    <div class="inputContainer">
+                                        <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Escriba descripción" onkeyup="actualizaCatalogoProductos()">
+                                        <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
+                                        <i class="userIcon fa-solid fa-align-left"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-3">
+                                    <!-- FILTRO POR CATEGORÍA -->
+                                    <div class="inputContainer">
+                                        <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Categoría" onchange="actualizaCatalogoProductos()">
+                                            <option value=0 selected>...</option>
+                                            <?php
+                                                $conexionCategorias = new conexion;
+                                                $queryCategorias = "SELECT * FROM categoria";
+                                                $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                                foreach ($categorias->fetch_all() as $index => $categoria) {
+
+                                                    print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                                }
+                                            ?>
+                                        </select>
+                                        <label class='usernameLabel' for='filtroCategoria'>Categoría</label>
+                                        <i class="userIcon fa-regular fa-object-ungroup"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-3">
+                                    <!-- FILTRO POR CATEGORÍA -->
+                                    <div class="inputContainer">
+                                        <select id="filtroSubcategoria" name="filtroSubcategoria" class="inputField" required="" type="text" placeholder="Categoría" onchange="actualizaCatalogoProductos()">
+                                            <option value=0 selected>...</option>
+                                            <?php
+                                                $conexionSubcategorias = new conexion;
+                                                $querySubcategorias = "SELECT * FROM subcategoria";
+                                                $subcategorias = $conexionSubcategorias->conn->query($querySubcategorias);
+
+                                                foreach ($subcategorias->fetch_all() as $index => $subcategoria) {
+
+                                                    print_r("<option value=\"" . $subcategoria[0] . "\" >" . $subcategoria[1] . "</option>");
+                                                }
+                                            ?>
+                                        </select>
+                                        <label class='usernameLabel' for='filtroSubcategoria'>Subcategoría</label>
+                                        <i class="userIcon fa-regular fa-object-ungroup"></i>
+                                    </div>
                                 </div>
                             </div>
+                        </form>
 
-                            <div class="col-sm-12 col-md-4">
-                                <!-- FILTRO POR DESCRIPCIÓN -->
-                                <div class="inputContainer">
-                                    <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Escriba descripción" onkeyup="filtrarProductos()">
-                                    <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
-                                    <i class="userIcon fa-solid fa-align-left"></i>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-4">
-                                <!-- FILTRO POR CATEGORÍA -->
-                                <div class="inputContainer">
-                                    <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Categoría" onchange="filtrarProductos()">
-                                        <option value=0 selected>Categorías...</option>
-                                        <?php
-                                            $conexionCategorias = new conexion;
-                                            $queryCategorias = "SELECT * FROM categoria";
-                                            $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                                            foreach ($categorias->fetch_all() as $index => $categoria) {
-
-                                                print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                            }
-                                        ?>
-                                    </select>
-                                    <label class='usernameLabel' for='filtroCategoria'>Categorías</label>
-                                    <i class="userIcon fa-regular fa-object-ungroup"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TITULO DEL CONTENIDO -->
-                    <div class="card_content">
-                        <div class="row">
-                            <div class="col-12 text-center">
+                        <!-- TITULO DEL CONTENIDO -->
+                        <div class="row justify-content-center">
+                            <div id='section_catalogo' class="col-sm-12 text-center">
                                 <label class="text-subtitle">Catálogo de productos</label>
-                            </div>
 
-                            <div class="col-sm-12">
-                                <!-- TABLA DONDE APARECEN LOS PRODUCTOS -->
                                 <div class="table-responsive">
-                                    <table id="tablaCatalogoProductos" class="table table-hover"></table>
+                                    <table id="tablaCatalogoProductos" class="table"></table>
                                 </div>
                             </div>
+
+                            <div id='section_entradas' class="col-sm-12 col-md-6 text-center" hidden>
+                                <label class="text-subtitle">Agregar entradas</label>
+
+                                <div class="table-responsive">
+                                    <table id="tablaEntradas" class="table"></table>
+                                </div>
+                                
+                                <div class="contenedor-boton-gen">
+                                    <div class="main_div">
+                                        <a onclick="insertarEntradaProd()">GUARDAR</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
 
@@ -150,7 +188,7 @@
 
                             <div class="col-sm-12 col-md-4">
                                 <div class="inputContainer">
-                                    <input id="nParte" name="nParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte">
+                                    <input id="nParte" name="nParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" maxlength="50">
                                     <label class='usernameLabel' for='nParte'>Número de parte</label>
                                     <i class="userIcon fa-solid fa-hashtag"></i>
                                 </div>
@@ -158,7 +196,7 @@
 
                             <div class="col-sm-12 col-md-8">
                                 <div class="inputContainer">
-                                    <textarea type="text" id="descripcion" name="descripcion" class="inputField" required="" placeholder="Escriba descripción"></textarea>
+                                    <textarea type="text" id="descripcion" name="descripcion" class="inputField" required="" placeholder="Escriba descripción" maxlength="200"></textarea>
                                     <label class='usernameLabel' for='descripcion'>Descripción</label>
                                     <i class="userIcon fa-solid fa-align-left"></i>
                                 </div>
@@ -166,7 +204,7 @@
                 
                             <div class="col-sm-12 col-md-3">
                                 <div class="inputContainer">
-                                    <input type="number" id="precioPublico" name="precioPublico" class="inputField" required="" placeholder="Escriba el precio por unidad">
+                                    <input type="number" id="precioPublico" name="precioPublico" class="inputField" required="" placeholder="Escriba el precio por unidad" min="0" onkeyup="aceptaNumeros(this)">
                                     <label class='usernameLabel' for='precioPublico'>Precio con IVA público</label>
                                     <i class="userIcon fa-solid fa-dollar-sign"></i>
                                 </div>
@@ -174,7 +212,7 @@
 
                             <div class="col-sm-12 col-md-3">
                                 <div class="inputContainer">
-                                    <input type="number" id="precioVenta" name="precioVenta" class="inputField" required="" placeholder="Escriba el precio por unidad">
+                                    <input type="number" id="precioVenta" name="precioVenta" class="inputField" required="" placeholder="Escriba el precio por unidad" min="0" onkeyup="aceptaNumeros(this)">
                                     <label class='usernameLabel' for='precioVenta'>Precio venta</label>
                                     <i class="userIcon fa-solid fa-dollar-sign"></i>
                                 </div>
@@ -182,7 +220,7 @@
 
                             <div class="col-sm-12 col-md-3">
                                 <div class="inputContainer">
-                                    <select type="text" id="categoria" name="categoria" class="inputField" required="" placeholder="Escriba categoría">
+                                    <select type="text" id="categoria" name="categoria" class="inputField" required="" placeholder="Seleccione categoría">
                                         <option value=0 selected>...</option>
                                         <?php
                                             $conexionCategorias = new conexion;
@@ -195,13 +233,13 @@
                                         ?>
                                     </select>
                                     <label class='usernameLabel' for='categoria'>Categoría</label>
-                                    <i class="userIcon fa-solid fa-align-left"></i>
+                                    <i class="userIcon fa-regular fa-object-ungroup"></i>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-3">
                                 <div class="inputContainer">
-                                    <select type="text" id="subcategoria" name="subcategoria" class="inputField" required="" placeholder="Escriba categoría">
+                                    <select type="text" id="subcategoria" name="subcategoria" class="inputField" required="" placeholder="Seleccione subcategoría">
                                         <option value=0 selected>...</option>
                                         <?php
                                             $conexionCategorias = new conexion;
@@ -214,7 +252,7 @@
                                         ?>
                                     </select>
                                     <label class='usernameLabel' for='subcategoria'>Subcategoría</label>
-                                    <i class="userIcon fa-solid fa-align-left"></i>
+                                    <i class="userIcon fa-regular fa-object-ungroup"></i>
                                 </div>
                             </div>
 
@@ -230,47 +268,37 @@
 
             <div class="row" id="catalogoEntradas" style="display: none;">
                 <div class="card_content">
-
-                    <div class="row">
-                        <div class="col-sm-12 col-md-4">
-                            <!-- FILTRO POR NUMERO DE PARTE -->
-                            <div class="inputContainer">
-                                <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="filtrarProductos()">
-                                <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
-                                <i class="userIcon fa-solid fa-hashtag"></i>
+                    <form id="frmFiltosCatalogoProdEntradas">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
+                                <!-- FILTRO POR NUMERO DE PARTE -->
+                                <div class="inputContainer">
+                                    <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="actualizaCatalogoProductosEntradas()">
+                                    <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
+                                    <i class="userIcon fa-solid fa-hashtag"></i>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-12 col-md-4">
-                            <!-- FILTRO POR DESCRIPCIÓN -->
-                            <div class="inputContainer">
-                                <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Escriba descripción" onkeyup="filtrarProductos()">
-                                <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
-                                <i class="userIcon fa-solid fa-align-left"></i>
+                            <div class="col-sm-12 col-md-4">
+                                <!-- FILTRO POR DESCRIPCIÓN -->
+                                <div class="inputContainer">
+                                    <input id="filtroNoSerie" name="filtroNoSerie" class="inputField" required="" type="text" placeholder="Escriba el número de serie" onkeyup="actualizaCatalogoProductosEntradas()">
+                                    <label class='usernameLabel' for='filtroNoSerie'>Número de serie</label>
+                                    <i class="userIcon fa-solid fa-barcode"></i>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-12 col-md-4">
-                            <!-- FILTRO POR CATEGORÍA -->
-                            <div class="inputContainer">
-                                <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Categoría" onchange="filtrarProductos()">
-                                    <option value=0 selected>Categorías...</option>
-                                    <?php
-                                        $conexionCategorias = new conexion;
-                                        $queryCategorias = "SELECT * FROM categoria";
-                                        $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                                        foreach ($categorias->fetch_all() as $index => $categoria) {
-
-                                            print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                        }
-                                    ?>
-                                </select>
-                                <label class='usernameLabel' for='filtroCategoria'>Categorías</label>
-                                <i class="userIcon fa-regular fa-object-ungroup"></i>
+                            <div class="col-sm-12 col-md-4">
+                                <!-- FILTRO POR DESCRIPCIÓN -->
+                                <div class="inputContainer">
+                                    <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Escriba descripción" onkeyup="actualizaCatalogoProductosEntradas()">
+                                    <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
+                                    <i class="userIcon fa-solid fa-align-left"></i>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+
+                        </div>  
+                    </form>
                 </div>
 
                 <!-- TITULO DEL CONTENIDO -->
@@ -283,7 +311,8 @@
                         <div class="col-sm-12">
                             <!-- TABLA DONDE APARECEN LOS PRODUCTOS -->
                             <div class="table-responsive">
-                                <table id="tablaCatalogoProductos" class="table table-hover"></table>
+                                <table id="tablaCatalogoProductosEntradas" class="table">
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -315,7 +344,7 @@
                                 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="nParte" name="nParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte">
+                                        <input id="nParte" name="nParte" class="inputField" required="" type="text" placeholder="Escriba el número de parte" maxlength="50" disabled>
                                         <label class='usernameLabel' for='nParte'>Número de parte</label>
                                         <i class="fa-solid fa-hashtag userIcon"></i>
                                     </div>
@@ -323,7 +352,7 @@
                                 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <textarea id="descripcion" name="descripcion" class="inputField" required="" type="text" placeholder="Escriba la descripción"></textarea>
+                                        <textarea id="descripcion" name="descripcion" class="inputField" required="" type="text" placeholder="Escriba la descripción" maxlength="200"></textarea>
                                         <label class='usernameLabel' for='descripcion'>Descripción</label>
                                         <i class="fa-solid fa-align-left userIcon"></i>
                                     </div>
@@ -331,7 +360,7 @@
 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="precioPublico" name="precioPublico" class="inputField" required="" type="number" placeholder="Escriba el precio publico">
+                                        <input id="precioPublico" name="precioPublico" class="inputField" required="" type="number" placeholder="Escriba el precio publico" min="0" onkeyup="aceptaNumeros(this)">
                                         <label class='usernameLabel' for='precioPublico'>Precio publico</label>
                                         <i class="fa-solid fa-dollar-sign userIcon"></i>
                                     </div>
@@ -339,7 +368,7 @@
 
                                 <div class="col-sm-12">
                                     <div class="inputContainer">
-                                        <input id="precioVenta" name="precioVenta" class="inputField" required="" type="number" placeholder="Escriba el precio venta">
+                                        <input id="precioVenta" name="precioVenta" class="inputField" required="" type="number" placeholder="Escriba el precio venta" min="0" onkeyup="aceptaNumeros(this)">
                                         <label class='usernameLabel' for='precioVenta'>Precio venta</label>
                                         <i class="fa-solid fa-dollar-sign userIcon"></i>
                                     </div>
@@ -358,52 +387,6 @@
                 </div>
             </div>
 
-             <!-- MODAL AGREGAR ENTRADA-->
-             <div class="modal fade" id="modalAgregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="modal-body">
-                            
-                            <!-- TITULO DEL MODAL -->
-                            <div class="col-12 text-center">
-                                <label class="text-subtitle">Registrar entradas</label>
-                            </div>
-
-                            <form id="frmRegistrarEntrada" class="row justify-content-center">
-                                <input type="text" id="id" name="id" hidden>
-                                
-                                <div class="col-sm-12">
-                                    <div class="table-responsive">
-                                        <table id="tablaEntadas" class="table table-hover"></table>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <div class="inputContainer">
-                                        <input id="numSerie" name="numSerie" class="inputField" required="" type="text" placeholder="Escriba el número de serie">
-                                        <label class='usernameLabel' for='numSerie'> Número de serie</label>
-                                        <i class="fa-solid fa-barcode userIcon"></i>
-                                    </div>
-                                </div>
-
-                                <div class="contenedor-boton-gen">
-                                    <div class="main_div">
-                                        <a onclick="insertarEntradaProd()">GUARDAR</a>
-                                    </div>
-                                </div>
-                            
-                            </form>
-                        </div>
-                    
-                    </div>
-                </div>
-            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

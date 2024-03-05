@@ -10,6 +10,7 @@ function abrirSeccion(opcion) {
         document.getElementById("registrosCategorias").style.display = 'none';
         document.getElementById("registrosSubcategorias").style.display = 'none';
         document.getElementById("catalogoSubcategoria").style.display = 'none';
+        actualizarCategoria();
         pantallaCarga('off');
     }
 
@@ -40,20 +41,20 @@ function abrirSeccion(opcion) {
         document.getElementById("registrosCategorias").style.display = 'none';
         document.getElementById("registrosSubcategorias").style.display = 'none';
         document.getElementById("catalogoSubcategoria").style.display = 'flex';
+        actualizarSubcategoria();
         pantallaCarga('off');
     }
 }
 
 // CREA LA CATEGORIA
 function crearCategoria() {
-    
-    pantallaCarga('on');
 
     var formulario = document.getElementById("frmRegistroCategoria");
-
     var categoria = formulario.categoria.value;
 
     if(categoria != ''){
+        
+        pantallaCarga('on');
 
         const options = { method: "GET" };
 
@@ -62,7 +63,7 @@ function crearCategoria() {
         .then(data => {
 
             if (data["resultado"]) {
-                actualizaCategoria(data);
+                actualizarCategoria();
                 alertImage('ÉXITO', 'Se registró la categoría correctamente.', 'success');
                 pantallaCarga('off');
                 document.getElementById('frmRegistroCategoria').reset();
@@ -74,20 +75,19 @@ function crearCategoria() {
         })
     } else {
         alertImage('ERROR', 'Llena el campo para poner una categoría.', 'error');
-        pantallaCarga('off');
     }
 }
 
 // CREAR SUBCATEGORIA
 function crearSubCategoria() {
-    
-    pantallaCarga('on');
 
     var formulario = document.getElementById("frmRegistroSubcategoria");
-
     var subCategoria = formulario.subcategoria.value;
 
     if(subCategoria != ''){
+        
+        pantallaCarga('on');
+
         const options = { method: "GET" };
 
         fetch("../../categoriaProductos/php/crearSubcategoriaAJAX.php?subcategoria="+subCategoria, options)
@@ -95,7 +95,7 @@ function crearSubCategoria() {
         .then(data => {
 
             if (data["resultado"]) {
-                actualizaSubcategoria(data);
+                actualizarSubcategoria();
                 alertImage('ÉXITO', 'Se registró la subcategoría correctamente.', 'success');
                 document.getElementById('frmRegistroSubcategoria').reset();
                 pantallaCarga('off');
@@ -106,50 +106,83 @@ function crearSubCategoria() {
         })
     } else {
         alertImage('Error', 'Llena el campo vació.', 'error');
-        pantallaCarga('off');
     }
 }
 
 // ACTUALIZA LA TABLA DE LAS CATEGORIAS
-function actualizaCategoria(data) {
+function actualizarCategoria() {
+    
+    pantallaCarga('on');
 
-    var noDatos = data["noDatos"];
-    var catalogoCategorias = document.getElementById("tablaCatalogoCategorias");
+    var frmFiltros = document.getElementById('frmFiltrosCatalogoCategorias');
+    var nombre = frmFiltros.filtroNombre.value;
 
-    catalogoCategorias.innerHTML = "";
-    catalogoCategorias.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre</th><th class=\"text-center\" colspan=\"1\" scope=\"col\"></th></tr></thead>";
+    const options = { method: "GET" };
+    var ruta = "../../categoriaProductos/php/traeCategoriasAJAX.php?nombre="+nombre;
+    
+    fetch(ruta, options)
+    .then(response => response.json())
+    .then(data => {
+        
+        pantallaCarga('off');
 
-    var cadenaCategorias = "<tbody>";
-    for (var i = 0; i < noDatos; i++) {
-        var id = data[i]["id"];
-        var nombre = data[i]["nombre"];
+        if (data["resultado"] == 1) {
+            var noDatos = data["noDatos"];
+            var catalogoCategorias = document.getElementById("tablaCatalogoCategorias");
 
-        cadenaCategorias = cadenaCategorias + " <tr><td class=\"text-center\">" + nombre + "</td><td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModalCategoria(" + id + ",'" + nombre + "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td></tr>";
-    }
+            catalogoCategorias.innerHTML = "";
+            catalogoCategorias.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre de categoría</th><th class=\"text-center\" colspan=\"1\" scope=\"col\"></th></tr></thead>";
 
-    cadenaCategorias = cadenaCategorias + "</tbody>"
-    catalogoCategorias.innerHTML = catalogoCategorias.innerHTML + cadenaCategorias;
+            var cadenaCategorias = "<tbody>";
+            for (var i = 0; i < noDatos; i++) {
+                var id = data[i]["id"];
+                var nombre = data[i]["nombre"];
+
+                cadenaCategorias = cadenaCategorias + " <tr><td class=\"text-center\">" + nombre + "</td><td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModalCategoria(" + id + ",'" + nombre + "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td></tr>";
+            }
+
+            cadenaCategorias = cadenaCategorias + "</tbody>"
+            catalogoCategorias.innerHTML = catalogoCategorias.innerHTML + cadenaCategorias;
+        }
+    });
 }
 
 // ACTUALIZA LA TABLA DE LA SUBCATEGORIA
-function actualizaSubcategoria(data) {
+function actualizarSubcategoria() {
 
-    var noDatos = data["noDatos"];
-    var catalogoSubcategorias = document.getElementById("tablaCatalogoSubcategorias");
+    pantallaCarga('on');
 
-    catalogoSubcategorias.innerHTML = "";
-    catalogoSubcategorias.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre</th><th class=\"text-center\" colspan=\"1\" scope=\"col\"></th></tr></thead>";
+    var frmFiltros = document.getElementById('frmFiltrosCatalogoSubcategorias');
+    var nombre = frmFiltros.filtroNombre.value;
 
-    var cadenaCategorias = "<tbody>";
-    for (var i = 0; i < noDatos; i++) {
-        var id = data[i]["id"];
-        var nombre = data[i]["nombre"];
+    const options = { method: "GET" };
+    var ruta = "../../categoriaProductos/php/traeSubcategoriasAJAX.php?nombre="+nombre;
+    
+    fetch(ruta, options)
+    .then(response => response.json())
+    .then(data => {
+        
+        pantallaCarga('off');
 
-        cadenaCategorias = cadenaCategorias + " <tr><td class=\"text-center\">" + nombre + "</td><td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModalSubcategoria(" + id + ",'" + nombre + "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td></tr>";
-    }
+        if (data["resultado"] == 1) {
+            var noDatos = data["noDatos"];
+            var catalogosubcategorias = document.getElementById("tablaCatalogoSubcategorias");
 
-    cadenaCategorias = cadenaCategorias + "</tbody>"
-    catalogoSubcategorias.innerHTML = catalogoSubcategorias.innerHTML + cadenaCategorias;
+            catalogosubcategorias.innerHTML = "";
+            catalogosubcategorias.innerHTML = "<thead><tr><th class=\"text-center\" scope=\"col\">Nombre de subcategoría</th><th class=\"text-center\" colspan=\"1\" scope=\"col\"></th></tr></thead>";
+
+            var cadenaSubcategorias = "<tbody>";
+            for (var i = 0; i < noDatos; i++) {
+                var id = data[i]["id"];
+                var nombre = data[i]["nombre"];
+
+                cadenaSubcategorias = cadenaSubcategorias + " <tr><td class=\"text-center\">" + nombre + "</td><td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick=\"abrirModalSubcategoria(" + id + ",'" + nombre + "')\"><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td></tr>";
+            }
+
+            cadenaSubcategorias = cadenaSubcategorias + "</tbody>"
+            catalogosubcategorias.innerHTML = catalogosubcategorias.innerHTML + cadenaSubcategorias;
+        }
+    });
 }
 
 // ABRE MODAL PARA EDITAR
@@ -173,66 +206,75 @@ function abrirModalSubcategoria(id, nombre) {
 // MODIFICA LA CATEGORIA
 function modificarCategoria() {
 
-    pantallaCarga('on');
-    
     const data = new FormData(document.getElementById('frmModificarCategoria'));
-    const options = {
-        method: "POST",
-        body: data
-    };
 
-    fetch("../../categoriaProductos/php/modificarCategoriaAJAX.php", options)
-    .then(response => response.json())
-    .then(data => {
+    if(data.get('nombre') != ''){
 
-        if (data["resultado"] == 0) {
-            alertImage('ERROR', 'La categoría ya se encuentra.', 'error')
-            pantallaCarga('off');
-        }
-        if (data["resultado"] == 1) {
-            actualizaCategoria(data);
-            alertImage('EXITO', 'Se modificó exitosamente la categoría.', 'success')
-            pantallaCarga('off');
-            $('#modalModificarCategoria').modal('hide');
-        }
-        if (data["resultado"] == 2) {
-            alertImage('ERROR', 'Error en la modificación.', 'error')
-            pantallaCarga('off');
-        }
+        pantallaCarga('on');
 
+        const options = {
+            method: "POST",
+            body: data
+        };
 
-    })
+        fetch("../../categoriaProductos/php/modificarCategoriaAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
 
+            if (data["resultado"] == 0) {
+                alertImage('ERROR', 'La categoría ya se encuentra.', 'error')
+                pantallaCarga('off');
+            }
+            if (data["resultado"] == 1) {
+                actualizarCategoria();
+                alertImage('EXITO', 'Se modificó exitosamente la categoría.', 'success')
+                pantallaCarga('off');
+                $('#modalModificarCategoria').modal('hide');
+            }
+            if (data["resultado"] == 2) {
+                alertImage('ERROR', 'Error en la modificación.', 'error')
+                pantallaCarga('off');
+            }
+        })
+    } else {
+        alertImage('Error', 'Llena el campo vació.', 'error');
+    }
 }
 
 // MODIFICA LA SUBCATEGORIA
 function modificarSubcategoria() {
-
-    pantallaCarga('on');
     
     const data = new FormData(document.getElementById('frmModificarSubcategoria'));
-    const options = {
-        method: "POST",
-        body: data
-    };
+    
+    if(data.get('nombre') != ''){
+    
+        pantallaCarga('on');
+        
+        const options = {
+            method: "POST",
+            body: data
+        };
 
-    fetch("../../categoriaProductos/php/modificarSubcategoriaAJAX.php", options)
-    .then(response => response.json())
-    .then(data => {
+        fetch("../../categoriaProductos/php/modificarSubcategoriaAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
 
-        if (data["resultado"] == 0) {
-            alertImage('ERROR', 'La subcategoría ya se encuentra.', 'error')
-            pantallaCarga('off');
-        }
-        if (data["resultado"] == 1) {
-            actualizaSubcategoria(data);
-            alertImage('EXITO', 'Se modificó exitosamente la subcategoría.', 'success')
-            pantallaCarga('off');
-            $('#modalModificarSubcategoria').modal('hide');
-        }
-        if (data["resultado"] == 2) {
-            alertImage('ERROR', 'Error en la modificación.', 'error')
-            pantallaCarga('off');
-        }
-    })
+            if (data["resultado"] == 0) {
+                alertImage('ERROR', 'La subcategoría ya se encuentra.', 'error')
+                pantallaCarga('off');
+            }
+            if (data["resultado"] == 1) {
+                actualizarSubcategoria();
+                alertImage('EXITO', 'Se modificó exitosamente la subcategoría.', 'success')
+                pantallaCarga('off');
+                $('#modalModificarSubcategoria').modal('hide');
+            }
+            if (data["resultado"] == 2) {
+                alertImage('ERROR', 'Error en la modificación.', 'error')
+                pantallaCarga('off');
+            }
+        })
+    } else {
+        alertImage('Error', 'Llena el campo vació.', 'error');
+    }
 }
