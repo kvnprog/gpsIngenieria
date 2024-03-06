@@ -61,6 +61,15 @@
                                         </button>';
                                 }
 
+                                if($dato[1]==14){
+                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(5)">
+                                            <span class="button_lg">
+                                                <span class="button_sl"></span>
+                                                <span class="button_text">Inventario General</span>
+                                            </span>
+                                        </button>';
+                                }
+
                                 
                             }
                             echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(4)">
@@ -321,6 +330,7 @@
             </div>
 
             <?php include "subidaMasiva.php"?>
+            <?php include "generalInventory.php"?>
 
             <!-- MODAL MODIFICAR -->
             <div class="modal fade" id="miModalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
