@@ -2,7 +2,7 @@
 function abrirSeccion(opcion) {
 
     pantallaCarga('on');
-    
+
     if (opcion == 1) {
 
         //MOVIENDO LA VISIBILIDAD
@@ -10,7 +10,8 @@ function abrirSeccion(opcion) {
         document.getElementById("frmRegistroProductos").style.display = 'none';
         document.getElementById("catalogoEntradas").style.display = 'none';
         document.getElementById("uploadDataProducts").style.display = 'none';
-        
+        document.getElementById("generalInventory").style.display = 'none';
+
         pantallaCarga('off');
         actualizaCatalogoProductos();
     }
@@ -21,6 +22,7 @@ function abrirSeccion(opcion) {
         document.getElementById("frmRegistroProductos").style.display = 'flex';
         document.getElementById("catalogoEntradas").style.display = 'none';
         document.getElementById("uploadDataProducts").style.display = 'none';
+        document.getElementById("generalInventory").style.display = 'none';
 
         pantallaCarga('off');
     }
@@ -31,7 +33,8 @@ function abrirSeccion(opcion) {
         document.getElementById("frmRegistroProductos").style.display = 'none';
         document.getElementById("catalogoEntradas").style.display = 'flex';
         document.getElementById("uploadDataProducts").style.display = 'none';
-        
+        document.getElementById("generalInventory").style.display = 'none';
+
         pantallaCarga('off');
         actualizaCatalogoProductosEntradas();
     }
@@ -42,7 +45,21 @@ function abrirSeccion(opcion) {
         document.getElementById("frmRegistroProductos").style.display = 'none';
         document.getElementById("catalogoEntradas").style.display = 'none';
         document.getElementById("uploadDataProducts").style.display = 'flex';
-        
+        document.getElementById("generalInventory").style.display = 'none';
+
+        pantallaCarga('off');
+        actualizaCatalogoProductosEntradas();
+    }
+
+    if (opcion == 5) {
+
+        //MOVIENDO LA VISIBILIDAD
+        document.getElementById("catalogo").style.display = 'none';
+        document.getElementById("frmRegistroProductos").style.display = 'none';
+        document.getElementById("catalogoEntradas").style.display = 'none';
+        document.getElementById("uploadDataProducts").style.display = 'none';
+        document.getElementById("generalInventory").style.display = 'flex';
+
         pantallaCarga('off');
         actualizaCatalogoProductosEntradas();
     }
@@ -51,11 +68,11 @@ function abrirSeccion(opcion) {
 // INSERTA UN PRODUCTO
 function crearProducto() {
 
-    const formulario  = document.getElementById('frmRegistroProductos');
+    const formulario = document.getElementById('frmRegistroProductos');
     const formData = new FormData(formulario);
-    
-    if(formData.get('nParte') !='' && formData.get('descripcion') !='' && formData.get('precioPublico') !='' && formData.get('precioVenta') && formData.get('categoria') !=0 && formData.get('subcategoria') !=0){
-        
+
+    if (formData.get('nParte') != '' && formData.get('descripcion') != '' && formData.get('precioPublico') != '' && formData.get('precioVenta') && formData.get('categoria') != 0 && formData.get('subcategoria') != 0) {
+
         pantallaCarga('on');
 
         const options = {
@@ -64,20 +81,20 @@ function crearProducto() {
         };
 
         fetch("../../productos/php/crearAJAX.php", options)
-        .then(response => response.json())
-        .then(data => {
+            .then(response => response.json())
+            .then(data => {
 
-            if (data["resultado"]) {
-                alertImage('EXITO', 'Se registró el producto con éxito.', 'success')
-                formulario.reset();
-                actualizaCatalogoProductos();
-                pantallaCarga('off');
+                if (data["resultado"]) {
+                    alertImage('EXITO', 'Se registró el producto con éxito.', 'success')
+                    formulario.reset();
+                    actualizaCatalogoProductos();
+                    pantallaCarga('off');
 
-            } else {
-                alertImage('ERROR', 'Surgió un error en el registro', 'error')
-                pantallaCarga('off');
-            }
-        });
+                } else {
+                    alertImage('ERROR', 'Surgió un error en el registro', 'error')
+                    pantallaCarga('off');
+                }
+            });
     } else {
         alertImage('ERROR', 'Llena todos los campos', 'error')
     }
@@ -85,13 +102,13 @@ function crearProducto() {
 
 // ACTUALIZA LA TABLA DE PRODUCTOS
 function actualizaCatalogoProductos() {
-    
+
     pantallaCarga('on');
-    
+
     var tabla = document.getElementById('tablaCatalogoProductos');
     var contenidoTabla = '';
     tabla.innerHTML = contenidoTabla;
-    
+
     var frmFiltros = document.getElementById('frmFiltosCatalogoProd');
     var numParte = frmFiltros.filtroNParte.value;
     var descripcion = frmFiltros.filtroDescripcion.value;
@@ -99,8 +116,8 @@ function actualizaCatalogoProductos() {
     var subcategoria = frmFiltros.filtroSubcategoria.value;
 
     const options = { method: "GET" };
-    var ruta = "../../productos/php/traeProductosAJAX.php?numParte="+numParte+"&descripcion="+descripcion+"&categoria="+categoria+"&subcategoria="+subcategoria;
-    
+    var ruta = "../../productos/php/traeProductosAJAX.php?numParte=" + numParte + "&descripcion=" + descripcion + "&categoria=" + categoria + "&subcategoria=" + subcategoria;
+
     fetch(ruta, options)
     .then(response => response.json())
     .then(data => {
@@ -123,19 +140,19 @@ function actualizaCatalogoProductos() {
                         '</tr>'+
                     '</thead>';
 
-            contenidoTabla += '<tbody>';
-            
-            for (var i = 0; i < data["noDatos"]; i++) {
-            
-                var id_producto = data[i]["id_producto"];
-                var no_parte = data[i]["no_parte"];
-                var descripcion = data[i]["descripcion"];
-                var precio_public = data[i]["precio_public"];
-                var precio_venta = data[i]["precio_venta"];
-                var id_categoria = data[i]["id_categoria"];
-                var id_subcategoria = data[i]["id_subcategoria"];
-                var nombre_categoria = data[i]["nombre_categoria"];
-                var nombre_subcategoria = data[i]["nombre_subcategoria"];
+                contenidoTabla += '<tbody>';
+
+                for (var i = 0; i < data["noDatos"]; i++) {
+
+                    var id_producto = data[i]["id_producto"];
+                    var no_parte = data[i]["no_parte"];
+                    var descripcion = data[i]["descripcion"];
+                    var precio_public = data[i]["precio_public"];
+                    var precio_venta = data[i]["precio_venta"];
+                    var id_categoria = data[i]["id_categoria"];
+                    var id_subcategoria = data[i]["id_subcategoria"];
+                    var nombre_categoria = data[i]["nombre_categoria"];
+                    var nombre_subcategoria = data[i]["nombre_subcategoria"];
 
                 contenidoTabla += '<tr>';
                     contenidoTabla += '<td class="text-center">'+no_parte+'</td>';
@@ -149,23 +166,23 @@ function actualizaCatalogoProductos() {
                 contenidoTabla += '</tr>';
             }
 
-            contenidoTabla += '</tbody>';
-            tabla.innerHTML = contenidoTabla;
-        } 
+                contenidoTabla += '</tbody>';
+                tabla.innerHTML = contenidoTabla;
+            }
 
-        if(data["resultado"] == 0) {
-            alertImage('ERROR', 'Surgió un error en el catalogo productos', 'error')
-        }
-    });
+            if (data["resultado"] == 0) {
+                alertImage('ERROR', 'Surgió un error en el catalogo productos', 'error')
+            }
+        });
 }
 
 // ABRE EL MODAL PARA EDITAR EL PRODUCTO
 function abrirModalEditarProducto(id_producto, no_parte, descripcion, precio_public, precio_venta) {
-    
+
     // Decodificar los valores de no_parte y descripcion
     no_parte = decodeURIComponent(no_parte);
     descripcion = decodeURIComponent(descripcion);
-    
+
     $("#miModalEditarProducto").modal('show');
     var formulario = document.getElementById("frmModificarProducto");
     formulario.id.value = id_producto;
@@ -190,27 +207,27 @@ function abrirModalRegistrarEntrada(idProducto, no_parte, descripcion) {
         cancelButtonText: 'Cancelar',
         showLoaderOnConfirm: true,
         preConfirm: (number) => {
-          // Aquí puedes hacer algo con el valor ingresado por el usuario
-          return new Promise((resolve) => {
-            setTimeout(() => {
-                if (number > 0 && number < 21) {
-                    resolve();
-                } else {
-                    resolve(Swal.showValidationMessage('El mínimo para registrar es 1 y máximo 20'));
-                }
-            }, 200);
-          });
+            // Aquí puedes hacer algo con el valor ingresado por el usuario
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    if (number > 0 && number < 21) {
+                        resolve();
+                    } else {
+                        resolve(Swal.showValidationMessage('El mínimo para registrar es 1 y máximo 20'));
+                    }
+                }, 200);
+            });
         },
         allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
 
         var numProductos = result.value;
-        
-        if(numProductos > 0){
+
+        if (numProductos > 0) {
 
             var sectionCatalogo = document.getElementById('section_catalogo');
             var sectionEntradas = document.getElementById('section_entradas');
-            
+
             var tabla = document.getElementById('tablaEntradas');
 
             sectionCatalogo.classList.add('col-md-6');
@@ -218,7 +235,7 @@ function abrirModalRegistrarEntrada(idProducto, no_parte, descripcion) {
 
             var tablaTieneFilas = tabla.rows.length > 0;
 
-            for(var i = 0; i < numProductos; i++) {
+            for (var i = 0; i < numProductos; i++) {
                 var newRow = tabla.insertRow();
 
                 // Agregar filas solo si la tabla no tiene filas aún
@@ -237,24 +254,24 @@ function abrirModalRegistrarEntrada(idProducto, no_parte, descripcion) {
                 cell2.textContent = descripcion;
 
                 var cell3 = newRow.insertCell(2);
-                cell3.innerHTML = '<div class="inputContainer" style="margin-top:35px">'+
-                                        '<input name="'+idProducto+'" class="inputField" required="" type="text" placeholder="Escriba el número de serie">'+
-                                        '<label class="usernameLabel" for="noSerie">No. serie</label>'+
-                                        '<i class="userIcon fa-solid fa-barcode"></i>'+
-                                    '</div>';
+                cell3.innerHTML = '<div class="inputContainer" style="margin-top:35px">' +
+                    '<input name="' + idProducto + '" class="inputField" required="" type="text" placeholder="Escriba el número de serie">' +
+                    '<label class="usernameLabel" for="noSerie">No. serie</label>' +
+                    '<i class="userIcon fa-solid fa-barcode"></i>' +
+                    '</div>';
 
                 var cell4 = newRow.insertCell(3);
-                cell4.innerHTML = "<label class='containerCheck contenedorMargen'>" + 
-                                        "<input type='checkbox' id='' onclick='colocaNA(this)'>NA" +
-                                        "<div class='checkmark'></div>" +
-                                    "</label>";
+                cell4.innerHTML = "<label class='containerCheck contenedorMargen'>" +
+                    "<input type='checkbox' id='' onclick='colocaNA(this)'>NA" +
+                    "<div class='checkmark'></div>" +
+                    "</label>";
             }
         }
     });
 }
 
 // COLOCA NA AL CAMPO QUE SE DESEA QUEDAR VACIÓ
-function colocaNA(checkbox){
+function colocaNA(checkbox) {
     // OBTIENE EL ROW DEL CHECKBOX EN LA TABLA
     var row = checkbox.closest("tr");
 
@@ -277,44 +294,44 @@ function colocaNA(checkbox){
 
 function uploadDataProducts() {
 
-   // Obtener el formulario
-   const form = document.getElementById("frmExcelUpload");
-   // Crear un objeto FormData para recopilar los datos del formulario
-   const formData = new FormData(form);
-   // Realizar la solicitud Fetch
-   fetch("../../productos/php/uploadDataProductsAJAX.php", {
-       method: "POST",
-       body: formData
-   })
-   .then(response => {
-       if (!response.ok) {
-           throw new Error("Error en la solicitud");
-       }
-       return response.json();
-   })
-   .then(data => {
-       console.log("Respuesta del servidor:", data);
-       // Aquí puedes hacer algo con la respuesta del servidor, como mostrar un mensaje de éxito
-   })
-   .catch(error => {
-       console.error("Error al procesar la solicitud:", error);
-       // Aquí puedes manejar el error, como mostrar un mensaje de error al usuario
-   });
+    // Obtener el formulario
+    const form = document.getElementById("frmExcelUpload");
+    // Crear un objeto FormData para recopilar los datos del formulario
+    const formData = new FormData(form);
+    // Realizar la solicitud Fetch
+    fetch("../../productos/php/uploadDataProductsAJAX.php", {
+        method: "POST",
+        body: formData
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error en la solicitud");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Respuesta del servidor:", data);
+            // Aquí puedes hacer algo con la respuesta del servidor, como mostrar un mensaje de éxito
+        })
+        .catch(error => {
+            console.error("Error al procesar la solicitud:", error);
+            // Aquí puedes manejar el error, como mostrar un mensaje de error al usuario
+        });
 }
 
 // INSERTA UNA ENTRADA DE PRODUCTO
-function insertarEntradaProd(){
+function insertarEntradaProd() {
 
     var tablaEntradas = document.getElementById('tablaEntradas');
-    
+
     // OBTIENE TODAS LAS FILAS MENOS EL ENCABEZADO
     var filas = tablaEntradas.querySelectorAll('tr');
-    
+
     var indiceColumna = 2; // COLUMNA DE LOS INPUTS
-    
+
     var hayInputsVacios = false;
-    
-    filas.forEach(function(fila) {
+
+    filas.forEach(function (fila) {
 
         var input = fila.cells[indiceColumna].querySelector('input');
 
@@ -323,7 +340,7 @@ function insertarEntradaProd(){
             input.focus(); // ENFOCA AL INPUT VACIÓ
         }
     });
-    
+
     if (hayInputsVacios) {
         alertImage('ERROR', 'Aún hay campos vacíos, complétalos', 'error');
     } else {
@@ -331,7 +348,7 @@ function insertarEntradaProd(){
 
         var arrayEntradas = [];
 
-        inputs.forEach(function(input) {
+        inputs.forEach(function (input) {
             var noSerie = input.value;
             var idProd = input.name;
             var entrada = { noSerie: noSerie, idProd: idProd };
@@ -342,40 +359,40 @@ function insertarEntradaProd(){
         pantallaCarga('on');
 
         // Serializar el array como parámetro GET
-        var queryString = arrayEntradas.map(function(entrada) {
+        var queryString = arrayEntradas.map(function (entrada) {
             return encodeURIComponent('arrayEntradas[]') + '=' + encodeURIComponent(JSON.stringify(entrada));
         }).join('&');
 
         fetch("../../productos/php/insertarEntradaAJAX.php?" + queryString, { method: "GET" })
-        .then(response => response.json())
-        .then(data => {
+            .then(response => response.json())
+            .then(data => {
 
-            if (data["resultado"]) {
-                alertImage('EXITO', 'Se registraron las entadas con éxito.', 'success')
-                pantallaCarga('off');
-            } else {
-                alertImage('ERROR', 'Surgió un error en los registros', 'error')
-                pantallaCarga('off');
-            }
+                if (data["resultado"]) {
+                    alertImage('EXITO', 'Se registraron las entadas con éxito.', 'success')
+                    pantallaCarga('off');
+                } else {
+                    alertImage('ERROR', 'Surgió un error en los registros', 'error')
+                    pantallaCarga('off');
+                }
 
-            var sectionCatalogo = document.getElementById('section_catalogo');
-            var sectionEntradas = document.getElementById('section_entradas');
+                var sectionCatalogo = document.getElementById('section_catalogo');
+                var sectionEntradas = document.getElementById('section_entradas');
 
-            sectionCatalogo.classList.remove('col-md-6');
-            sectionEntradas.setAttribute('hidden', 'true');
-            var tabla = document.getElementById('tablaEntradas');
-            tabla.innerHTML = '';
-        });
+                sectionCatalogo.classList.remove('col-md-6');
+                sectionEntradas.setAttribute('hidden', 'true');
+                var tabla = document.getElementById('tablaEntradas');
+                tabla.innerHTML = '';
+            });
     }
 }
 
 // MODIFICA EL PRODUCTO
-function modificarProducto(){
+function modificarProducto() {
 
-    const formulario  = document.getElementById('frmModificarProducto');
+    const formulario = document.getElementById('frmModificarProducto');
     const formData = new FormData(formulario);
 
-    if(formData.get('nParte') !='' && formData.get('descripcion') !='' && formData.get('precioPublico') !='' && formData.get('precioVenta') !=''){
+    if (formData.get('nParte') != '' && formData.get('descripcion') != '' && formData.get('precioPublico') != '' && formData.get('precioVenta') != '') {
 
         pantallaCarga('on');
 
@@ -385,28 +402,28 @@ function modificarProducto(){
         };
 
         fetch("../../productos/php/modificarProductoAJAX.php", options)
-        .then(response => response.json())
-        .then(data => {
+            .then(response => response.json())
+            .then(data => {
 
-            if (data["resultado"]) {
-                $("#miModalEditarProducto").modal('hide');
-                alertImage('EXITO', 'Se modificó el producto con éxito.', 'success')
-                formulario.reset();
-                actualizaCatalogoProductos();
-                pantallaCarga('off');
+                if (data["resultado"]) {
+                    $("#miModalEditarProducto").modal('hide');
+                    alertImage('EXITO', 'Se modificó el producto con éxito.', 'success')
+                    formulario.reset();
+                    actualizaCatalogoProductos();
+                    pantallaCarga('off');
 
-            } else {
-                alertImage('ERROR', 'Surgió un error en la modificación', 'error')
-                pantallaCarga('off');
-            }
-        });
+                } else {
+                    alertImage('ERROR', 'Surgió un error en la modificación', 'error')
+                    pantallaCarga('off');
+                }
+            });
     } else {
         alertImage('ERROR', 'Todos los campos deben estar llenos', 'error')
     }
 }
 
 
-function actualizaCatalogoProductosEntradas(){
+function actualizaCatalogoProductosEntradas() {
     var tabla = document.getElementById('tablaCatalogoProductosEntradas');
     var contTabla = '';
     tabla.innerHTML = contTabla;

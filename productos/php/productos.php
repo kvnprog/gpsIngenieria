@@ -332,6 +332,7 @@
             </div>
 
             <?php include "subidaMasiva.php"?>
+            <?php include "generalInventory.php"?>
 
             <!-- MODAL MODIFICAR -->
             <div class="modal fade" id="miModalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
