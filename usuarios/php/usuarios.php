@@ -59,7 +59,7 @@ pantallaCarga('on');
                                 echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(3)">
                                         <span class="button_lg">
                                             <span class="button_sl"></span>
-                                            <span class="button_text">Permisos de areas</span>
+                                            <span class="button_text">Permisos de secciones</span>
                                         </span>
                                     </button>';
                             }

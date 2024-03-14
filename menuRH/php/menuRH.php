@@ -21,19 +21,40 @@
         <div class="col-12">
             
             <?php pintarEncabezado('Recursos humanos','<i class="fa-solid fa-users-gear fa-2xl"></i>', ''); ?>
-            
-            <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
 
-                <div class="col-12">
-                    <button class="btn-apartado-secciones" onclick="abrirEmpleados(1)">
-                        <span class="button_lg">
-                            <span class="button_sl"></span>
-                            <span class="button_text">Empleados</span>
-                        </span>
-                    </button>
+            <main class="site-wrapper">
+                <div class="pt-table desktop-768">
+                    <div class="pt-tablecell">
+                        <div class="container">
+                            <div class="row d-flex justify-content-center">
+                                
+                                <div class="col-lg-12">
+                                    <div class="hexagon-item">
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        <div class="hex-item">
+                                            <div></div> <div></div> <div></div>
+                                        </div>
+                                        
+                                        <a  class="hex-content" onclick="abrirEmpleados()">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i id='iconoMPanal'><i class="fa-solid fa-users fa-2xl"></i></i>
+                                                </span>
+                                                <span class="title">Empleados</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </main>
 
-            </div>
         </div>
     </div>
 

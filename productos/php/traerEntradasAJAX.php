@@ -12,7 +12,7 @@
         if($_GET['descripcion'] != ''){
             $cadenaQuery .= " AND p.descripcion LIKE '%" . $_GET['descripcion'] . "%'";
         }
-        if($_GET['numSerie'] != 0){
+        if($_GET['numSerie'] != ''){
             $cadenaQuery .= " AND e.no_serial LIKE '%" . $_GET['numSerie'] . "%'";
         }
 

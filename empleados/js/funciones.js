@@ -1,22 +1,23 @@
-function abrirSeccion(opcion){
-
+function abrirSeccion(opcion) {
     pantallaCarga('on');
-    
-    if (opcion == 1) {
-        //MOVIENDO LA VISIBILIDAD
-        document.getElementById("catalogo").style.display = 'flex';
-        document.getElementById("registros").style.display = 'none';
-        
-        pantallaCarga('off');
+
+    // Ocultar todas las secciones
+    document.getElementById("catalogo").style.display = 'none';
+    document.getElementById("registros").style.display = 'none';
+
+    // Mostrar la sección seleccionada
+    switch (opcion) {
+        case 1:
+            document.getElementById("catalogo").style.display = 'flex';
+            break;
+        case 2:
+            document.getElementById("registros").style.display = 'flex';
+            break;
+        default:
+            break;
     }
 
-    if (opcion == 2) {
-        //MOVIENDO LA VISIBILIDAD
-        document.getElementById("catalogo").style.display = 'none';
-        document.getElementById("registros").style.display = 'flex';
-
-        pantallaCarga('off');
-    }
+    pantallaCarga('off');
 }
 
 function crearEmpleado(){
