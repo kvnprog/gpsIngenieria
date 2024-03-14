@@ -32,40 +32,43 @@
     <?php pintarNavBar(); ?>
         
     <div class="contenedorCont">
-        <section>
-            <div class="col-12">
+        <div class="col-12">
 
-                <?php pintarEncabezado('Empleados','<i class="fa-solid fa-user fa-2xl"></i>',''); ?>
+            <?php pintarEncabezado('Empleados','<i class="fa-solid fa-user fa-2xl"></i>',''); ?>
 
-                <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
-                    
-                    <div class="col-12">
-                        <?php 
-                            foreach($datos->fetch_all() as $dato){
-                                if($dato[1]==11){
-                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
-                                            <span class="button_lg">
-                                                <span class="button_sl"></span>
-                                                <span class="button_text">Catálogo</span>
-                                            </span>
-                                        </button>';
-                                }
-                                if($dato[1]==12){
-                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(2)">
-                                            <span class="button_lg">
-                                                <span class="button_sl"></span>
-                                                <span class="button_text">Registro</span>
-                                            </span>
-                                        </button>';
-                                }                              
-                            }                                      
-                        ?>                    
-                    </div>
+            <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                
+                <div class="col-12 cont-botones-secciones">
+                    <?php 
+                        foreach($datos->fetch_all() as $dato){
+                            // if($dato[1]==11){
+                            if($dato[1]==19){
+                                echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
+                                        <span class="button_lg">
+                                            <span class="button_sl"></span>
+                                            <span class="button_text">Catálogo</span>
+                                        </span>
+                                    </button>';
+                            }
+                            // if($dato[1]==12){
+                            if($dato[1]==20){
+                                echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(2)">
+                                        <span class="button_lg">
+                                            <span class="button_sl"></span>
+                                            <span class="button_text">Registro</span>
+                                        </span>
+                                    </button>';
+                            }                              
+                        }                                      
+                    ?>                    
                 </div>
+            </div>
 
-                <!-- TABLA DONDE SE VEN LOS EMPLEADOS -->
-                <div class="row" id="catalogo" style="display: none;">
-                    
+            <!-- TABLA DONDE SE VEN LOS EMPLEADOS -->
+            <div class="row" id="catalogo" style="display: none;">
+
+                <div class="card_content">
+                
                     <div class="col-12 text-center">
                         <label class="text-subtitle">Catálogo de empleados</label>
                     </div>
@@ -86,7 +89,6 @@
                                 </thead>
                                 <!-- CONTENIDO DE LA TABLA EMPLEADOS -->
                                 <tbody>
-                                    <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
                                     <?php
                                         foreach ($resultados->fetch_all() as $columna) {
                                             echo " <tr>
@@ -103,62 +105,76 @@
                             </table>
                         </div>
                     </div>
-                    
-                </div>
-            </div>
-        </section>
 
-        <section>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col-12">
             <!-- FORMULARIO PARA REGISTRAR EMPLEADO -->
-            <div class="row" id="registros" style="display: none;">
-                <div class="col-12 text-center">
-                    <label class="text-subtitle">Registro de empleados</label>
-                </div>
+            <div id="registros" style="display: none;">
                 
-                <div class="col-12">
-                    <form class="frmRegistroEmpleados" id="frmRegistroEmpleados">
-
-                        <div class="inputContainer">
-                            <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba el nombre">
-                            <label class='usernameLabel' for='nombre'>Nombre</label>
-                            <i class="userIcon fa-solid fa-text-width"></i>
-                        </div>
-
-                        <div class="inputContainer">
-                            <input id="apellidos" name="apellidos" class="inputField" required="" type="text" placeholder="Escriba los apellidos">
-                            <label class='usernameLabel' for='apellidos'>Apellidos</label>
-                            <i class="userIcon fa-solid fa-text-width"></i>
-                        </div>
-
-                        <div class="inputContainer">
-                            <input id="correo" name="correo" class="inputField" required="" type="text" placeholder="Escriba E-mail">
-                            <label class='usernameLabel' for='correo'>E-mail</label>
-                            <i class="userIcon fa-solid fa-envelope"></i>
-                        </div>
-
-                        <div class="inputContainer">
-                            <input id="TelefonoCelular" name="TelefonoCelular" class="inputField" required="" type="number" placeholder="Escriba el teléfono celular">
-                            <label class='usernameLabel' for='TelefonoCelular'>Teléfono celular</label>
-                            <i class="userIcon fa-solid fa-phone"></i>
-                        </div>
-                        
-                        <div class="inputContainer">
-                            <input id="puesto" name="puesto" class="inputField" required="" type="text" placeholder="Escriba el puesto">
-                            <label class='usernameLabel' for='puesto'>Puesto</label>
-                            <i class="userIcon fa-solid fa-person-circle-question"></i>
-                        </div>
-                        
-                        <div class="contenedor-boton-gen">
-                            <div class="main_div">
-                                <a onclick="crearEmpleado()">GUARDAR</a>
+                <form class="justify-content-center" id="frmRegistroEmpleados">
+                   
+                    <div class="card_content">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <label class="text-subtitle">Registro de empleados</label>
                             </div>
+                            
+                            <div class="col-sm-12 col-md-6">
+                                <div class="inputContainer">
+                                    <input id="nombre" name="nombre" class="inputField" required="" type="text" placeholder="Escriba el nombre">
+                                    <label class='usernameLabel' for='nombre'>Nombre</label>
+                                    <i class="userIcon fa-solid fa-text-width"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="inputContainer">
+                                    <input id="apellidos" name="apellidos" class="inputField" required="" type="text" placeholder="Escriba los apellidos">
+                                    <label class='usernameLabel' for='apellidos'>Apellidos</label>
+                                    <i class="userIcon fa-solid fa-text-width"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+                                <div class="inputContainer">
+                                    <input id="correo" name="correo" class="inputField" required="" type="text" placeholder="Escriba E-mail">
+                                    <label class='usernameLabel' for='correo'>E-mail</label>
+                                    <i class="userIcon fa-solid fa-envelope"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+                                <div class="inputContainer">
+                                    <input id="TelefonoCelular" name="TelefonoCelular" class="inputField" required="" type="number" placeholder="Escriba el teléfono celular">
+                                    <label class='usernameLabel' for='TelefonoCelular'>Teléfono celular</label>
+                                    <i class="userIcon fa-solid fa-phone"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+                                <div class="inputContainer">
+                                    <input id="puesto" name="puesto" class="inputField" required="" type="text" placeholder="Escriba el puesto">
+                                    <label class='usernameLabel' for='puesto'>Puesto</label>
+                                    <i class="userIcon fa-solid fa-person-circle-question"></i>
+                                </div>
+                            </div>
+                    
+                            <div class="contenedor-boton-gen">
+                                <div class="main_div">
+                                    <a onclick="crearEmpleado()">GUARDAR</a>
+                                </div>
+                            </div>
+                    
                         </div>
-                        
-                    </form>
-                </div>
+                    </div>
+                </form>
                 
             </div>
-        </section>
+        </div>
 
         <section>
             <!-- MODAL PARA EDITAR LOS EMPLEADOS -->

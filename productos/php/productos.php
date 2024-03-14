@@ -60,99 +60,100 @@
                                             </span>
                                         </button>';
                                 }
-                                if($dato[1]==10){
-                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(3)">
+                                if($dato[1]==21){
+                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(5)">
                                             <span class="button_lg">
                                                 <span class="button_sl"></span>
-                                                <span class="button_text">Catálogo entradas</span>
+                                                <span class="button_text">Inventario General</span>
                                             </span>
                                         </button>';
                                 }
+                                if($dato[1]==22){
+                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(4)">
+                                        <span class="button_lg">
+                                            <span class="button_sl"></span>
+                                            <span class="button_text">Subida masiva productos</span>
+                                        </span>
+                                    </button>';
+                                }
                                 
                             }
-                            echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(4)">
-                            <span class="button_lg">
-                                <span class="button_sl"></span>
-                                <span class="button_text">Subida Masiva Productos</span>
-                            </span>
-                           </button>';
                         ?>
                     </div>
                 </div>
 
                 <div class="row" id="catalogo" style="display: none;">
                     <div class="card_content">
+                    
+                    <form id="frmFiltosCatalogoProd">
 
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-3">
+                                <!-- FILTRO POR NUMERO DE PARTE -->
+                                <div class="inputContainer">
+                                    <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Filtrar por número de parte" onkeyup="actualizaCatalogoProductos()">
+                                    <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
+                                    <i class="userIcon fa-solid fa-hashtag"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-3">
+                                <!-- FILTRO POR DESCRIPCIÓN -->
+                                <div class="inputContainer">
+                                    <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Filtrar por descripción" onkeyup="actualizaCatalogoProductos()">
+                                    <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
+                                    <i class="userIcon fa-solid fa-align-left"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-3">
+                                <!-- FILTRO POR CATEGORÍA -->
+                                <div class="inputContainer">
+                                    <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Filtrar por categoría" onchange="actualizaCatalogoProductos()">
+                                        <option value=0 selected>Todas</option>
+                                        <?php
+                                            $conexionCategorias = new conexion;
+                                            $queryCategorias = "SELECT * FROM categoria";
+                                            $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                            foreach ($categorias->fetch_all() as $index => $categoria) {
+
+                                                print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                            }
+                                        ?>
+                                    </select>
+                                    <label class='usernameLabel' for='filtroCategoria'>Categoría</label>
+                                    <i class="userIcon fa-regular fa-object-ungroup"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-3">
+                                <!-- FILTRO POR CATEGORÍA -->
+                                <div class="inputContainer">
+                                    <select id="filtroSubcategoria" name="filtroSubcategoria" class="inputField" required="" type="text" placeholder="Filtrar por subcategoría" onchange="actualizaCatalogoProductos()">
+                                        <option value=0 selected>Todas</option>
+                                        <?php
+                                            $conexionSubcategorias = new conexion;
+                                            $querySubcategorias = "SELECT * FROM subcategoria";
+                                            $subcategorias = $conexionSubcategorias->conn->query($querySubcategorias);
+
+                                            foreach ($subcategorias->fetch_all() as $index => $subcategoria) {
+
+                                                print_r("<option value=\"" . $subcategoria[0] . "\" >" . $subcategoria[1] . "</option>");
+                                            }
+                                        ?>
+                                    </select>
+                                    <label class='usernameLabel' for='filtroSubcategoria'>Subcategoría</label>
+                                    <i class="userIcon fa-regular fa-object-ungroup"></i>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
                         <!-- TITULO DEL CONTENIDO -->
                         <div class="row justify-content-center">
                             <div id='section_catalogo' class="col-sm-12 text-center">
                                 <label class="text-subtitle">Catálogo de productos</label>
-
-                                <form id="frmFiltosCatalogoProd">
-
-                                    <div class="row">
-
-                                        <div class="col-sm-12 col-md-3">
-                                            <!-- FILTRO POR NUMERO DE PARTE -->
-                                            <div class="inputContainer">
-                                                <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Filtrar por número de parte" onkeyup="actualizaCatalogoProductos()">
-                                                <label class='usernameLabel' for='filtroNParte'>Número de parte</label>
-                                                <i class="userIcon fa-solid fa-hashtag"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-12 col-md-3">
-                                            <!-- FILTRO POR DESCRIPCIÓN -->
-                                            <div class="inputContainer">
-                                                <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Filtrar por descripción" onkeyup="actualizaCatalogoProductos()">
-                                                <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
-                                                <i class="userIcon fa-solid fa-align-left"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-12 col-md-3">
-                                            <!-- FILTRO POR CATEGORÍA -->
-                                            <div class="inputContainer">
-                                                <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Filtrar por categoría" onchange="actualizaCatalogoProductos()">
-                                                    <option value=0 selected>Todas</option>
-                                                    <?php
-                                                        $conexionCategorias = new conexion;
-                                                        $queryCategorias = "SELECT * FROM categoria";
-                                                        $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                                                        foreach ($categorias->fetch_all() as $index => $categoria) {
-
-                                                            print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                                        }
-                                                    ?>
-                                                </select>
-                                                <label class='usernameLabel' for='filtroCategoria'>Categoría</label>
-                                                <i class="userIcon fa-regular fa-object-ungroup"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-12 col-md-3">
-                                            <!-- FILTRO POR CATEGORÍA -->
-                                            <div class="inputContainer">
-                                                <select id="filtroSubcategoria" name="filtroSubcategoria" class="inputField" required="" type="text" placeholder="Filtrar por subcategoría" onchange="actualizaCatalogoProductos()">
-                                                    <option value=0 selected>Todas</option>
-                                                    <?php
-                                                        $conexionSubcategorias = new conexion;
-                                                        $querySubcategorias = "SELECT * FROM subcategoria";
-                                                        $subcategorias = $conexionSubcategorias->conn->query($querySubcategorias);
-
-                                                        foreach ($subcategorias->fetch_all() as $index => $subcategoria) {
-
-                                                            print_r("<option value=\"" . $subcategoria[0] . "\" >" . $subcategoria[1] . "</option>");
-                                                        }
-                                                    ?>
-                                                </select>
-                                                <label class='usernameLabel' for='filtroSubcategoria'>Subcategoría</label>
-                                                <i class="userIcon fa-regular fa-object-ungroup"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
 
                                 <div class="table-responsive">
                                     <table id="tablaCatalogoProductos" class="table"></table>

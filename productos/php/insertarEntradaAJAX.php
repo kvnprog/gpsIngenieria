@@ -15,6 +15,8 @@
         }
 
         $conexionInsertarEntrada = new conexion;
+        $conexionInsertarInventario = new conexion;
+
         $resultados = [];
 
         $conexionNumEntrada = new conexion;
@@ -32,9 +34,17 @@
         foreach ($arrayEntradasPHP as $entrada) {
             $id = $entrada['idProd'];
             $numSerie = $entrada['noSerie'];
-            $queryInsertarEntrada = "INSERT INTO entradas(id_producto, no_serial, id_estado, fecha_registro, num_entrada) VALUES ($id, '$numSerie', 1, NOW(), $numEntrada)";
+
+            // REGISTRA LA ENTRADA DEL PRODUCTO
+            $queryInsertarEntrada = "INSERT INTO entradas (id_producto, no_serial, id_estado, fecha_registro, num_entrada) VALUES ($id, '$numSerie', 1, NOW(), $numEntrada)"; //id_estado 1 ACTIVO
+
+            // REGISTRA EL PRODUCTO EN EL INVENTARIO
+            $queryInsertarInventario = "INSERT INTO inventario (id_producto, no_serial, id_estado, fecha_registro, tipo_movimiento) VALUES ($id, '$numSerie', 1, NOW(), 1)"; //tipo_movimiento 1 ENTRADA
             
             if ($conexionInsertarEntrada->conn->query($queryInsertarEntrada)) {
+
+                $conexionInsertarInventario->conn->query($queryInsertarInventario);
+
                 $resultados["resultado"] = true;
             } else {
                 $resultados["resultado"] = false;

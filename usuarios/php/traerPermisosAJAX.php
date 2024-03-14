@@ -4,7 +4,7 @@
     $idusuario = filter_input(INPUT_GET, "idusuario");
 
     $conexionAreas = new conexion;
-    $queryAreas = "SELECT * FROM areas";
+    $queryAreas = "SELECT * FROM areas WHERE id_estado = 1";
     $areas = $conexionAreas->conn->query($queryAreas);
 
     $datos = [];
