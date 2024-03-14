@@ -94,6 +94,7 @@ if (!function_exists('pintarHead')) {
           <script src='../js/funciones.js'></script>
           <script src='../../fGenerales/js/funciones.js'></script>
           <script src='../../fGenerales/js/alerts.js'></script>
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js'></script>
           <script src='../../fGenerales/js/jquery.js'></script>";
 
         echo "<title>GpsIngeniería-" . $titulo . "</title>";
@@ -215,51 +216,51 @@ if (!function_exists('pintarNavBar')) {
 if (!function_exists('pintarFooter')) {
     function pintarFooter()
     {
-        echo "
-            <footer class='footer-distributed fixed-bottom'>
-              <div class='contenedorFlecha'><div class='flecha'></div></div>
-              <div class='footer-left'>
-                <h3><img src='../../src/imagenes/logo.jpg' width='100px'></h3>
-                <p class='footer-links'>
-                  <a href='../../menuPrincipal/php/menuPrincipal.php' class='link-1'>Inicio</a>
-                  <a href='#'>Blog</a>
-                  <a href='#acercaDe'>Acerca de</a>
-                  <a href='#contacto'>Contacto</a>
-                </p>
+        // echo "
+        //     <footer class='footer-distributed fixed-bottom'>
+        //       <div class='contenedorFlecha'><div class='flecha'></div></div>
+        //       <div class='footer-left'>
+        //         <h3><img src='../../src/imagenes/logo.jpg' width='100px'></h3>
+        //         <p class='footer-links'>
+        //           <a href='../../menuPrincipal/php/menuPrincipal.php' class='link-1'>Inicio</a>
+        //           <a href='#'>Blog</a>
+        //           <a href='#acercaDe'>Acerca de</a>
+        //           <a href='#contacto'>Contacto</a>
+        //         </p>
 
-                <p class='footer-company-name'>GPSIngeniería © 2023</p>
-              </div>
+        //         <p class='footer-company-name'>GPSIngeniería © 2023</p>
+        //       </div>
 
-              <div class='footer-center' id='contacto'>
-                <div>
-                  <i class='fa fa-map-marker'></i>
-                  <p><span>Col. Primero de Mayo C.P. 36644</span> Irapuato,Gto.</p>
-                </div>
+        //       <div class='footer-center' id='contacto'>
+        //         <div>
+        //           <i class='fa fa-map-marker'></i>
+        //           <p><span>Col. Primero de Mayo C.P. 36644</span> Irapuato,Gto.</p>
+        //         </div>
 
-                <div>
-                  <i class='fa fa-phone'></i>
-                  <p>Tel. 462 173 51 96</p>
-                </div>
+        //         <div>
+        //           <i class='fa fa-phone'></i>
+        //           <p>Tel. 462 173 51 96</p>
+        //         </div>
     
-                <div>
-                  <i class='fa fa-envelope'></i>
-                  <p><a href='mailto:correo@gpsing.com'>correo@gpsing.com</a></p>
-                </div>
-              </div>
+        //         <div>
+        //           <i class='fa fa-envelope'></i>
+        //           <p><a href='mailto:correo@gpsing.com'>correo@gpsing.com</a></p>
+        //         </div>
+        //       </div>
     
-              <div class='footer-right' id='acercaDe'>
-                <p class='footer-company-about'>
-                  <span>Acerca de la compañía</span>
-                  Ejemplo de información de la empresa tal y más información al respecto, etc.
-                </p>
+        //       <div class='footer-right' id='acercaDe'>
+        //         <p class='footer-company-about'>
+        //           <span>Acerca de la compañía</span>
+        //           Ejemplo de información de la empresa tal y más información al respecto, etc.
+        //         </p>
     
-                <div class='footer-icons'>
-                  <a href='#'><i class='fa-brands fa-facebook'></i></a>
-                  <a href='#'><i class='fa-brands fa-twitter'></i></a>
-                  <a href='#'><i class='fa-brands fa-whatsapp'></i></a>
-                </div>
-              </div>
-            </footer>";
+        //         <div class='footer-icons'>
+        //           <a href='#'><i class='fa-brands fa-facebook'></i></a>
+        //           <a href='#'><i class='fa-brands fa-twitter'></i></a>
+        //           <a href='#'><i class='fa-brands fa-whatsapp'></i></a>
+        //         </div>
+        //       </div>
+        //     </footer>";
     }
 }
 

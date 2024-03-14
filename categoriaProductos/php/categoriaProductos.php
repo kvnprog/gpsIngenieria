@@ -40,7 +40,7 @@
 
                 <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
 
-                    <div class="col-12">
+                    <div class="col-12 cont-botones-secciones">
                         <?php     
                             foreach($datos->fetch_all() as $dato){
                                 if($dato[1]==4){
@@ -86,29 +86,25 @@
                 
                     <div class="card_content">
 
-                        <form id="frmFiltrosCatalogoCategorias">
-                            <div class="row justify-content-center">
-
-                                <div class="col-12 text-center">
-                                    <label class="text-subtitle">Filtros</label>
-                                </div>
-
-                                <div class="col-sm-12 col-md-6">
-                                    <!-- FILTRO POR NUMERO DE PARTE -->
-                                    <div class="inputContainer">
-                                        <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Escriba el nombre de la categoría" onkeyup="actualizarCategoria()">
-                                        <label class='usernameLabel' for='filtroNombre'>Nombre categoría</label>
-                                        <i class="userIcon fa-solid fa-text-width"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </form>
-
                         <div class="row">
                             <div class="col-12 text-center">
                                 <label class="text-subtitle">Catálogo de categorías productos</label>
                             </div>
+
+                            <form id="frmFiltrosCatalogoCategorias">
+                                <div class="row justify-content-center">
+
+                                    <div class="col-sm-12 col-md-4">
+                                        <!-- FILTRO POR NUMERO DE PARTE -->
+                                        <div class="inputContainer">
+                                            <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Filtrar por categoría" onkeyup="actualizarCategoria()">
+                                            <label class='usernameLabel' for='filtroNombre'>Nombre categoría</label>
+                                            <i class="userIcon fa-solid fa-text-width"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
 
                             <div class="col-sm-12">
                                 <div class="table-responsive">
@@ -125,18 +121,18 @@
                 <div class="row" id="catalogoSubcategoria" style="display: none;">
                     
                     <div class="card_content">
+
+                        <div class="col-12 text-center">
+                            <label class="text-subtitle">Catálogo de subcategorías productos</label>
+                        </div>
                         
                         <form id="frmFiltrosCatalogoSubcategorias">
                             <div class="row justify-content-center">
 
-                                <div class="col-12 text-center">
-                                    <label class="text-subtitle">Filtros</label>
-                                </div>
-
-                                <div class="col-sm-12 col-md-6">
+                                <div class="col-sm-12 col-md-4">
                                     <!-- FILTRO POR NUMERO DE PARTE -->
                                     <div class="inputContainer">
-                                        <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Escriba el nombre de la subcategoría" onkeyup="actualizarSubcategoria()">
+                                        <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Filtrar por subcategoría" onkeyup="actualizarSubcategoria()">
                                         <label class='usernameLabel' for='filtroNombre'>Nombre subcategoría</label>
                                         <i class="userIcon fa-solid fa-text-width"></i>
                                     </div>
@@ -144,11 +140,6 @@
 
                             </div>
                         </form>
-
-
-                        <div class="col-12 text-center">
-                            <label class="text-subtitle">Catálogo de subcategorías productos</label>
-                        </div>
 
                         <div class="col-sm-12">
                             <div class="table-responsive">
