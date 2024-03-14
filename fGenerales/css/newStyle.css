@@ -45,7 +45,7 @@ body, html{
 .text-title {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-transform: uppercase;
-    font-size: 25px;
+    font-size: 21px;
     font-weight: bold;
     color: #899bbd;
     padding: 20px;
@@ -72,9 +72,19 @@ body, html{
 .cont-img-title {
     width: 100%;
     height: 30px;
-    position: absolute;
+    position: fixed;
+    margin-top: -75px;
+    z-index: 1010;
+    pointer-events: none;
 }
 
+@media (max-width: 991px) {
+    .cont-img-title {
+        position: absolute;
+        margin-top:-10px;
+        z-index: 10;
+    }
+}
 
 /*==================================================================================
                                     ICONOS
@@ -253,9 +263,10 @@ body, html{
 .button-regreso {
     display: block;
     position: absolute;
-    width: 55px;
-    height: 55px;
-    margin: 10px;
+    width: 48px;
+    height: 48px;
+    margin-top: -4px;
+    margin-left: 14px;
     overflow: hidden;
     outline: none;
     background-color: transparent;
@@ -306,7 +317,7 @@ body, html{
     display: block;
     width: 20px;
     height: 20px;
-    margin: 15px 18px 0 18px;
+    margin: 13px 22px 0 14px;
     transform: rotate(180deg);
     fill: #438c36;
 }
@@ -319,6 +330,18 @@ body, html{
 /* BOTONES DE APARTADOS
 ========================== */
 
+.cont-botones-secciones{
+    background-color: #ffffff;
+    width: 96%;
+    height: auto;
+    margin-top: 40px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    padding: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-radius: 10px;
+}
+
 .btn-apartado-secciones {
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -328,20 +351,18 @@ body, html{
     color: #438c36;
     cursor: pointer;
     position: relative;
-    padding: 3px;
-    margin-bottom: 20px;
+    padding: 2px;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 10px;
     transition: all .15s ease;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    margin-top: 120px;
-    /* margin-left: 10px;
-    margin-right: 10px; */
-  }
+    display: inline-block;
+    width: auto;
+}
   
-  .btn-apartado-secciones::before,
-  .btn-apartado-secciones::after {
+.btn-apartado-secciones::before,
+.btn-apartado-secciones::after {
     content: '';
     display: block;
     position: absolute;
@@ -350,31 +371,31 @@ body, html{
     height: calc(50% - 5px);
     border: 1px solid #7D8082;
     transition: all .15s ease;
-  }
-  .btn-apartado-secciones::before {
+}
+.btn-apartado-secciones::before {
     top: 0;
     border-bottom-width: 0;
-  }
-  .btn-apartado-secciones::after {
+}
+.btn-apartado-secciones::after {
     bottom: 0;
     border-top-width: 0;
-  }
-  .btn-apartado-secciones:active,
-  .btn-apartado-secciones:focus {
+}
+.btn-apartado-secciones:active,
+.btn-apartado-secciones:focus {
     outline: none;
-  }
-  .btn-apartado-secciones:active::before,
-  .btn-apartado-secciones:active::after {
+}
+.btn-apartado-secciones:active::before,
+.btn-apartado-secciones:active::after {
     right: 3px;
     left: 3px;
-  }
-  .btn-apartado-secciones:active::before {
+}
+.btn-apartado-secciones:active::before {
     top: 3px;
-  }
-  .btn-apartado-secciones:active::after {
+}
+.btn-apartado-secciones:active::after {
     bottom: 3px;
-  }
-  .button_lg {
+}
+.button_lg {
     position: relative;
     display: block;
     padding: 10px 20px;
@@ -382,8 +403,8 @@ body, html{
     background-color: #767676;
     overflow: hidden;
     box-shadow: inset 0px 0px 0px 1px transparent;
-  }
-  .button_lg::before {
+}
+.button_lg::before {
     content: '';
     display: block;
     position: absolute;
@@ -392,8 +413,8 @@ body, html{
     width: 2px;
     height: 2px;
     background-color: #ffffff;
-  }
-  .button_lg::after {
+}
+.button_lg::after {
     content: '';
     display: block;
     position: absolute;
@@ -403,8 +424,8 @@ body, html{
     height: 4px;
     background-color: #ffffff;
     transition: all .2s ease;
-  }
-  .button_sl {
+}
+.button_sl {
     display: block;
     position: absolute;
     top: 0;
@@ -414,20 +435,26 @@ body, html{
     background-color: #438c36;
     transform: skew(-15deg);
     transition: all .2s ease;
-  }
-  .button_text {
+}
+.button_text {
     position: relative;
-  }
-  .btn-apartado-secciones:hover {
+}
+.btn-apartado-secciones:hover {
     color: #0f1923;
-  }
-  .btn-apartado-secciones:hover .button_sl {
+}
+.btn-apartado-secciones:hover .button_sl {
     width: calc(100% + 15px);
-  }
-  .btn-apartado-secciones:hover .button_lg::after {
+}
+.btn-apartado-secciones:hover .button_lg::after {
     background-color: #fff;
-  }
+}
   
+@media (max-width: 991px) {
+    .cont-botones-secciones{
+        margin-top: 100px;
+    }
+}
+
 
 /* BOTON GUADAR 
 ================= */

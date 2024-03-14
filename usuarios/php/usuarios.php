@@ -36,14 +36,14 @@ pantallaCarga('on');
 
             <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
                 
-                <div class="col-12">
+                <div class="col-12 cont-botones-secciones">
                     <?php
                         foreach ($datos->fetch_all() as $dato) {
                             if ($dato[1] == 1) {
                                 echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(1)">
                                         <span class="button_lg">
                                             <span class="button_sl"></span>
-                                            <span class="button_text">Catálogo</span>
+                                            <span class="button_text">Catálogo usuarios</span>
                                         </span>
                                     </button>';
                             }
@@ -51,7 +51,7 @@ pantallaCarga('on');
                                 echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(2)">
                                         <span class="button_lg">
                                             <span class="button_sl"></span>
-                                            <span class="button_text">Registro</span>
+                                            <span class="button_text">Registro usuarios</span>
                                         </span>
                                     </button>';
                             }
@@ -73,49 +73,45 @@ pantallaCarga('on');
                 
                 <div class="card_content">
 
-                    <form id="frmFiltosCatalogoUsuarios">
-                        <div class="row">
-
-                            <div class="col-12 text-center">
-                                <label class="text-subtitle">Filtros</label>
-                            </div>
-
-                            <div class="col-sm-12 col-md-4">
-                                <!-- FILTRO POR NUMERO DE PARTE -->
-                                <div class="inputContainer">
-                                    <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="actualizarUsuarios()">
-                                    <label class='usernameLabel' for='filtroNombre'>Nombre</label>
-                                    <i class="userIcon fa-solid fa-text-width"></i>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-4">
-                                <!-- FILTRO POR NUMERO DE PARTE -->
-                                <div class="inputContainer">
-                                    <input id="filtroLogin" name="filtroLogin" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="actualizarUsuarios()">
-                                    <label class='usernameLabel' for='filtroLogin'>Login</label>
-                                    <i class="userIcon fa-solid fa-user"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="col-sm-12 col-md-4">
-                                <!-- FILTRO POR NUMERO DE PARTE -->
-                                <div class="inputContainer">
-                                    <input id="filtroCorreo" name="filtroCorreo" class="inputField" required="" type="text" placeholder="Escriba el número de parte" onkeyup="actualizarUsuarios()">
-                                    <label class='usernameLabel' for='filtroCorreo'>Correo</label>
-                                    <i class="userIcon fa-solid fa-envelope"></i>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-
                     <div class="row">
                         
                         <div class="col-12 text-center">
                             <label class="text-subtitle">Catálogo de Usuarios</label>
                         </div>
                     
+                        <form id="frmFiltosCatalogoUsuarios">
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-4">
+                                    <!-- FILTRO POR NUMERO DE PARTE -->
+                                    <div class="inputContainer">
+                                        <input id="filtroNombre" name="filtroNombre" class="inputField" required="" type="text" placeholder="Filtrar por nombre" onkeyup="actualizarUsuarios()">
+                                        <label class='usernameLabel' for='filtroNombre'>Nombre</label>
+                                        <i class="userIcon fa-solid fa-text-width"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-4">
+                                    <!-- FILTRO POR NUMERO DE PARTE -->
+                                    <div class="inputContainer">
+                                        <input id="filtroLogin" name="filtroLogin" class="inputField" required="" type="text" placeholder="Filtrar por login" onkeyup="actualizarUsuarios()">
+                                        <label class='usernameLabel' for='filtroLogin'>Login</label>
+                                        <i class="userIcon fa-solid fa-user"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-12 col-md-4">
+                                    <!-- FILTRO POR NUMERO DE PARTE -->
+                                    <div class="inputContainer">
+                                        <input id="filtroCorreo" name="filtroCorreo" class="inputField" required="" type="text" placeholder="Filtrar por correo" onkeyup="actualizarUsuarios()">
+                                        <label class='usernameLabel' for='filtroCorreo'>Correo</label>
+                                        <i class="userIcon fa-solid fa-envelope"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
                         <div class="col-sm-12">
                             <div class="table-responsive">
                                 <table id="catalogoUsuarios" class="table table-hover">

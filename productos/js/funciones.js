@@ -107,18 +107,21 @@ function actualizaCatalogoProductos() {
         pantallaCarga('off');
         if (data["resultado"] == 1) {
             
-            contenidoTabla = '<thead>'+
-                                '<tr class="sticky-top">'+
-                                    '<th class="text-center">No. de parte</th>'+
-                                    '<th class="text-center">Descripción</th>'+
-                                    '<th class="text-center">Precio publico</th>'+
-                                    '<th class="text-center">Precio venta</th>'+
-                                    '<th class="text-center">Categoría</th>'+
-                                    '<th class="text-center">Subcategoría</th>'+
-                                    '<th></th>'+
-                                    '<th></th>'+
-                                '</tr>'+
-                            '</thead>';
+            contenidoTabla = '<thead class="sticky-top">'+
+                        '<tr>'+
+                            '<th colspan="8"><div class="cont-btn-tabla"><div data-toggle="tooltip" data-placement="top" title="Exportar a excel" style="background:#00a85a" class="cont-icono-tbl" onclick=\'exportarTablaExcel("tablaCatalogoProductos", "Catalogo productos", "Productos")\'><i class="fa-solid fa-file-excel fa-xl"></i></div></div></th>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<th class="text-center">No. de parte</th>'+
+                            '<th class="text-center">Descripción</th>'+
+                            '<th class="text-center">Precio publico</th>'+
+                            '<th class="text-center">Precio venta</th>'+
+                            '<th class="text-center">Categoría</th>'+
+                            '<th class="text-center">Subcategoría</th>'+
+                            '<th></th>'+
+                            '<th></th>'+
+                        '</tr>'+
+                    '</thead>';
 
             contenidoTabla += '<tbody>';
             
@@ -141,9 +144,9 @@ function actualizaCatalogoProductos() {
                     contenidoTabla += '<td class="text-center">$'+precio_venta+'</td>';
                     contenidoTabla += '<td class="text-center">'+nombre_categoria+'</td>';
                     contenidoTabla += '<td class="text-center">'+nombre_subcategoria+'</td>';
-                    contenidoTabla += "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick='abrirModalEditarProducto("+id_producto+", \""+encodeURIComponent(no_parte)+"\", \""+encodeURIComponent(descripcion)+"\", "+precio_public+", "+precio_venta+")'><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>";
-                    contenidoTabla += "<td><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick='abrirModalRegistrarEntrada("+id_producto+", \""+encodeURIComponent(no_parte)+"\", \""+encodeURIComponent(descripcion)+"\")'><i class='fa-solid fa-plus fa-lg'></i></div></div></td>";
-                contenidoTabla += '<tr>';
+                    contenidoTabla += "<td><div class='cont-btn-tabla'><div data-toggle='tooltip' data-placement='top' title='Editar registro' class='cont-icono-tbl' onclick='abrirModalEditarProducto("+id_producto+", \""+encodeURIComponent(no_parte)+"\", \""+encodeURIComponent(descripcion)+"\", "+precio_public+", "+precio_venta+")'><i class='fa-solid fa-pen-to-square fa-lg'></i></div></div></td>";
+                    contenidoTabla += "<td><div class='cont-btn-tabla'><div data-toggle='tooltip' data-placement='top' title='Agregar registro' class='cont-icono-tbl' onclick='abrirModalRegistrarEntrada("+id_producto+", \""+encodeURIComponent(no_parte)+"\", \""+encodeURIComponent(descripcion)+"\")'><i class='fa-solid fa-plus fa-lg'></i></div></div></td>";
+                contenidoTabla += '</tr>';
             }
 
             contenidoTabla += '</tbody>';
@@ -412,46 +415,94 @@ function actualizaCatalogoProductosEntradas(){
     var numParte = frmFiltros.filtroNParte.value;
     var descripcion = frmFiltros.filtroDescripcion.value;
     var numSerie = frmFiltros.filtroNoSerie.value;
-    
+    var checkDetallado = document.getElementById('checkCatalogoEntradasDetallado').checked;
+
     pantallaCarga('on');
     
-    fetch("../../productos/php/traerEntradasAJAX.php?numParte="+numParte+"&descripcion="+descripcion+"&numSerie="+numSerie, { method: "GET" })
+    fetch("../../productos/php/traerEntradasAJAX.php?numParte="+numParte+"&descripcion="+descripcion+"&numSerie="+numSerie+"&detallado="+checkDetallado, { method: "GET" })
     .then(response => response.json())
     .then(data => {
         pantallaCarga('off');
-        if (data["resultado"] == 1) {
-            
-            contenidoTabla = '<thead>'+
-                                '<tr class="sticky-top">'+
-                                    '<th class="text-center">No. de parte</th>'+
-                                    '<th class="text-center">No. serial</th>'+
-                                    '<th class="text-center">Descripción</th>'+
-                                '</tr>'+
-                            '</thead>';
 
-            contenidoTabla += '<tbody>';
-            
-            for (var i = 0; i < data["noDatos"]; i++) {
-            
-                var id_entrada = data[i]["id_entrada"];
-                var no_serial = data[i]["no_serial"];
-                var no_parte = data[i]["no_parte"];
-                var descripcion = data[i]["descripcion"];
-             
+        if(data["detallado"] == 1){ 
+            document.getElementById('frmFiltosCatalogoProdEntradas').style.display = "block";
+            if (data["resultado"] == 1) {
+                
+                contenidoTabla = '<thead class="sticky-top">'+
+                                    '<tr>'+
+                                        '<th colspan="5"><div class="cont-btn-tabla"><div data-toggle="tooltip" data-placement="top" title="Exportar a excel" style="background:#00a85a" class="cont-icono-tbl" onclick=\'exportarTablaExcel("tablaCatalogoProductosEntradas", "Catalogo entradas", "Entradas")\'><i class="fa-solid fa-file-excel fa-xl"></i></div></div></th>'+
+                                    '</tr>'+
+                                    '<tr>'+
+                                        '<th class="text-center">No. de parte</th>'+
+                                        '<th class="text-center">No. serial</th>'+
+                                        '<th class="text-center">Descripción</th>'+
+                                        '<th class="text-center">Número de entrada</th>'+
+                                        '<th class="text-center">Fecha y hora</th>'+
+                                    '</tr>'+
+                                '</thead>';
 
-                contenidoTabla += '<tr>';
-                    contenidoTabla += '<td class="text-center">'+no_parte+'</td>';
-                    contenidoTabla += '<td class="text-center">'+no_serial+'</td>';
-                    contenidoTabla += '<td class="text-center">'+descripcion+'</td>';
-                contenidoTabla += '<tr>';
+                contenidoTabla += '<tbody>';
+                
+                for (var i = 0; i < data["noDatos"]; i++) {
+                
+                    var id_entrada = data[i]["id_entrada"];
+                    var no_serial = data[i]["no_serial"];
+                    var no_parte = data[i]["no_parte"];
+                    var descripcion = data[i]["descripcion"];
+                    var num_entrada = data[i]["num_entrada"];
+                    var fecha_registro = data[i]["fecha_registro"];
+
+                    contenidoTabla += '<tr>';
+                        contenidoTabla += '<td class="text-center">'+no_parte+'</td>';
+                        contenidoTabla += '<td class="text-center">'+no_serial+'</td>';
+                        contenidoTabla += '<td class="text-center">'+descripcion+'</td>';
+                        contenidoTabla += '<td class="text-center">Entrada '+num_entrada+'</td>';
+                        contenidoTabla += '<td class="text-center">'+fecha_registro+'</td>';
+                    contenidoTabla += '</tr>';
+                }
+
+                contenidoTabla += '</tbody>';
+                tabla.innerHTML = contenidoTabla;
+            } 
+
+            if(data["resultado"] == 0) {
+                // alertImage('ERROR', 'Surgió un error en el catalogo entradas', 'error')
             }
+        } else {
+            document.getElementById('frmFiltosCatalogoProdEntradas').style.display = "none";
 
-            contenidoTabla += '</tbody>';
-            tabla.innerHTML = contenidoTabla;
-        } 
+            if (data["resultado"] == 1) {
+                
+                contenidoTabla = '<thead class="sticky-top">'+
+                                    '<tr>'+
+                                        '<th colspan="5"><div class="cont-btn-tabla"><div data-toggle="tooltip" data-placement="top" title="Exportar a excel" style="background:#00a85a" class="cont-icono-tbl" onclick=\'exportarTablaExcel("tablaCatalogoProductosEntradas", "Catalogo entradas", "Entradas")\'><i class="fa-solid fa-file-excel fa-xl"></i></div></div></th>'+
+                                    '</tr>'+
+                                    '<tr>'+
+                                        '<th class="text-center">Número de entrada</th>'+
+                                        '<th class="text-center">Fecha y hora</th>'+
+                                    '</tr>'+
+                                '</thead>';
 
-        if(data["resultado"] == 0) {
-            // alertImage('ERROR', 'Surgió un error en el catalogo entradas', 'error')
+                contenidoTabla += '<tbody>';
+                
+                for (var i = 0; i < data["noDatos"]; i++) {
+                
+                    var num_entrada = data[i]["num_entrada"];
+                    var fecha_registro = data[i]["fecha_registro"];
+
+                    contenidoTabla += '<tr>';
+                        contenidoTabla += '<td class="text-center">Entrada '+num_entrada+'</td>';
+                        contenidoTabla += '<td class="text-center">'+fecha_registro+'</td>';
+                    contenidoTabla += '</tr>';
+                }
+
+                contenidoTabla += '</tbody>';
+                tabla.innerHTML = contenidoTabla;
+            } 
+
+            if(data["resultado"] == 0) {
+                // alertImage('ERROR', 'Surgió un error en el catalogo entradas', 'error')
+            }
         }
     });
 }
